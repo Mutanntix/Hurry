@@ -9,23 +9,27 @@
 /* Begin PBXBuildFile section */
 		9BE4709D27C3C37300E3C4B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4709C27C3C37300E3C4B4 /* AppDelegate.swift */; };
 		9BE4709F27C3C37300E3C4B4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4709E27C3C37300E3C4B4 /* SceneDelegate.swift */; };
-		9BE470A127C3C37300E3C4B4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE470A027C3C37300E3C4B4 /* ViewController.swift */; };
-		9BE470A427C3C37300E3C4B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE470A227C3C37300E3C4B4 /* Main.storyboard */; };
+		9BE470A127C3C37300E3C4B4 /* UserLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE470A027C3C37300E3C4B4 /* UserLoginViewController.swift */; };
 		9BE470A727C3C37300E3C4B4 /* Hurry.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9BE470A527C3C37300E3C4B4 /* Hurry.xcdatamodeld */; };
 		9BE470A927C3C37500E3C4B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BE470A827C3C37500E3C4B4 /* Assets.xcassets */; };
 		9BE470AC27C3C37500E3C4B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE470AA27C3C37500E3C4B4 /* LaunchScreen.storyboard */; };
+		9BE470BA27C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE470B927C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift */; };
+		C5524A9F5FA0FC0C6A59E882 /* Pods_Hurry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9BDEF466EA843B3F5B0D8 /* Pods_Hurry.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6054FF564772786B2E61F654 /* Pods-Hurry.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hurry.release.xcconfig"; path = "Target Support Files/Pods-Hurry/Pods-Hurry.release.xcconfig"; sourceTree = "<group>"; };
+		9BC9BDEF466EA843B3F5B0D8 /* Pods_Hurry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hurry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE4709927C3C37300E3C4B4 /* Hurry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hurry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE4709C27C3C37300E3C4B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BE4709E27C3C37300E3C4B4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9BE470A027C3C37300E3C4B4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9BE470A327C3C37300E3C4B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9BE470A027C3C37300E3C4B4 /* UserLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginViewController.swift; sourceTree = "<group>"; };
 		9BE470A627C3C37300E3C4B4 /* Hurry.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Hurry.xcdatamodel; sourceTree = "<group>"; };
 		9BE470A827C3C37500E3C4B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BE470AB27C3C37500E3C4B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9BE470AD27C3C37500E3C4B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BE470B927C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAnimationViewController.swift; sourceTree = "<group>"; };
+		CBCD21A86E3101084AEE0113 /* Pods-Hurry.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hurry.debug.xcconfig"; path = "Target Support Files/Pods-Hurry/Pods-Hurry.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5524A9F5FA0FC0C6A59E882 /* Pods_Hurry.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		37B6F8ED0D6BB79999975DCD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BC9BDEF466EA843B3F5B0D8 /* Pods_Hurry.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		987471D352BC7B9E6A666F53 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CBCD21A86E3101084AEE0113 /* Pods-Hurry.debug.xcconfig */,
+				6054FF564772786B2E61F654 /* Pods-Hurry.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		9BE4709027C3C37300E3C4B4 = {
 			isa = PBXGroup;
 			children = (
 				9BE4709B27C3C37300E3C4B4 /* Hurry */,
 				9BE4709A27C3C37300E3C4B4 /* Products */,
+				987471D352BC7B9E6A666F53 /* Pods */,
+				37B6F8ED0D6BB79999975DCD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,16 +82,32 @@
 		9BE4709B27C3C37300E3C4B4 /* Hurry */ = {
 			isa = PBXGroup;
 			children = (
-				9BE4709C27C3C37300E3C4B4 /* AppDelegate.swift */,
-				9BE4709E27C3C37300E3C4B4 /* SceneDelegate.swift */,
-				9BE470A027C3C37300E3C4B4 /* ViewController.swift */,
-				9BE470A227C3C37300E3C4B4 /* Main.storyboard */,
+				9BE470B627C3CFFE00E3C4B4 /* AppDelegates */,
+				9BE470B527C3CFDB00E3C4B4 /* UserLoginScene */,
 				9BE470A827C3C37500E3C4B4 /* Assets.xcassets */,
 				9BE470AA27C3C37500E3C4B4 /* LaunchScreen.storyboard */,
 				9BE470AD27C3C37500E3C4B4 /* Info.plist */,
 				9BE470A527C3C37300E3C4B4 /* Hurry.xcdatamodeld */,
 			);
 			path = Hurry;
+			sourceTree = "<group>";
+		};
+		9BE470B527C3CFDB00E3C4B4 /* UserLoginScene */ = {
+			isa = PBXGroup;
+			children = (
+				9BE470B927C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift */,
+				9BE470A027C3C37300E3C4B4 /* UserLoginViewController.swift */,
+			);
+			path = UserLoginScene;
+			sourceTree = "<group>";
+		};
+		9BE470B627C3CFFE00E3C4B4 /* AppDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4709C27C3C37300E3C4B4 /* AppDelegate.swift */,
+				9BE4709E27C3C37300E3C4B4 /* SceneDelegate.swift */,
+			);
+			path = AppDelegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,9 +117,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9BE470B027C3C37500E3C4B4 /* Build configuration list for PBXNativeTarget "Hurry" */;
 			buildPhases = (
+				2A31B053D0D1ADC75B91D04C /* [CP] Check Pods Manifest.lock */,
 				9BE4709527C3C37300E3C4B4 /* Sources */,
 				9BE4709627C3C37300E3C4B4 /* Frameworks */,
 				9BE4709727C3C37300E3C4B4 /* Resources */,
+				D0244DADBFEC03B1D4164BA5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,11 +172,52 @@
 			files = (
 				9BE470AC27C3C37500E3C4B4 /* LaunchScreen.storyboard in Resources */,
 				9BE470A927C3C37500E3C4B4 /* Assets.xcassets in Resources */,
-				9BE470A427C3C37300E3C4B4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2A31B053D0D1ADC75B91D04C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Hurry-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D0244DADBFEC03B1D4164BA5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hurry/Pods-Hurry-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hurry/Pods-Hurry-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hurry/Pods-Hurry-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9BE4709527C3C37300E3C4B4 /* Sources */ = {
@@ -142,8 +225,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BE470A727C3C37300E3C4B4 /* Hurry.xcdatamodeld in Sources */,
-				9BE470A127C3C37300E3C4B4 /* ViewController.swift in Sources */,
+				9BE470A127C3C37300E3C4B4 /* UserLoginViewController.swift in Sources */,
 				9BE4709D27C3C37300E3C4B4 /* AppDelegate.swift in Sources */,
+				9BE470BA27C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift in Sources */,
 				9BE4709F27C3C37300E3C4B4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,14 +235,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9BE470A227C3C37300E3C4B4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9BE470A327C3C37300E3C4B4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9BE470AA27C3C37500E3C4B4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -288,6 +364,7 @@
 		};
 		9BE470B127C3C37500E3C4B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CBCD21A86E3101084AEE0113 /* Pods-Hurry.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -298,9 +375,10 @@
 				INFOPLIST_FILE = Hurry/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,12 +388,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		9BE470B227C3C37500E3C4B4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6054FF564772786B2E61F654 /* Pods-Hurry.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -326,9 +405,10 @@
 				INFOPLIST_FILE = Hurry/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -338,7 +418,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
