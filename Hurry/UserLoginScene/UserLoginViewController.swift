@@ -12,6 +12,7 @@ import Alamofire
 protocol UserloginViewControllerProtocol {
     func keyboardWillShow(notification: NSNotification, viewController: UIViewController)
     func keyboardWillHide(notification: NSNotification, viewController: UIViewController)
+    func changeTitleForLoginButton(buttons: [UIButton], vc: UIViewController)
 }
 
 class UserLoginViewController: UIViewController, UITextFieldDelegate {
@@ -24,9 +25,9 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
     let loginButton = UIButton()
     let accountOwningButton = UIButton()
     let forgotPasswordButton = UIButton()
+    let privacyPolicyButton = UIButton()
     let userLoginStackView = UIStackView()
 
-    
     var userLoginVCDelegate: UserloginViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -89,12 +90,12 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         userLoginStackView.snp.makeConstraints { make in
 
             if view.frame.size.height <= 667 {
-                make.height.equalTo(height * 0.3)
-            } else { make.height.equalTo(height * 0.25) }
+                make.height.equalTo(height * 0.45)
+            } else { make.height.equalTo(height * 0.35) }
             
             make.width.equalTo(width * 0.75)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset((height * 0.8) / 1.8)
+            make.top.equalToSuperview().inset((height * 0.8) / 2.4)
         }
      
         loginTextField.snp.makeConstraints { make in
@@ -133,6 +134,20 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
             make.centerX.equalToSuperview()
             
             make.height.equalTo(50)
+            make.width.equalTo(width * 0.3)
+        }
+        
+        accountOwningButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            
+            make.height.equalTo(35)
+            make.width.equalTo(width * 0.6)
+        }
+        
+        privacyPolicyButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            
+            make.height.equalTo(35)
             make.width.equalTo(width * 0.6)
         }
       
@@ -153,16 +168,18 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
     private func setupStackView() {
         setupLabels()
         setupTextFields()
-        setupLoginButton()
+        setupButtons()
         
         userLoginStackView.axis = .vertical
         userLoginStackView.alignment = .center
-        userLoginStackView.spacing = 25
+        userLoginStackView.spacing = 20
         userLoginStackView.distribution = .equalSpacing
         
         userLoginStackView.addArrangedSubview(loginTextField)
         userLoginStackView.addArrangedSubview(passwordTextField)
+        userLoginStackView.addArrangedSubview(privacyPolicyButton)
         userLoginStackView.addArrangedSubview(loginButton)
+        userLoginStackView.addArrangedSubview(accountOwningButton)
     }
     
     private func setupTextFields() {
@@ -196,9 +213,8 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.clearButtonMode = UITextField.ViewMode.whileEditing;
         passwordTextField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         passwordTextField.isSecureTextEntry = true
+        passwordTextField.textContentType = .password
         passwordTextField.addSubview(passwordLabel)
-        
-        
     }
     
     private func setupLabels() {
@@ -211,18 +227,40 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         passwordLabel.textAlignment = .center
     }
     
-    private func setupLoginButton() {
-        loginButton.backgroundColor = .blue
-        loginButton.setTitle("Log in", for: .normal)
-        loginButton.layer.cornerRadius = 25
+    private func setupButtons() {
+        loginButton.backgroundColor = UIColor(red: 37/255, green: 159/255, blue: 237/255, alpha: 1)
+        loginButton.setTitle("Sign in", for: .normal)
+        loginButton.layer.cornerRadius = 23
         loginButton.addTarget(self, action: #selector(getUserData), for:.touchUpInside)
+        
+        let attributedStringForAccountButton = NSAttributedString(string: NSLocalizedString("I don't have an account", comment: ""), attributes:[
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18.0),
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+            NSAttributedString.Key.underlineStyle: 1.0
+        ])
+        accountOwningButton.setAttributedTitle(attributedStringForAccountButton, for: .normal)
+        accountOwningButton.addTarget(self, action: #selector(changeTitleForLoginButton), for: .touchUpInside)
+        
+        let attributedStringForPrivacyButton = NSAttributedString(string: NSLocalizedString("privacy polity", comment: ""), attributes:[
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18.0),
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+            NSAttributedString.Key.underlineStyle: 1.0
+        ])
+        privacyPolicyButton.setAttributedTitle(attributedStringForPrivacyButton, for: .normal)
     }
+
+    
+    
+    
     
     //MARK: CONTROLLER METHODS
     
     @objc private func getUserData() {
+        view.endEditing(true)
+        
         guard let login = loginTextField.text, let password = passwordTextField.text else { return }
         
+        (login != "" && password != "") ? loginButton.pulsate() : loginButton.shake()
         NetworkManager.shared.getUserData(from: login, password: password)
     }
     
@@ -232,8 +270,44 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func keyboardWillHide(notification: NSNotification) {
         userLoginVCDelegate?.keyboardWillHide(notification: notification, viewController: self)
-        
+    }
+    
+    @objc private func changeTitleForLoginButton() {
+        userLoginVCDelegate?.changeTitleForLoginButton(buttons: [accountOwningButton, loginButton], vc: self)
     }
 }
 
 
+extension UIButton {
+    func pulsate() {
+
+        let pulse = CASpringAnimation(keyPath: "transform.scale")
+        pulse.duration = 0.2
+        pulse.fromValue = 0.95
+        pulse.toValue = 1.0
+        pulse.repeatCount = 1
+        pulse.initialVelocity = 0.5
+        pulse.damping = 1.0
+
+        layer.add(pulse, forKey: "pulse")
+    }
+    
+    func shake() {
+
+        let shake = CABasicAnimation(keyPath: "position")
+        shake.duration = 0.05
+        shake.repeatCount = 2
+        shake.autoreverses = true
+
+        let fromPoint = CGPoint(x: center.x - 5, y: center.y)
+        let fromValue = NSValue(cgPoint: fromPoint)
+
+        let toPoint = CGPoint(x: center.x + 5, y: center.y)
+        let toValue = NSValue(cgPoint: toPoint)
+
+        shake.fromValue = fromValue
+        shake.toValue = toValue
+
+        layer.add(shake, forKey: "position")
+    }
+}
