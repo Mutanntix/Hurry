@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B3B2AA627C81EF1008C6652 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3B2AA527C81EF1008C6652 /* UserModel.swift */; };
+		9B3B2AA927C91E18008C6652 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3B2AA827C91E18008C6652 /* NetworkManager.swift */; };
+		9B3B2AAB27C92009008C6652 /* UserloginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3B2AAA27C92009008C6652 /* UserloginViewControllerDelegate.swift */; };
 		9BE4709D27C3C37300E3C4B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4709C27C3C37300E3C4B4 /* AppDelegate.swift */; };
 		9BE4709F27C3C37300E3C4B4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4709E27C3C37300E3C4B4 /* SceneDelegate.swift */; };
 		9BE470A127C3C37300E3C4B4 /* UserLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE470A027C3C37300E3C4B4 /* UserLoginViewController.swift */; };
@@ -19,6 +22,9 @@
 
 /* Begin PBXFileReference section */
 		6054FF564772786B2E61F654 /* Pods-Hurry.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hurry.release.xcconfig"; path = "Target Support Files/Pods-Hurry/Pods-Hurry.release.xcconfig"; sourceTree = "<group>"; };
+		9B3B2AA527C81EF1008C6652 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserModel.swift; path = ../../../../../../Applications/UserModel.swift; sourceTree = "<group>"; };
+		9B3B2AA827C91E18008C6652 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		9B3B2AAA27C92009008C6652 /* UserloginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserloginViewControllerDelegate.swift; sourceTree = "<group>"; };
 		9BC9BDEF466EA843B3F5B0D8 /* Pods_Hurry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hurry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE4709927C3C37300E3C4B4 /* Hurry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hurry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE4709C27C3C37300E3C4B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +67,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		9B3B2AA427C81ED9008C6652 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9B3B2AA527C81EF1008C6652 /* UserModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9B3B2AA727C91E02008C6652 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				9B3B2AA827C91E18008C6652 /* NetworkManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		9BE4709027C3C37300E3C4B4 = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +104,8 @@
 		9BE4709B27C3C37300E3C4B4 /* Hurry */ = {
 			isa = PBXGroup;
 			children = (
+				9B3B2AA727C91E02008C6652 /* Managers */,
+				9B3B2AA427C81ED9008C6652 /* Models */,
 				9BE470B627C3CFFE00E3C4B4 /* AppDelegates */,
 				9BE470B527C3CFDB00E3C4B4 /* UserLoginScene */,
 				9BE470A827C3C37500E3C4B4 /* Assets.xcassets */,
@@ -97,6 +121,7 @@
 			children = (
 				9BE470B927C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift */,
 				9BE470A027C3C37300E3C4B4 /* UserLoginViewController.swift */,
+				9B3B2AAA27C92009008C6652 /* UserloginViewControllerDelegate.swift */,
 			);
 			path = UserLoginScene;
 			sourceTree = "<group>";
@@ -227,7 +252,10 @@
 				9BE470A727C3C37300E3C4B4 /* Hurry.xcdatamodeld in Sources */,
 				9BE470A127C3C37300E3C4B4 /* UserLoginViewController.swift in Sources */,
 				9BE4709D27C3C37300E3C4B4 /* AppDelegate.swift in Sources */,
+				9B3B2AA927C91E18008C6652 /* NetworkManager.swift in Sources */,
 				9BE470BA27C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift in Sources */,
+				9B3B2AA627C81EF1008C6652 /* UserModel.swift in Sources */,
+				9B3B2AAB27C92009008C6652 /* UserloginViewControllerDelegate.swift in Sources */,
 				9BE4709F27C3C37300E3C4B4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

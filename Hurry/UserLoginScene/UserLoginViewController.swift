@@ -6,6 +6,13 @@
 //
 
 import UIKit
+import SnapKit
+import Alamofire
+
+protocol UserloginViewControllerProtocol {
+    func keyboardWillShow(notification: NSNotification, viewController: UIViewController)
+    func keyboardWillHide(notification: NSNotification, viewController: UIViewController)
+}
 
 class UserLoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -20,13 +27,34 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
     let userLoginStackView = UIStackView()
 
     
+    var userLoginVCDelegate: UserloginViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginTextField.delegate = self
+        passwordTextField.delegate = self
+        userLoginVCDelegate = UserloginViewControllerDelegate()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
 
         initializate()
         setupConstraints()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        getUserData()
+        return true
     }
 
     private func initializate() {
@@ -40,6 +68,8 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         
         mainView.addSubview(userLoginStackView)
     }
+    
+    //MARK: CONSTRAINTS
     
     private func setupConstraints() {
         let width = view.frame.width
@@ -59,8 +89,8 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         userLoginStackView.snp.makeConstraints { make in
 
             if view.frame.size.height <= 667 {
-                make.height.equalTo(height * 0.2)
-            } else { make.height.equalTo(height * 0.15) }
+                make.height.equalTo(height * 0.3)
+            } else { make.height.equalTo(height * 0.25) }
             
             make.width.equalTo(width * 0.75)
             make.centerX.equalToSuperview()
@@ -98,8 +128,17 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
             make.height.equalTo(30)
             make.width.equalTo(85)
         }
+        
+        loginButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            
+            make.height.equalTo(50)
+            make.width.equalTo(width * 0.6)
+        }
       
     }
+    
+    //MARK: SETUP VIEWS
     
     private func setupMainView() {
         mainView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
@@ -114,6 +153,7 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
     private func setupStackView() {
         setupLabels()
         setupTextFields()
+        setupLoginButton()
         
         userLoginStackView.axis = .vertical
         userLoginStackView.alignment = .center
@@ -122,6 +162,7 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         
         userLoginStackView.addArrangedSubview(loginTextField)
         userLoginStackView.addArrangedSubview(passwordTextField)
+        userLoginStackView.addArrangedSubview(loginButton)
     }
     
     private func setupTextFields() {
@@ -129,6 +170,7 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         loginTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: loginTextField.frame.height))
         loginTextField.leftViewMode = .always
         loginTextField.layer.borderColor = UIColor.lightGray.cgColor
+        loginTextField.autocapitalizationType = .none
         loginTextField.layer.borderWidth = 1.5
         loginTextField.layer.cornerRadius = 15
         loginTextField.keyboardType = UIKeyboardType.default
@@ -144,6 +186,7 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: loginTextField.frame.height))
         passwordTextField.leftViewMode = .always
         passwordTextField.layer.borderColor = UIColor.lightGray.cgColor
+        passwordTextField.autocapitalizationType = .none
         passwordTextField.layer.borderWidth = 1.5
         passwordTextField.layer.cornerRadius = 15
         passwordTextField.keyboardType = UIKeyboardType.default
@@ -154,6 +197,7 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         passwordTextField.isSecureTextEntry = true
         passwordTextField.addSubview(passwordLabel)
+        
         
     }
     
@@ -166,5 +210,30 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         passwordLabel.font = UIFont.systemFont(ofSize: 18)
         passwordLabel.textAlignment = .center
     }
+    
+    private func setupLoginButton() {
+        loginButton.backgroundColor = .blue
+        loginButton.setTitle("Log in", for: .normal)
+        loginButton.layer.cornerRadius = 25
+        loginButton.addTarget(self, action: #selector(getUserData), for:.touchUpInside)
+    }
+    
+    //MARK: CONTROLLER METHODS
+    
+    @objc private func getUserData() {
+        guard let login = loginTextField.text, let password = passwordTextField.text else { return }
+        
+        NetworkManager.shared.getUserData(from: login, password: password)
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        userLoginVCDelegate?.keyboardWillShow(notification: notification, viewController: self)
+    }
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        userLoginVCDelegate?.keyboardWillHide(notification: notification, viewController: self)
+        
+    }
 }
+
 
