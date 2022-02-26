@@ -10,15 +10,14 @@ import SnapKit
 
 class LaunchAnimationViewController: UIViewController {
     
-    let hurryImage = UIImage(named: "HurryImage")
+    let hurryImage = UIImage(named: "hurryMain")
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         initializate()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.performSegue()
-        }
+
 
     }
     
@@ -37,14 +36,20 @@ class LaunchAnimationViewController: UIViewController {
             make.height.equalTo(150)
             make.width.equalTo(150)
         }
+        
+        UIView.animate(withDuration: 1.5, delay: 0.2, options: .allowAnimatedContent) {
+            imageView.transform = CGAffineTransform(scaleX: 3, y: 3)
+            imageView.alpha = 0
+        } completion: { Void in
+            self.performSegue()
+        }
+
     }
     
     private func performSegue() {
         let userLoginVc = UserLoginViewController()
         self.navigationController?.pushViewController(userLoginVc, animated: false)
-       // self.present(userLoginVc, animated: true, completion: nil)
+       
     }
-
-
-
 }
+

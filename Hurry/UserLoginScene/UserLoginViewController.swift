@@ -26,12 +26,18 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
     let accountOwningButton = UIButton()
     let forgotPasswordButton = UIButton()
     let privacyPolicyButton = UIButton()
-    let userLoginStackView = UIStackView()
+    let textFieldsStackView = UIStackView()
+    let buttonsStackView = UIStackView()
+    let welcomeLabel = UILabel()
 
     var userLoginVCDelegate: UserloginViewControllerDelegate?
+    var isLargeScreen: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isLargeScreen = isLargeScreen(viewController: self)
+        print(isLargeScreen as Any)
+        
         loginTextField.delegate = self
         passwordTextField.delegate = self
         userLoginVCDelegate = UserloginViewControllerDelegate()
@@ -44,12 +50,12 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         setupConstraints()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -63,11 +69,14 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.hidesBackButton = true
         
         setupMainView()
-        setupStackView()
+        setupWelcomeLabel()
+        setupStackViews()
         
         view.addSubview(mainView)
         
-        mainView.addSubview(userLoginStackView)
+        mainView.addSubview(welcomeLabel)
+        mainView.addSubview(textFieldsStackView)
+        mainView.addSubview(buttonsStackView)
     }
     
     //MARK: CONSTRAINTS
@@ -78,7 +87,7 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         
         // mainView contstraints
         mainView.snp.makeConstraints { make in
-            let height = self.view.frame.size.height * 0.8
+            let height = isLargeScreen ? self.view.frame.size.height * 0.7 : self.view.frame.size.height * 0.75
             let width = self.view.frame.size.width * 0.8
             
             make.height.equalTo(height)
@@ -87,19 +96,55 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
             make.centerX.equalToSuperview()
         }
         
-        userLoginStackView.snp.makeConstraints { make in
+        welcomeLabel.snp.makeConstraints { make in
+            if isLargeScreen {
+                welcomeLabel.font = UIFont.boldSystemFont(ofSize: 35)
+                make.height.equalTo(height / 12)
+                make.width.equalTo(width / 2)
+                
+                make.centerX.equalToSuperview()
+                make.bottom.equalTo(loginTextField).inset(60)
+            } else {
+                welcomeLabel.font = UIFont.boldSystemFont(ofSize: 25)
+                make.height.equalTo(height / 15)
+                make.width.equalTo(width / 2)
+                
+                make.centerX.equalToSuperview()
+                make.bottom.equalTo(loginTextField).inset(50)
+            }
+        }
+        
+        textFieldsStackView.snp.makeConstraints { make in
 
-            if view.frame.size.height <= 667 {
-                make.height.equalTo(height * 0.45)
-            } else { make.height.equalTo(height * 0.35) }
+            if isLargeScreen {
+                make.height.equalTo(height * 0.15)
+                make.top.equalToSuperview().inset((height * 0.8) / 3)
+            } else {
+                make.height.equalTo(height * 0.15)
+                make.top.equalToSuperview().inset((height * 0.8) / 2.5)
+            }
             
             make.width.equalTo(width * 0.75)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset((height * 0.8) / 2.4)
+            
+        }
+        
+        buttonsStackView.snp.makeConstraints { make in
+
+            if isLargeScreen {
+                make.height.equalTo(height * 0.2)
+                make.bottom.equalToSuperview().inset(20)
+            } else {
+                make.height.equalTo(height * 0.2)
+                make.bottom.equalToSuperview().inset(10)
+            }
+            
+            make.width.equalTo(width * 0.75)
+            make.centerX.equalToSuperview()
+            
         }
      
         loginTextField.snp.makeConstraints { make in
-            make.height.equalTo(40)
             make.width.equalTo(width * 0.7)
             make.centerX.equalToSuperview()
             
@@ -107,47 +152,45 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         }
 
         passwordTextField.snp.makeConstraints { make in
-            make.height.equalTo(40)
             make.width.equalTo(width * 0.7)
             make.centerX.equalToSuperview()
             
 
         }
-
-        loginLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(-28)
-
-            make.height.equalTo(30)
-            make.width.equalTo(85)
-        }
-
-        passwordLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(-28)
-
-            make.height.equalTo(30)
-            make.width.equalTo(85)
-        }
         
         loginButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             
-            make.height.equalTo(50)
-            make.width.equalTo(width * 0.3)
+            if isLargeScreen {
+                make.height.equalTo(50)
+                make.width.equalTo(width * 0.3)
+                loginButton.layer.cornerRadius = 23
+            } else {
+                make.height.equalTo(30)
+                make.width.equalTo(width * 0.2)
+                loginButton.layer.cornerRadius = 15
+            }
+            
         }
         
         accountOwningButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             
-            make.height.equalTo(35)
+            make.height.equalTo(15)
             make.width.equalTo(width * 0.6)
         }
         
         privacyPolicyButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             
-            make.height.equalTo(35)
+            make.height.equalTo(15)
+            make.width.equalTo(width * 0.6)
+        }
+        
+        forgotPasswordButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            
+            make.height.equalTo(15)
             make.width.equalTo(width * 0.6)
         }
       
@@ -165,21 +208,33 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         mainView.layer.rasterizationScale = UIScreen.main.scale
     }
     
-    private func setupStackView() {
-        setupLabels()
+    private func setupStackViews() {
+       // setupLabels()
         setupTextFields()
         setupButtons()
         
-        userLoginStackView.axis = .vertical
-        userLoginStackView.alignment = .center
-        userLoginStackView.spacing = 20
-        userLoginStackView.distribution = .equalSpacing
+        textFieldsStackView.axis = .vertical
+        textFieldsStackView.alignment = .center
+        textFieldsStackView.spacing = isLargeScreen ? 25 : 15
+        textFieldsStackView.distribution = .fillEqually
         
-        userLoginStackView.addArrangedSubview(loginTextField)
-        userLoginStackView.addArrangedSubview(passwordTextField)
-        userLoginStackView.addArrangedSubview(privacyPolicyButton)
-        userLoginStackView.addArrangedSubview(loginButton)
-        userLoginStackView.addArrangedSubview(accountOwningButton)
+        textFieldsStackView.addArrangedSubview(loginTextField)
+        textFieldsStackView.addArrangedSubview(passwordTextField)
+        
+        buttonsStackView.axis = .vertical
+        buttonsStackView.alignment = .center
+        buttonsStackView.spacing = isLargeScreen ? 15 : 10
+        buttonsStackView.distribution = .equalSpacing
+        
+        buttonsStackView.addArrangedSubview(privacyPolicyButton)
+        buttonsStackView.addArrangedSubview(loginButton)
+        buttonsStackView.addArrangedSubview(accountOwningButton)
+        buttonsStackView.addArrangedSubview(forgotPasswordButton)
+        buttonsStackView.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .vertical)
+        
+//        textFieldsStackView.backgroundColor = .lightGray
+//        buttonsStackView.backgroundColor = .lightGray
+        
     }
     
     private func setupTextFields() {
@@ -189,14 +244,14 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         loginTextField.layer.borderColor = UIColor.lightGray.cgColor
         loginTextField.autocapitalizationType = .none
         loginTextField.layer.borderWidth = 1.5
-        loginTextField.layer.cornerRadius = 15
+        loginTextField.layer.cornerRadius = 20
         loginTextField.keyboardType = UIKeyboardType.default
         loginTextField.returnKeyType = UIReturnKeyType.done
         loginTextField.autocorrectionType = UITextAutocorrectionType.no
         loginTextField.font = UIFont.systemFont(ofSize: 15)
         loginTextField.clearButtonMode = UITextField.ViewMode.whileEditing;
         loginTextField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-        loginTextField.addSubview(loginLabel)
+        loginTextField.textContentType = .username
     
         
         passwordTextField.placeholder = "Enter your password"
@@ -205,7 +260,7 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.layer.borderColor = UIColor.lightGray.cgColor
         passwordTextField.autocapitalizationType = .none
         passwordTextField.layer.borderWidth = 1.5
-        passwordTextField.layer.cornerRadius = 15
+        passwordTextField.layer.cornerRadius = 20
         passwordTextField.keyboardType = UIKeyboardType.default
         passwordTextField.returnKeyType = UIReturnKeyType.done
         passwordTextField.autocorrectionType = UITextAutocorrectionType.no
@@ -214,23 +269,15 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         passwordTextField.isSecureTextEntry = true
         passwordTextField.textContentType = .password
-        passwordTextField.addSubview(passwordLabel)
+        
     }
     
-    private func setupLabels() {
-        loginLabel.text = "Login"
-        loginLabel.font = UIFont.systemFont(ofSize: 18)
-        loginLabel.textAlignment = .center
-        
-        passwordLabel.text = "Password"
-        passwordLabel.font = UIFont.systemFont(ofSize: 18)
-        passwordLabel.textAlignment = .center
-    }
     
     private func setupButtons() {
         loginButton.backgroundColor = UIColor(red: 37/255, green: 159/255, blue: 237/255, alpha: 1)
         loginButton.setTitle("Sign in", for: .normal)
-        loginButton.layer.cornerRadius = 23
+        loginButton.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .vertical)
+        loginButton.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .vertical)
         loginButton.addTarget(self, action: #selector(getUserData), for:.touchUpInside)
         
         let attributedStringForAccountButton = NSAttributedString(string: NSLocalizedString("I don't have an account", comment: ""), attributes:[
@@ -243,10 +290,24 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         
         let attributedStringForPrivacyButton = NSAttributedString(string: NSLocalizedString("privacy polity", comment: ""), attributes:[
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18.0),
-            NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+            NSAttributedString.Key.foregroundColor: UIColor.darkGray,
             NSAttributedString.Key.underlineStyle: 1.0
         ])
         privacyPolicyButton.setAttributedTitle(attributedStringForPrivacyButton, for: .normal)
+        
+        let attributedStringForForgotPasswordButton = NSAttributedString(string: NSLocalizedString("forgot password", comment: ""), attributes:[
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18.0),
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+            NSAttributedString.Key.underlineStyle: 1.0
+        ])
+        forgotPasswordButton.setAttributedTitle(attributedStringForForgotPasswordButton, for: .normal)
+        
+    }
+    
+    private func setupWelcomeLabel() {
+        welcomeLabel.text = "Welcome!"
+        welcomeLabel.textColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1)
+        welcomeLabel.textAlignment = .center
     }
 
     
@@ -309,5 +370,14 @@ extension UIButton {
         shake.toValue = toValue
 
         layer.add(shake, forKey: "position")
+    }
+}
+
+
+extension UserLoginViewController {
+    fileprivate func isLargeScreen(viewController: UIViewController) -> Bool {
+        guard let userVC = viewController as? UserLoginViewController else { return false }
+        
+        return userVC.view.frame.height > 670 ? true : false
     }
 }

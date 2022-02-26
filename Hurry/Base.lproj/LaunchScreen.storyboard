@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HurryImage" translatesAutoresizingMaskIntoConstraints="NO" id="Rpw-7Q-23S">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hurryMain" translatesAutoresizingMaskIntoConstraints="NO" id="Rpw-7Q-23S">
                                 <rect key="frame" x="132" y="373" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="8Jj-uT-4h1"/>
@@ -26,7 +25,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Rpw-7Q-23S" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="GlJ-v5-wKC"/>
                             <constraint firstItem="Rpw-7Q-23S" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="rx3-7c-ce4"/>
@@ -39,9 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="HurryImage" width="640" height="640"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="hurryMain" width="2284" height="2399"/>
     </resources>
 </document>
