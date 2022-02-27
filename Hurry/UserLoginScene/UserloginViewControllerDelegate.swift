@@ -17,7 +17,7 @@ class UserloginViewControllerDelegate: UserloginViewControllerProtocol {
         let keyboardFrame = keyboardSize.cgRectValue
 
         if viewController.view.frame.origin.y == 0 {
-            viewController.view.frame.origin.y -= keyboardFrame.height
+            viewController.view.frame.origin.y -= (keyboardFrame.height * 0.8)
         }
         
     }

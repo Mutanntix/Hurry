@@ -17,7 +17,10 @@ protocol UserloginViewControllerProtocol {
 
 class UserLoginViewController: UIViewController, UITextFieldDelegate {
     
+    let enterUserImage = UIImage(named: "enterUser")
+    
     let mainView = UIView()
+    let footerView = UIView()
     let loginTextField = UITextField()
     let passwordTextField = UITextField()
     let loginLabel = UILabel()
@@ -29,7 +32,11 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
     let textFieldsStackView = UIStackView()
     let buttonsStackView = UIStackView()
     let welcomeLabel = UILabel()
+    let enterUserImageView = UIImageView()
+    let footerButton = UIButton()
+    let footerLabel = UILabel()
 
+    
     var userLoginVCDelegate: UserloginViewControllerDelegate?
     var isLargeScreen: Bool!
     
@@ -69,11 +76,15 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.hidesBackButton = true
         
         setupMainView()
+        setupFooterView()
+        setupImage()
         setupWelcomeLabel()
         setupStackViews()
         
         view.addSubview(mainView)
+        view.addSubview(footerView)
         
+        mainView.addSubview(enterUserImageView)
         mainView.addSubview(welcomeLabel)
         mainView.addSubview(textFieldsStackView)
         mainView.addSubview(buttonsStackView)
@@ -96,6 +107,26 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
             make.centerX.equalToSuperview()
         }
         
+        footerView.snp.makeConstraints { make in
+            let height = isLargeScreen ? self.view.frame.size.height * 0.1 : self.view.frame.size.height * 0.08
+            
+            make.height.equalTo(height)
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        enterUserImageView.snp.makeConstraints { make in
+            if isLargeScreen {
+                make.height.width.equalTo(height / 5)
+                make.centerX.equalToSuperview()
+                make.top.equalToSuperview().inset(5)
+            } else {
+                make.height.width.equalTo(height / 5)
+                make.centerX.equalToSuperview()
+                make.top.equalToSuperview().inset(20)
+            }
+        }
+        
         welcomeLabel.snp.makeConstraints { make in
             if isLargeScreen {
                 welcomeLabel.font = UIFont.boldSystemFont(ofSize: 35)
@@ -103,14 +134,14 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
                 make.width.equalTo(width / 2)
                 
                 make.centerX.equalToSuperview()
-                make.bottom.equalTo(loginTextField).inset(60)
+                make.bottom.equalTo(loginTextField).inset(50)
             } else {
                 welcomeLabel.font = UIFont.boldSystemFont(ofSize: 25)
                 make.height.equalTo(height / 15)
                 make.width.equalTo(width / 2)
                 
                 make.centerX.equalToSuperview()
-                make.bottom.equalTo(loginTextField).inset(50)
+                make.bottom.equalTo(loginTextField).inset(45)
             }
         }
         
@@ -194,6 +225,19 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
             make.width.equalTo(width * 0.6)
         }
       
+        footerButton.snp.makeConstraints { make in
+            make.width.equalTo(width / 2.5)
+            make.height.equalTo(height * (isLargeScreen ? 0.1 : 0.08))
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().inset(isLargeScreen ? 15 : 10)
+        }
+        
+        footerLabel.snp.makeConstraints { make in
+            make.width.equalTo(width / 2.2)
+            make.height.equalTo(height * (isLargeScreen ? 0.1 : 0.08))
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().inset(isLargeScreen ? 15 : 10)
+        }
     }
     
     //MARK: SETUP VIEWS
@@ -208,8 +252,22 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         mainView.layer.rasterizationScale = UIScreen.main.scale
     }
     
+    private func setupFooterView() {
+        footerView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        addTopBorder(with: .black, andWidth: 1, view: footerView)
+
+        setupFooterLabel()
+        setupFooterButton()
+        
+        footerView.addSubview(footerButton)
+        footerView.addSubview(footerLabel)
+    }
+    
+    private func setupImage() {
+        enterUserImageView.image = enterUserImage
+    }
+    
     private func setupStackViews() {
-       // setupLabels()
         setupTextFields()
         setupButtons()
         
@@ -309,6 +367,22 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         welcomeLabel.textColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1)
         welcomeLabel.textAlignment = .center
     }
+    
+    private func setupFooterLabel() {
+        footerLabel.text = "marc1k3y && mutanntix"
+        footerLabel.font = UIFont.boldSystemFont(ofSize: 13)
+        footerLabel.textAlignment = .right
+    }
+    
+    private func setupFooterButton() {
+        let attributedStringForFooterButton = NSAttributedString(string: NSLocalizedString("buy coffee author", comment: ""), attributes:[
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.0),
+            NSAttributedString.Key.foregroundColor: UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1),
+            NSAttributedString.Key.underlineStyle: 1.0
+        ])
+        footerButton.setAttributedTitle(attributedStringForFooterButton, for: .normal)
+        footerButton.contentHorizontalAlignment = .left
+    }
 
     
     
@@ -379,5 +453,13 @@ extension UserLoginViewController {
         guard let userVC = viewController as? UserLoginViewController else { return false }
         
         return userVC.view.frame.height > 670 ? true : false
+    }
+    
+    func addTopBorder(with color: UIColor?, andWidth borderWidth: CGFloat, view: UIView) {
+        let border = UIView()
+        border.backgroundColor = color
+        border.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
+        border.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: borderWidth)
+        view.addSubview(border)
     }
 }
