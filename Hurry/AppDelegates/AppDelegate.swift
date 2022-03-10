@@ -79,3 +79,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+//class Position {
+//    var title: String?
+//    var option: String?
+//    var price: String?
+//}
+//
+//class Card {
+//    var positions: [ [String: Position] ]?
+//}
+

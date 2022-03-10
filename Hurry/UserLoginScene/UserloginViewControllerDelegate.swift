@@ -19,7 +19,7 @@ class UserloginViewControllerDelegate: UserloginViewControllerProtocol {
         if viewController.view.frame.origin.y == 0 {
             viewController.view.frame.origin.y -= (keyboardFrame.height * 0.8)
         }
-        
+    
     }
     
     func keyboardWillHide(notification: NSNotification, viewController: UIViewController) {
@@ -35,6 +35,7 @@ class UserloginViewControllerDelegate: UserloginViewControllerProtocol {
             NSAttributedString.Key.foregroundColor: UIColor.lightGray,
             NSAttributedString.Key.underlineStyle: 1.0
         ])
+    
         let attributedStringUserHasAcc = NSAttributedString(string: NSLocalizedString("I already have an account", comment: ""), attributes:[
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18.0),
             NSAttributedString.Key.foregroundColor: UIColor.lightGray,

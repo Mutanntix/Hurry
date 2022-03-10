@@ -12,12 +12,9 @@ class LaunchAnimationViewController: UIViewController {
     
     let hurryImage = UIImage(named: "hurryMain")
 
-    override func viewDidLoad() {
+    override func viewDidLoad()  {
         super.viewDidLoad()
-        
-        
         initializate()
-
 
     }
     
@@ -37,18 +34,29 @@ class LaunchAnimationViewController: UIViewController {
             make.width.equalTo(150)
         }
         
-        UIView.animate(withDuration: 1.5, delay: 0.2, options: .allowAnimatedContent) {
+        UIView.animate(withDuration: 1.5, delay: 0, options: .allowAnimatedContent) {
             imageView.transform = CGAffineTransform(scaleX: 3, y: 3)
-            imageView.alpha = 0
-        } completion: { Void in
-            self.performSegue()
+            imageView.alpha = 0.1
+            
+            NetworkManager.shared.checkUID { isUidAvailable in
+                if isUidAvailable {
+                    self.performSegue(to: ShopViewController())
+                } else {
+                    self.performSegue(to: UserLoginViewController())
+                }
+            }
+
         }
 
     }
     
-    private func performSegue() {
-        let userLoginVc = UserLoginViewController()
-        self.navigationController?.pushViewController(userLoginVc, animated: false)
+    private func performSegue(to vc: UIViewController) {
+        if let shopVC = vc as? ShopViewController {
+            self.navigationController?.pushViewController(shopVC, animated: false)
+        } else if let userLoginVc = vc as? UserLoginViewController {
+            self.navigationController?.pushViewController(userLoginVc, animated: false)
+        }
+
        
     }
 }
