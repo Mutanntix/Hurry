@@ -1,28 +1,15 @@
 //
-//  UserAdminVCSetupManager.swift
+//  UserAdminMainView.swift
 //  Hurry
 //
-//  Created by Мурад on 04.03.2022.
+//  Created by Мурад on 11.03.2022.
 //
 
-import Foundation
 import UIKit
-import SnapKit
 
-protocol UserAdminViewControllerProtocol: AnyObject {
-    func saveChanges(view: UIView, button: UIButton)
-    func connectTelegram(button: UIButton)
-    func openChangePasswordVC(button: UIButton)
-    func logout(button: UIButton)
-}
-
-class UserAdminVCSetupManager {
+class UserAdminMainView: UIView {
+    var isLargeScreen = false
     
-    static let shared = UserAdminVCSetupManager()
-    
-    var delegate: UserAdminViewControllerProtocol?
-    
-    //header view
     let headerView = UIView()
     let headerBorder = UIView()
     
@@ -57,21 +44,24 @@ class UserAdminVCSetupManager {
     let connectLabel = UILabel()
     let connectButton = UIButton()
     
-    let changePasswordView = UIView()
     let changePasswordButton = UIButton()
     let logoutButton = UIButton()
     
     let savingView = UIView()
     let savingViewLabel = UILabel()
-    
-    private init() {
-        self.delegate = UserAdminViewControllerDelegate()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.isLargeScreen = self.isLargeScreen(frame: frame)
+        self.setupUserAdminVCMainView(frame: frame)
+        self.setupUserAdminVCHeader(frame: frame)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-    //MARK: SETUP HEADER VIEW
-    func setupUserAdminVCHeader(viewController: UserAdminViewController) {
-        let isLargeScreen = self.isLargeScreen(viewController: viewController)
+    func setupUserAdminVCHeader(frame: CGRect) {
         
         headerView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
         
@@ -114,7 +104,6 @@ class UserAdminVCSetupManager {
         // go to shop page button
         headerGoToShopButton.setImage(UIImage(named: "shop"), for: .normal)
         headerGoToShopButton.contentHorizontalAlignment = .center
-        headerGoToShopButton.addTarget(viewController, action: #selector(viewController.goToShopVC), for: .touchUpInside)
         
         // header image view
         headerImageView.image = UIImage(named: "hurry2")
@@ -130,11 +119,11 @@ class UserAdminVCSetupManager {
         headerView.addSubview(headerButtonsStackView)
         headerView.addSubview(headerBorder)
         
-        viewController.view.addSubview(headerView)
+        self.addSubview(headerView)
         
         //MARK: SETUP HEADER VIEW CONSTRAINTS
         headerView.snp.makeConstraints { make in
-            make.height.equalTo(viewController.view.frame.height / 10)
+            make.height.equalTo(frame.height / 10)
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(0)
         }
@@ -182,16 +171,10 @@ class UserAdminVCSetupManager {
     }
     
     //MARK: SETUP MAIN SCROLL VIEW
-    func setupUserAdminVCMainView(viewController: UserAdminViewController) {
-        let isLargeScreen = self.isLargeScreen(viewController: viewController)
+    func setupUserAdminVCMainView(frame: CGRect) {
 
-        let width = viewController.view.frame.size.width
-        let height = viewController.view.frame.size.height
-        
-        nickNameTF.delegate = viewController
-        favoriteDrinkTF.delegate = viewController
-        countryTF.delegate = viewController
-        cityTF.delegate = viewController
+        let width = self.frame.size.width
+        let height = self.frame.size.height
         
         textFieldsStackView.axis = .vertical
         textFieldsStackView.alignment = .center
@@ -346,23 +329,21 @@ class UserAdminVCSetupManager {
         mainScrollView.addSubview(saveButton)
         mainScrollView.addSubview(connectLabel)
         mainScrollView.addSubview(connectButton)
-        mainScrollView.addSubview(changePasswordView)
         mainScrollView.addSubview(savingView)
+        mainScrollView.addSubview(changePasswordButton)
+        mainScrollView.addSubview(logoutButton)
         
         savingView.addSubview(savingViewLabel)
         
         mainView.addSubview(profileInfoLabel)
         
-        changePasswordView.addSubview(changePasswordButton)
-        changePasswordView.addSubview(logoutButton)
-        
-        viewController.view.addSubview(mainScrollView)
-
+        self.addSubview(mainScrollView)
         
         //MARK: SETUP SCROLL SUBVIEWS
         mainScrollView.contentSize = CGSize(width: width, height: isLargeScreen ? (height * 1.1) : (height * 1.2))
         mainScrollView.showsVerticalScrollIndicator = false
         mainScrollView.keyboardDismissMode = .onDrag
+        mainScrollView.backgroundColor = .white
         
         mainView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
         mainView.layer.cornerRadius = 20
@@ -388,29 +369,23 @@ class UserAdminVCSetupManager {
         saveButton.backgroundColor = UIColor(red: 37/255, green: 159/255, blue: 237/255, alpha: 1)
         saveButton.layer.cornerRadius = isLargeScreen ? 23 : 16
         saveButton.setTitle("save", for: .normal)
-        saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         
         connectLabel.text = "Connect with Telegram"
         connectLabel.font = UIFont.boldSystemFont(ofSize: 15)
         connectLabel.textAlignment = .center
         
-        connectButton.setTitle("Connect", for: .normal)
+        connectButton.setTitle("connect", for: .normal)
         connectButton.backgroundColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1)
         connectButton.layer.cornerRadius = 12
-        connectButton.addTarget(self, action: #selector(connectButtonPressed), for: .touchUpInside)
 
-        changePasswordView.backgroundColor = .white
-        changePasswordView.layer.cornerRadius = 15
         
-        changePasswordButton.setTitle("Change password", for: .normal)
+        changePasswordButton.setTitle("change password", for: .normal)
         changePasswordButton.backgroundColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1)
         changePasswordButton.layer.cornerRadius = 14
-        changePasswordButton.addTarget(self, action: #selector(changePassButtonPressed), for: .touchUpInside)
         
         logoutButton.setTitle("log out", for: .normal)
         logoutButton.backgroundColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1)
         logoutButton.layer.cornerRadius = 14
-        logoutButton.addTarget(self, action: #selector(logoutButtonPressed), for: .touchUpInside)
                 
         //MARK: SETUP SCROLL SUBVIEWS CONSTRAINTS
         
@@ -462,68 +437,30 @@ class UserAdminVCSetupManager {
         }
         
         connectButton.snp.makeConstraints { make in
-            make.width.equalTo(width / 4)
-            make.height.equalTo(25)
-            make.centerX.equalTo(mainScrollView)
+            make.width.equalTo(isLargeScreen ? 180 : 160)
+            make.height.equalTo(30)
+            make.centerX.equalToSuperview()
             make.top.equalTo(connectLabel.snp_bottomMargin).inset(-5)
         }
-        
-        changePasswordView.snp.makeConstraints { make in
-            make.width.equalTo(width / 1.6)
-            make.height.equalTo(height / 8)
-            make.centerX.equalToSuperview()
-            make.top.equalTo(connectButton).inset(50)
-        }
+
         
         changePasswordButton.snp.makeConstraints { make in
-            make.width.equalTo(changePasswordView.snp.width).inset(20)
+            make.width.equalTo(isLargeScreen ? 180 : 160)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(10)
+            make.top.equalTo(connectButton.snp.bottom).offset(25)
             make.height.equalTo(30)
         }
         
         logoutButton.snp.makeConstraints { make in
-            make.width.equalTo(changePasswordView.snp.width).inset(50)
+            make.width.equalTo(isLargeScreen ? 180 : 160)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(10)
+            make.top.equalTo(changePasswordButton.snp.bottom).offset(25)
             make.height.equalTo(30)
         }
     }
-}
-
-//MARK: BUTTONS ACTIONS
-extension UserAdminVCSetupManager {
-    @objc fileprivate func saveButtonPressed() {
-        print("save button pressed")
-        self.mainScrollView.endEditing(true)
-        self.delegate?.saveChanges(view: self.savingView, button: self.saveButton)
-    }
-
-    @objc fileprivate func connectButtonPressed() {
-        print("connect button pressed")
-        self.delegate?.connectTelegram(button: self.connectButton)
-    }
     
-    @objc fileprivate func changePassButtonPressed() {
-        print("change password button pressed")
-        self.delegate?.openChangePasswordVC(button: self.changePasswordButton)
+    private func isLargeScreen(frame: CGRect) -> Bool {
+        return frame.height > 670 ? true : false
     }
-    
-    @objc fileprivate func logoutButtonPressed() {
-        print("logout button pressed")
-        self.delegate?.logout(button: self.logoutButton)
-    }
-    
-    
-}
-
-
-extension UserAdminVCSetupManager {
-    func isLargeScreen(viewController: UIViewController) -> Bool {
-        guard let userVC = viewController as? UserAdminViewController else { return false }
-        
-        return userVC.view.frame.height > 670 ? true : false
-    }
-    
 }
 

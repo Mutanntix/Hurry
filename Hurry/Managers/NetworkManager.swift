@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 import CoreData
-import CoreVideo
+import Network
 
 enum RequestType {
     case reg
@@ -28,14 +28,49 @@ enum RequestType {
 class NetworkManager {
     static let shared = NetworkManager()
     
+    
+    //MARK: WORKING WITH INTERNET CONNECTION AVAILABILITY
+    private let queue = DispatchQueue.global()
+    private let monitor: NWPathMonitor
+
+    public private(set) var isConnected: Bool = false
+    public private(set) var connectionType: ConnectionType = .unknown
+
     private let key = "user"
     private let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     private var archiveURL: URL?
-    
+
     private init() {
         if documentDirectory != nil {
             archiveURL = documentDirectory!.appendingPathComponent("User").appendingPathExtension("plist")
         }
+        self.monitor = NWPathMonitor()
+    }
+    
+    enum ConnectionType {
+        case wifi
+        case cellular
+        case ehernet
+        case unknown
+    }
+    
+    public func startMonitoring() {
+        monitor.start(queue: queue)
+        monitor.pathUpdateHandler = { [weak self] path in
+            self?.isConnected = path.status == .satisfied
+            self?.getConnectionType(path)
+        }
+    }
+    
+    public func stopMonitoring() {
+        monitor.cancel()
+    }
+    
+    private func getConnectionType(_ path: NWPath) {
+        if path.usesInterfaceType(.wifi) { connectionType = .wifi }
+        else if path.usesInterfaceType(.cellular) { connectionType = .cellular }
+        else if path.usesInterfaceType(.wiredEthernet) { connectionType = .ehernet }
+        else { connectionType = .unknown }
     }
     
     var urlComponents = URLComponents()
@@ -74,7 +109,8 @@ class NetworkManager {
         return urlComponents.url ?? nil
     }
     
-    func regUser(from login: String, password: String) {
+    func regUser(from login: String, password: String, completion: @escaping (Bool) -> Void) {
+        var isUidAvailable = false
         
         guard let url = getUrl(for: .reg) else { return }
         var user = UserModel(login: login, password: password)
@@ -86,27 +122,25 @@ class NetworkManager {
             "password": user.password
         ]
         
-        
-            DispatchQueue.main.async {
-                do {
-
-                    AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default).validate().responseData { response in
-                        switch response.result {
-                        case .failure(let error):
-                            print(error)
-                        case .success(let data):
-                            let userUid = String(decoding: data, as: UTF8.self)
-                            print(userUid)
-                            user.uid = userUid.description
-                            
-                            //self.saveUser(user: user)
-                    }
-                }
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default).validate().responseData { response in
+            switch response.result {
+            case .failure(let error):
+                completion(isUidAvailable)
+                print(error)
+            case .success(let data):
+                isUidAvailable = true
+                
+                let userUid = String(decoding: data, as: UTF8.self)
+                print(userUid)
+                user.uid = userUid
+                self.saveUser(user: user)
+                completion(isUidAvailable)
             }
         }
     }
     
-    func loginUser(from login: String, password: String) {
+    func loginUser(from login: String, password: String, completion: @escaping (Bool) -> Void) {
+        var isUidAvailable = false
         
         guard let url = getUrl(for: .login) else { return }
         var user = UserModel(login: login, password: password)
@@ -117,22 +151,19 @@ class NetworkManager {
             "login": user.login,
             "password": user.password
         ]
-            
-            DispatchQueue.main.async {
-                do {
-
-                    AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default).validate().responseData { response in
-                        switch response.result {
-                        case .failure(let error):
-                            print(error)
-                        case .success(let data):
-                            let userUid = String(decoding: data, as: UTF8.self)
-                            print(userUid)
-                            user.uid = userUid.description
-                            
-                            self.saveUser(user: user)
-                    }
-                }
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default).validate().responseData { response in
+            switch response.result {
+            case .failure(let error):
+                completion(isUidAvailable)
+                print(error)
+            case .success(let data):
+                isUidAvailable = true
+                
+                let userUid = String(decoding: data, as: UTF8.self)
+                print(userUid)
+                user.uid = userUid
+                self.saveUser(user: user)
+                completion(isUidAvailable)
             }
         }
     }
@@ -162,35 +193,31 @@ class NetworkManager {
             
             switch responseData.result {
                 case .failure(let error):
-                completion(isUidAvailable)
-                print("error: ", error)
+                    completion(isUidAvailable)
+                    print("error: ", error)
                 case .success(let data):
-                if data.count == 2 {
-                    isUidAvailable = true
-                }
-                completion(isUidAvailable)
+                    if data.count == 2 {
+                        isUidAvailable = true
+                    }
+                    completion(isUidAvailable)
             }
         }
     }
     
-    func forgotUserPassword() {
+    func forgotUserPassword(login: String) {
         guard let url = getUrl(for: .forgotPass) else { return }
-        guard let user = fetchUser() else { return }
         
         let params: Parameters = [
-            "login": user.login
+            "login": login
         ]
         
-        AF.request(url, method: .put, parameters: params, encoding: URLEncoding.queryString).validate().response { response in
+        AF.request(url, method: .put, parameters: params, encoding: JSONEncoding.default).validate().response { response in
             
             switch response.result {
-                
                 case .failure(let error):
                 print(error)
                 case .success:
-                self.saveUser(user: user)
                 print("Success")
-            
             }
         }
     }
@@ -198,15 +225,16 @@ class NetworkManager {
     func changeUserPassword(newPass: String) {
         guard let url = getUrl(for: .changePass) else { return }
         guard var user = fetchUser() else { return }
+        
         user.password = newPass
         let uid = user.getUid()
-        
+    
         let params: Parameters = [
             "uid": uid,
             "newPass": user.password
         ]
         
-        AF.request(url, method: .put, parameters: params, encoding: URLEncoding.queryString).validate().response { response in
+        AF.request(url, method: .put, parameters: params, encoding: JSONEncoding.default).validate().response { response in
             
             switch response.result {
                 
@@ -214,7 +242,7 @@ class NetworkManager {
                 print(error)
                 case .success:
                 self.saveUser(user: user)
-                print("Success")
+                print("Success changed password")
             
             }
         }

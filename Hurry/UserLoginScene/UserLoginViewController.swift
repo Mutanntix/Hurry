@@ -16,6 +16,7 @@ protocol UserloginViewControllerProtocol: AnyObject {
 }
 
 class UserLoginViewController: UIViewController, UITextFieldDelegate {
+    var isUserOnline = NetworkManager.shared.isConnected
     
     let enterUserImage = UIImage(named: "enterUser")
     
@@ -241,11 +242,10 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         guard let login = loginTextField.text, let password = passwordTextField.text else { return }
         
         (login != "" && password != "") ? loginButton.pulsate() : loginButton.shake()
-        NetworkManager.shared.loginUser(from: login, password: password)
-        NetworkManager.shared.checkUID { isUidAvailable in
+        NetworkManager.shared.loginUser(from: login, password: password) { isUidAvailable in
             if isUidAvailable {
-                let userAdminVC = UserAdminViewController()
-                self.navigationController?.pushViewController(userAdminVC, animated: true)
+                let shopVC = ShopViewController()
+                self.navigationController?.pushViewController(shopVC, animated: true)
             }
         }
     }

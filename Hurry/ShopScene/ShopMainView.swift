@@ -1,19 +1,18 @@
 //
-//  ShopVCSetupManager.swift
+//  MainView.swift
 //  Hurry
 //
-//  Created by Мурад on 08.03.2022.
+//  Created by Мурад on 10.03.2022.
 //
 
-import Foundation
 import UIKit
+import Foundation
 import SnapKit
 
-class ShopVCSetupManager {
+class ShopMainView: UIView {
     
-    static let shared = ShopVCSetupManager()
+    var isLargeScreen = false
     
-    //header view
     let headerView = UIView()
     let headerBorder = UIView()
     
@@ -27,14 +26,29 @@ class ShopVCSetupManager {
     let headerSettingsButton = UIButton()
     let bottomBorderView = UIView()
     
-    private init() { }
+    let cafeSearchBar = UISearchController()
     
-    //MARK: SETUP HEADER VIEW
-    func setupShopVCHeader(viewController: ShopViewController) {
-        let isLargeScreen = self.isLargeScreen(viewController: viewController)
+    var shopTableView = UITableView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.isLargeScreen = self.isLargeScreen(frame: frame)
+        self.setupHeaderForShopVC()
+        self.setupCafeListViewForShopVC(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupHeaderForShopVC() {
+        headerView.addSubview(headerLabelStackView)
+        headerView.addSubview(headerButtonsStackView)
+        headerView.addSubview(headerBorder)
+        
+        self.addSubview(headerView)
         
         headerView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-        
         headerBorder.backgroundColor = .black
         
         //MARK: SETUP STACK VIEWS
@@ -53,7 +67,6 @@ class ShopVCSetupManager {
         
         headerGoToShopButton.addSubview(bottomBorderView)
         
-        //MARK: SETUP STACK VIEWS SUBVIEWS
         headerLabel.text = "hurry"
         headerLabel.textColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1)
         headerLabel.textAlignment = .left
@@ -80,22 +93,15 @@ class ShopVCSetupManager {
         
         // settings button
         headerSettingsButton.setImage(UIImage(named: "settings"), for: .normal)
-        headerSettingsButton.addTarget(viewController, action: #selector(viewController.goToUserAdminVC), for: .touchUpInside)
+
         
         // bottom border for the settings button
         bottomBorderView.backgroundColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1)
         
-        
-        headerView.addSubview(headerLabelStackView)
-        headerView.addSubview(headerButtonsStackView)
-        headerView.addSubview(headerBorder)
-        
-        viewController.view.addSubview(headerView)
-        
         //MARK: SETUP HEADER VIEW CONSTRAINTS
         headerView.snp.makeConstraints { make in
             make.trailing.leading.equalToSuperview()
-            make.height.equalTo(viewController.view.frame.height / 10)
+            make.height.equalTo(self.frame.height / 10)
             make.top.equalToSuperview()
             
         }
@@ -142,17 +148,27 @@ class ShopVCSetupManager {
         }
     }
     
-    @objc private func goToUserAdminVC(viewController: UIViewController) {
-        guard let userAdminVC = viewController as? UserAdminViewController else { return }
+    private func setupCafeListViewForShopVC(frame: CGRect) {
+        self.addSubview(shopTableView)
         
-        userAdminVC.navigationController?.popViewController(animated: false)
+        shopTableView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        shopTableView.separatorStyle = .none
+        shopTableView.register(UINib(nibName: "ShopCell", bundle: nil),
+                                    forCellReuseIdentifier: "ShopCell")
+
+        
+        
+        shopTableView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(headerBorder.snp.bottom)
+            make.bottom.equalToSuperview()
+        }
     }
 }
 
-extension ShopVCSetupManager {
-    func isLargeScreen(viewController: UIViewController) -> Bool {
-        guard let shopVC = viewController as? ShopViewController else { return false }
-        
-        return shopVC.view.frame.height > 670 ? true : false
+
+extension ShopMainView {
+    fileprivate func isLargeScreen(frame: CGRect) -> Bool {
+        return frame.size.height > 670 ? true : false
     }
 }
