@@ -58,14 +58,21 @@ extension ShopCardViewController: UICollectionViewDelegate, UICollectionViewData
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShopCardCell", for: indexPath) as? ShopCardCell
-        {
+//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShopCardCell", for: indexPath) as? ShopCardCell
+//        {
+//            cell.addToBasketButton.addTarget(self, action: #selector(addToBusketAction), for: .touchUpInside)
+//
+//            cell.setupShopCardCell(with: productAttributes[indexPath.item])
+//
+//            return cell
+//        }
+        
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewCell", for: indexPath) as? NewCardCell {
+            cell.setupShopCardCell(with: productAttributes[indexPath.item], isLargeScreen: mainView.isLargeScreen)
+            cell.setupConstraints(isLargeScreen: mainView.isLargeScreen)
             cell.addToBasketButton.addTarget(self, action: #selector(addToBusketAction), for: .touchUpInside)
-            
-            cell.setupShopCardCell(with: productAttributes[indexPath.item])
-
             return cell
-        } 
+        }
         return UICollectionViewCell()
     }
     

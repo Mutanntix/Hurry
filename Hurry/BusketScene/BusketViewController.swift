@@ -30,11 +30,37 @@ class BusketViewController: UIViewController {
 
 extension BusketViewController {
     fileprivate func firstInitializate() {
+        mainView.basketTableView.delegate = self
+        mainView.basketTableView.dataSource = self
         
         let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(barCancelButtonPressed))
-        
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
     }
+}
+
+//MARK: TABLE VIEW DATA SOURSE
+extension BusketViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return products.count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "BasketCell") as? BasketCell
+        else { return UITableViewCell() }
+        cell.selectionStyle = .none
+        cell.setupBasketCell(with: products[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+    
+    
 }
 
 //MARK: METHODS

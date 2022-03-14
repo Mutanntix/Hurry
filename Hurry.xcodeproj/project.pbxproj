@@ -11,13 +11,12 @@
 		9B3B2AA927C91E18008C6652 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3B2AA827C91E18008C6652 /* NetworkManager.swift */; };
 		9B3B2AAB27C92009008C6652 /* UserloginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3B2AAA27C92009008C6652 /* UserloginViewControllerDelegate.swift */; };
 		9B42498327DCEF24006A56A1 /* ShopCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42498227DCEF24006A56A1 /* ShopCardViewController.swift */; };
-		9B42498627DCEF62006A56A1 /* ShopCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42498427DCEF62006A56A1 /* ShopCardCell.swift */; };
-		9B42498727DCEF62006A56A1 /* ShopCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B42498527DCEF62006A56A1 /* ShopCardCell.xib */; };
 		9B42498927DDFB8B006A56A1 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42498827DDFB8B006A56A1 /* Product.swift */; };
 		9B42498C27DE490D006A56A1 /* BusketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42498B27DE490D006A56A1 /* BusketViewController.swift */; };
 		9B42498E27DE4922006A56A1 /* BusketMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42498D27DE4922006A56A1 /* BusketMainView.swift */; };
 		9B42499127DE495B006A56A1 /* BasketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42498F27DE495B006A56A1 /* BasketCell.swift */; };
 		9B42499227DE495B006A56A1 /* BasketCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B42499027DE495B006A56A1 /* BasketCell.xib */; };
+		9B42499827DF556E006A56A1 /* NewCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42499727DF556E006A56A1 /* NewCardCell.swift */; };
 		9B47A49527D53B68007F6E4B /* UserAdminViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B47A49427D53B68007F6E4B /* UserAdminViewControllerDelegate.swift */; };
 		9B47A49827D6792C007F6E4B /* ChangePassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B47A49727D6792C007F6E4B /* ChangePassViewController.swift */; };
 		9B47A49B27D680DA007F6E4B /* KeyboardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B47A49A27D680DA007F6E4B /* KeyboardDelegate.swift */; };
@@ -48,13 +47,12 @@
 		9B3B2AA827C91E18008C6652 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9B3B2AAA27C92009008C6652 /* UserloginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserloginViewControllerDelegate.swift; sourceTree = "<group>"; };
 		9B42498227DCEF24006A56A1 /* ShopCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCardViewController.swift; sourceTree = "<group>"; };
-		9B42498427DCEF62006A56A1 /* ShopCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCardCell.swift; sourceTree = "<group>"; };
-		9B42498527DCEF62006A56A1 /* ShopCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopCardCell.xib; sourceTree = "<group>"; };
 		9B42498827DDFB8B006A56A1 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		9B42498B27DE490D006A56A1 /* BusketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusketViewController.swift; sourceTree = "<group>"; };
 		9B42498D27DE4922006A56A1 /* BusketMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusketMainView.swift; sourceTree = "<group>"; };
 		9B42498F27DE495B006A56A1 /* BasketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketCell.swift; sourceTree = "<group>"; };
 		9B42499027DE495B006A56A1 /* BasketCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasketCell.xib; sourceTree = "<group>"; };
+		9B42499727DF556E006A56A1 /* NewCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCardCell.swift; sourceTree = "<group>"; };
 		9B47A49427D53B68007F6E4B /* UserAdminViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAdminViewControllerDelegate.swift; sourceTree = "<group>"; };
 		9B47A49727D6792C007F6E4B /* ChangePassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePassViewController.swift; sourceTree = "<group>"; };
 		9B47A49A27D680DA007F6E4B /* KeyboardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDelegate.swift; sourceTree = "<group>"; };
@@ -177,8 +175,7 @@
 			children = (
 				9B42498227DCEF24006A56A1 /* ShopCardViewController.swift */,
 				9BB8C24627DCEE6800B5B0DD /* ShopCardView.swift */,
-				9B42498427DCEF62006A56A1 /* ShopCardCell.swift */,
-				9B42498527DCEF62006A56A1 /* ShopCardCell.xib */,
+				9B42499727DF556E006A56A1 /* NewCardCell.swift */,
 			);
 			path = ShopCardScene;
 			sourceTree = "<group>";
@@ -303,7 +300,6 @@
 			files = (
 				9B42499227DE495B006A56A1 /* BasketCell.xib in Resources */,
 				9BE470AC27C3C37500E3C4B4 /* LaunchScreen.storyboard in Resources */,
-				9B42498727DCEF62006A56A1 /* ShopCardCell.xib in Resources */,
 				9BE470A927C3C37500E3C4B4 /* Assets.xcassets in Resources */,
 				9BB8C23727DA46C900B5B0DD /* ShopCell.xib in Resources */,
 			);
@@ -363,13 +359,13 @@
 				9BB8C23F27DB5AFD00B5B0DD /* UserAdminViewControllerProtocol.swift in Sources */,
 				9BB8C23627DA46C900B5B0DD /* ShopCell.swift in Sources */,
 				9BE470A127C3C37300E3C4B4 /* UserLoginViewController.swift in Sources */,
-				9B42498627DCEF62006A56A1 /* ShopCardCell.swift in Sources */,
 				9B47A49E27D79653007F6E4B /* ShopViewController.swift in Sources */,
 				9BB8C24727DCEE6800B5B0DD /* ShopCardView.swift in Sources */,
 				9B47A49827D6792C007F6E4B /* ChangePassViewController.swift in Sources */,
 				9B96BAFE27CE811A002397C4 /* UserVCSetupManager.swift in Sources */,
 				9BE4709D27C3C37300E3C4B4 /* AppDelegate.swift in Sources */,
 				9B3B2AA927C91E18008C6652 /* NetworkManager.swift in Sources */,
+				9B42499827DF556E006A56A1 /* NewCardCell.swift in Sources */,
 				9B42498327DCEF24006A56A1 /* ShopCardViewController.swift in Sources */,
 				9B90B9AC27D2278F003EAB41 /* UserAdminViewController.swift in Sources */,
 				9BE470BA27C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift in Sources */,
