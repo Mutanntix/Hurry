@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 struct Product: Codable {
     let name: String
     let size: String
     let price: String
 }
+
