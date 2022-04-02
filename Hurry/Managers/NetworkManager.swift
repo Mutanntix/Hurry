@@ -10,26 +10,11 @@ import Alamofire
 import CoreData
 import Network
 
-enum RequestType {
-    case reg
-    case login
-    case check
-    case connect
-    case forgotPass
-    case changePass
-    case cart
-    case info
-    case sendOrder
-    case rateUp
-    case rateDown
-    case votes
-}
-
 class NetworkManager {
     static let shared = NetworkManager()
     
     
-    //MARK: WORKING WITH INTERNET CONNECTION AVAILABILITY
+    //MARK: -WORKING WITH INTERNET CONNECTION AVAILABILITY
     private let queue = DispatchQueue.global()
     private let monitor: NWPathMonitor
 
@@ -50,7 +35,7 @@ class NetworkManager {
     enum ConnectionType {
         case wifi
         case cellular
-        case ehernet
+        case ethernet
         case unknown
     }
     
@@ -69,7 +54,7 @@ class NetworkManager {
     private func getConnectionType(_ path: NWPath) {
         if path.usesInterfaceType(.wifi) { connectionType = .wifi }
         else if path.usesInterfaceType(.cellular) { connectionType = .cellular }
-        else if path.usesInterfaceType(.wiredEthernet) { connectionType = .ehernet }
+        else if path.usesInterfaceType(.wiredEthernet) { connectionType = .ethernet }
         else { connectionType = .unknown }
     }
     
@@ -93,7 +78,11 @@ class NetworkManager {
             self.urlComponents.path = "/api/user/forgotPass"
         case .changePass:
             self.urlComponents.path = "/api/user/changePass"
-        case .cart:
+        case .cartPut:
+            break
+        case .cartGet:
+            break
+        case .cartDelete:
             break
         case .info:
             break
@@ -104,6 +93,10 @@ class NetworkManager {
         case .rateDown:
             break
         case .votes:
+            break
+        case .shops:
+            self.urlComponents.path = "/api/bus/shops"
+        case .checkInfo:
             break
         }
         return urlComponents.url ?? nil
@@ -247,6 +240,37 @@ class NetworkManager {
             }
         }
     }
+    
+    func getShops(complition: @escaping ([ShopModel]) -> Void) {
+        guard let url = getUrl(for: .shops) else { return }
+        let params: Parameters = [
+            "skip": "0",
+            "limit": "0"
+        ]
+        
+        let request = AF.request(url, method: .get, parameters: params,
+                                         encoding: URLEncoding.queryString,
+                                         headers: nil,
+                                         interceptor: nil,
+                                         requestModifier: nil)
+        
+        
+        request.validate().responseData { responseData in
+            
+            switch responseData.result {
+                case .failure(let error):
+                print("error: ", error)
+                complition([])
+                case .success(let data):
+                do {
+                    guard let attemptShops = try? JSONDecoder()
+                        .decode([ShopModel].self, from: data)
+                    else { return }
+                    complition(attemptShops)
+                }
+            }
+        }
+    }
 
     
     
@@ -269,7 +293,7 @@ class NetworkManager {
         return nil
     }
     
-    private func deleteUser() {
+    func deleteUser() {
         let user = UserModel(login: "", password: "", uid: nil)
         guard let data = try? PropertyListEncoder().encode(user) else { return }
         

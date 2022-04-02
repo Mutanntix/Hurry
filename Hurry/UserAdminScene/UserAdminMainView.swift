@@ -8,6 +8,7 @@
 import UIKit
 
 class UserAdminMainView: UIView {
+    
     var isLargeScreen = false
     
     let headerView = UIView()
@@ -41,14 +42,12 @@ class UserAdminMainView: UIView {
     let mainView = UIView()
     let profileInfoLabel = UILabel()
     let saveButton = UIButton()
+    let activityIndicator = ActivityIndicator()
     let connectLabel = UILabel()
     let connectButton = UIButton()
     
     let changePasswordButton = UIButton()
     let logoutButton = UIButton()
-    
-    let savingView = UIView()
-    let savingViewLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -276,7 +275,7 @@ class UserAdminMainView: UIView {
         //setup constraints
         textFieldsStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.height.equalTo(isLargeScreen ? (height / 2.8) : (height / 2.3))
+            make.height.equalTo(isLargeScreen ? (height / 2.8) : (height / 2.15))
             make.width.equalTo(width / 1.7)
             make.bottom.equalToSuperview().inset(isLargeScreen ? 30 : 20)
         }
@@ -301,39 +300,53 @@ class UserAdminMainView: UIView {
             make.width.equalTo(width / 2)
             make.height.equalTo(nickNameTF.snp.height)
             make.left.equalTo(nickNameTF).inset(3)
-            make.bottom.equalTo(nickNameTF.snp_topMargin)
+            if isLargeScreen {
+                make.bottom.equalTo(nickNameTF.snp_topMargin)
+            } else {
+                make.bottom.equalTo(nickNameTF.snp_topMargin).inset(5)
+            }
         }
         
         favoriteDrinkLabel.snp.makeConstraints { make in
             make.width.equalTo(width / 2)
             make.height.equalTo(favoriteDrinkTF.snp.height)
             make.left.equalTo(favoriteDrinkTF).inset(3)
-            make.bottom.equalTo(favoriteDrinkTF.snp_topMargin)
+            if isLargeScreen {
+                make.bottom.equalTo(favoriteDrinkTF.snp_topMargin)
+            } else {
+                make.bottom.equalTo(favoriteDrinkTF.snp_topMargin).inset(5)
+            }
         }
         
         countryLabel.snp.makeConstraints { make in
             make.width.equalTo(width / 2)
             make.height.equalTo(countryTF.snp.height)
             make.left.equalTo(countryTF).inset(3)
-            make.bottom.equalTo(countryTF.snp_topMargin)
+            if isLargeScreen {
+                make.bottom.equalTo(countryTF.snp_topMargin)
+            } else {
+                make.bottom.equalTo(countryTF.snp_topMargin).inset(5)
+            }
         }
         
         cityLabel.snp.makeConstraints { make in
             make.width.equalTo(width / 2)
             make.height.equalTo(cityTF.snp.height)
             make.left.equalTo(cityTF).inset(3)
-            make.bottom.equalTo(cityTF.snp_topMargin)
+            if isLargeScreen {
+                make.bottom.equalTo(cityTF.snp_topMargin)
+            } else {
+                make.bottom.equalTo(cityTF.snp_topMargin).inset(5)
+            }
         }
         
         mainScrollView.addSubview(mainView)
         mainScrollView.addSubview(saveButton)
+        mainScrollView.addSubview(activityIndicator)
         mainScrollView.addSubview(connectLabel)
         mainScrollView.addSubview(connectButton)
-        mainScrollView.addSubview(savingView)
         mainScrollView.addSubview(changePasswordButton)
         mainScrollView.addSubview(logoutButton)
-        
-        savingView.addSubview(savingViewLabel)
         
         mainView.addSubview(profileInfoLabel)
         
@@ -352,23 +365,15 @@ class UserAdminMainView: UIView {
         mainView.layer.shouldRasterize = true
         mainView.layer.rasterizationScale = UIScreen.main.scale
         
-        savingView.backgroundColor = .lightGray
-        savingView.layer.borderWidth = 1
-        savingView.layer.cornerRadius = 15
-        savingView.isHidden = true
-        
-        savingViewLabel.text = "Done!"
-        savingViewLabel.font = UIFont.boldSystemFont(ofSize: 35)
-        savingViewLabel.textAlignment = .center
-        savingViewLabel.textColor = .white
-        
         profileInfoLabel.text = "Profile info"
         profileInfoLabel.font = UIFont.boldSystemFont(ofSize: isLargeScreen ? 30 : 25)
         profileInfoLabel.textAlignment = .center
         
         saveButton.backgroundColor = UIColor(red: 37/255, green: 159/255, blue: 237/255, alpha: 1)
-        saveButton.layer.cornerRadius = isLargeScreen ? 23 : 16
+        saveButton.layer.cornerRadius = 23
         saveButton.setTitle("save", for: .normal)
+        
+        activityIndicator.isHidden = true
         
         connectLabel.text = "Connect with Telegram"
         connectLabel.font = UIFont.boldSystemFont(ofSize: 15)
@@ -377,7 +382,6 @@ class UserAdminMainView: UIView {
         connectButton.setTitle("connect", for: .normal)
         connectButton.backgroundColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1)
         connectButton.layer.cornerRadius = 12
-
         
         changePasswordButton.setTitle("change password", for: .normal)
         changePasswordButton.backgroundColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1)
@@ -402,19 +406,6 @@ class UserAdminMainView: UIView {
             make.top.equalToSuperview().inset(isLargeScreen ? 50 : 30)
         }
         
-        savingView.snp.makeConstraints { make in
-            make.height.equalTo(width / 4)
-            make.width.equalTo(width / 1.5)
-            make.centerX.equalToSuperview()
-            make.centerY.equalTo(mainView)
-        
-        }
-        
-        savingViewLabel.snp.makeConstraints { make in
-            make.height.equalTo(width / 6)
-            make.width.centerY.centerX.equalToSuperview()
-        }
-        
         profileInfoLabel.snp.makeConstraints { make in
             make.width.equalTo(width / 1.8)
             make.height.equalTo(isLargeScreen ? ((height / 1.8) / 10) : ((height / 1.5) / 10))
@@ -423,8 +414,8 @@ class UserAdminMainView: UIView {
         }
         
         saveButton.snp.makeConstraints { make in
-            make.width.equalTo(width / 1.6)
-            make.height.equalTo(isLargeScreen ? 50 : 30)
+            make.width.equalTo(isLargeScreen ? (width / 1.6) : (width / 2))
+            make.height.equalTo(50)
             make.top.equalTo(mainView).inset(isLargeScreen ? ((height / 1.8) + 30) : ((height / 1.5) + 30))
             make.centerX.equalToSuperview()
         }
@@ -464,3 +455,8 @@ class UserAdminMainView: UIView {
     }
 }
 
+extension UserAdminMainView {
+    func setActivityIndicator(with frame: CGRect) {
+        activityIndicator.frame = CGRect(x: frame.midX - 10, y: frame.minY + 15, width: 20, height: 20)
+    }
+}

@@ -8,10 +8,13 @@
 import Foundation
 
 struct ShopModel: Codable {
-    let name: String
-    var rating: String
-    let country: String
-    let city: String
-    let address: String
-    var products: [Product] = []
+    let id: String
+    let rate: Int
+    let menu: [Product]
+    let info: Info
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case rate, menu, info
+    }
 }

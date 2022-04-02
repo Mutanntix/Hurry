@@ -12,7 +12,7 @@ class BasketCell: UITableViewCell {
     @IBOutlet weak var productSize: UILabel!
     
     func setupBasketCell(with product: Product) {
-        self.productName.text = product.name
-        self.productSize.text = "\(product.size) ml"
+        self.productName.text = product.title
+        self.productSize.text = "\(product.option) ml"
     }
 }

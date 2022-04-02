@@ -9,15 +9,15 @@ import Foundation
 import UIKit
 
 class UserAdminViewControllerDelegate: UserAdminViewControllerProtocol {
-    func saveChanges(view: UIView, button: UIButton) {
+    func saveChanges(button: UIButton, vc: UserAdminViewController) {
         button.pulsate()
-        
-        view.alpha = 0.9
-        view.isHidden = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            UIView.animate(withDuration: 0.5, delay: 0, options: .allowAnimatedContent) {
-                view.alpha = 0
-            }
+        button.isEnabled = false
+        button.setTitle("", for: .normal)
+        vc.mainView.setActivityIndicator(with: button.frame)
+
+        vc.mainView.activityIndicator.animate(with: 2) {
+            button.isEnabled = true
+            button.setTitle("save", for: .normal)
         }
     }
 
@@ -33,7 +33,8 @@ class UserAdminViewControllerDelegate: UserAdminViewControllerProtocol {
     }
     
     func logout(button: UIButton) {
-        // logout logic
+        NetworkManager.shared.deleteUser()
+        
         button.pulsate()
     }
     

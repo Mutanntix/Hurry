@@ -58,12 +58,12 @@ class NewCardCell: UICollectionViewCell {
         self.productNameLabel.font = .systemFont(ofSize: isLargeScreen ? 18 : 14)
         self.productNameLabel.numberOfLines = 0
         
-        self.productSizeLabel.text = "Size: \(attr.size) ml"
+        self.productSizeLabel.text = "Size: \(attr.size)"
         self.productSizeLabel.textAlignment = .center
         self.productSizeLabel.font = .systemFont(ofSize: isLargeScreen ? 15 : 14)
         self.productSizeLabel.numberOfLines = 0
         
-        self.productPriceLabel.text = "Price: \(attr.price) rub"
+        self.productPriceLabel.text = "Price: \(attr.price)"
         self.productPriceLabel.textAlignment = .center
         self.productPriceLabel.font = .systemFont(ofSize: isLargeScreen ? 15 : 14)
         self.productPriceLabel.numberOfLines = 0

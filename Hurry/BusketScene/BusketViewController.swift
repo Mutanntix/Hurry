@@ -4,6 +4,7 @@
 //
 //  Created by Мурад on 13.03.2022.
 //
+// hola
 
 import UIKit
 
@@ -35,6 +36,8 @@ extension BusketViewController {
         
         let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(barCancelButtonPressed))
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
+        
+        mainView.orderButton.addTarget(self, action: #selector(orderButtonPressed), for: .touchUpInside)
     }
 }
 
@@ -69,5 +72,19 @@ extension BusketViewController {
         self.dismiss(animated: true) {
             //complition
         }
+    }
+    
+    @objc fileprivate func orderButtonPressed(sender: UIButton) {
+        sender.pulsate()
+        let pickUpTime = getTimeFromPicker()
+        print(pickUpTime)
+    }
+    
+    private func getTimeFromPicker() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let userTime = dateFormatter.string(from: mainView.pickUpTimeDatePicker.date)
+        
+        return userTime
     }
 }

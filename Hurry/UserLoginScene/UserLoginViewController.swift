@@ -250,15 +250,19 @@ class UserLoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @objc public func keyboardWillShow(notification: NSNotification) {
+    @objc private func forgotPassButtonPressed() {
+        NetworkManager.shared.forgotUserPassword(login: loginTextField.text ?? "")
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
         userLoginVCDelegate?.keyboardWillShow(notification: notification, viewController: self)
     }
     
-    @objc public func keyboardWillHide(notification: NSNotification) {
+    @objc private func keyboardWillHide(notification: NSNotification) {
         userLoginVCDelegate?.keyboardWillHide(notification: notification, viewController: self)
     }
     
-    @objc public func changeTitleForLoginButton() {
+    @objc private func changeTitleForLoginButton() {
         userLoginVCDelegate?.changeTitleForLoginButton(buttons: [accountOwningButton, loginButton], vc: self)
     }
 }

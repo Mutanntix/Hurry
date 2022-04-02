@@ -37,10 +37,16 @@ extension ShopCardViewController {
         mainView.positionsCollectionView.delegate = self
         mainView.positionsCollectionView.dataSource = self
         
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationItem.hidesBackButton = true
+        navigationController?.navigationItem.backBarButtonItem?.isEnabled = false
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        
         guard let shop = currentShop else { return }
-        createProductAttributes(products: shop.products)
+        createProductAttributes(products: shop.menu)
         
         mainView.headerGoToShopButton.addTarget(self, action: #selector(goToShopVC), for: .touchUpInside)
+        mainView.headerSettingsButton.addTarget(self, action: #selector(goToAdminVC), for: .touchUpInside)
         mainView.basketButton.addTarget(self, action: #selector(goToBusketVC), for: .touchUpInside)
     }
 }
@@ -49,7 +55,7 @@ extension ShopCardViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let shop = currentShop
         else { return 0 }
-        return shop.products.count
+        return shop.menu.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -58,14 +64,6 @@ extension ShopCardViewController: UICollectionViewDelegate, UICollectionViewData
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShopCardCell", for: indexPath) as? ShopCardCell
-//        {
-//            cell.addToBasketButton.addTarget(self, action: #selector(addToBusketAction), for: .touchUpInside)
-//
-//            cell.setupShopCardCell(with: productAttributes[indexPath.item])
-//
-//            return cell
-//        }
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewCell", for: indexPath) as? NewCardCell {
             cell.setupShopCardCell(with: productAttributes[indexPath.item], isLargeScreen: mainView.isLargeScreen)
@@ -75,9 +73,6 @@ extension ShopCardViewController: UICollectionViewDelegate, UICollectionViewData
         }
         return UICollectionViewCell()
     }
-    
-    
-
 }
 
 //MARK: METHODS
@@ -95,6 +90,11 @@ extension ShopCardViewController {
         self.navigationController?.popToViewController(shopVC, animated: false)
     }
     
+    @objc fileprivate func goToAdminVC() {
+        let adminVC = UserAdminViewController()
+        self.navigationController?.pushViewController(adminVC, animated: false)
+    }
+    
     @objc fileprivate func goToBusketVC() {
         let busketVC = BusketViewController()
         busketVC.products = choosenProducts
@@ -102,26 +102,32 @@ extension ShopCardViewController {
     }
     
     @objc fileprivate func addToBusketAction(sender: UIButton) {
-        let busketButton = sender
+        let basketButton = sender
         let buttonPosition = sender.convert(CGPoint.zero, to: self.mainView.positionsCollectionView)
         guard let indexPath = self.mainView.positionsCollectionView.indexPathForItem(at: buttonPosition) else { return }
-      //  let cell = self.mainView.positionsCollectionView.cellForItem(at: indexPath) as! ShopCardCell
-        busketButton.pulsate()
+        basketButton.pulsate()
+        basketButton.backgroundColor = .lightGray
+        basketButton.isEnabled = false
+        basketButton.setTitle("wait...", for: .normal)
         
-        guard let choosenProduct = currentShop?.products[indexPath.item] else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            basketButton.backgroundColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1)
+            basketButton.isEnabled = true
+            basketButton.setTitle("to basket", for: .normal)
+        })
+        
+        guard let choosenProduct = currentShop?.menu[indexPath.item] else { return }
         choosenProducts.append(choosenProduct)
-
     }
     
     fileprivate func createProductAttributes(products: [Product]) {
         var productAttributes: [ShopCardCellAttributes] = []
         
         for product in products {
-            productAttributes.append(ShopCardCellAttributes(name: product.name,
-                                                            size: product.size,
+            productAttributes.append(ShopCardCellAttributes(name: product.title,
+                                                            size: product.option,
                                                             price: product.price))
         }
-        
         self.productAttributes = productAttributes
     }
 }

@@ -73,18 +73,18 @@ extension BusketMainView {
         
         emptyBasketLabel.text = "Your basket is emty..."
         emptyBasketLabel.textAlignment = .center
-        emptyBasketLabel.font = .boldSystemFont(ofSize: 20)
+        emptyBasketLabel.font = .systemFont(ofSize: 18)
         
         basketTableView.register(UINib(nibName: "BasketCell", bundle: nil), forCellReuseIdentifier: "BasketCell")
         basketTableView.layer.cornerRadius = 15
-        basketTableView.layer.borderWidth = 2
+        basketTableView.layer.borderWidth = 1
         
         secretWordTF.placeholder = "Enter the secret word"
         secretWordTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: secretWordTF.frame.height))
         secretWordTF.leftViewMode = .always
         secretWordTF.layer.borderColor = UIColor.black.cgColor
         secretWordTF.autocapitalizationType = .none
-        secretWordTF.layer.borderWidth = 1.5
+        secretWordTF.layer.borderWidth = 0.5
         secretWordTF.layer.cornerRadius = 10
         secretWordTF.keyboardType = UIKeyboardType.default
         secretWordTF.returnKeyType = UIReturnKeyType.done
@@ -101,15 +101,13 @@ extension BusketMainView {
         pickUpTimeLabel.font = .systemFont(ofSize: isLargeScreen ? 20 : 16)
         pickUpTimeLabel.textAlignment = .left
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        
+        pickUpTimeDatePicker.minimumDate = Calendar.current.date(byAdding: .minute, value: 10, to: Date())
         pickUpTimeDatePicker.datePickerMode = .time
         
         orderButton.setTitle("order", for: .normal)
         orderButton.backgroundColor = UIColor(red: 0/255, green: 161/255, blue: 164/255, alpha: 1)
         orderButton.layer.cornerRadius = isLargeScreen ? 23 : 18
-        
+
     }
     
     fileprivate func setupConstraints(frame: CGRect) {
@@ -127,7 +125,7 @@ extension BusketMainView {
         }
         
         emptyBasketBackView.snp.makeConstraints { make in
-            make.width.equalTo(frame.width / 1.5)
+            make.width.equalTo(frame.width / 1.8)
             make.centerX.centerY.equalToSuperview()
             make.height.equalTo(isLargeScreen ? 60 : 45)
         }
@@ -140,7 +138,7 @@ extension BusketMainView {
         
         basketTableView.snp.makeConstraints { make in
             make.top.equalTo(clearButton.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(10)
+            make.leading.trailing.equalToSuperview().inset(30)
             make.height.equalTo(isLargeScreen ? 350 : 250)
         }
         
@@ -165,7 +163,7 @@ extension BusketMainView {
         pickUpTimeDatePicker.snp.makeConstraints { make in
             make.leading.equalTo(pickUpTimeLabel.snp.trailing).offset(20)
             make.top.equalTo(pickUpTimeLabel.snp.top)
-            make.width.equalTo(80)
+            make.width.equalTo(100)
             make.height.equalTo(40)
         }
         

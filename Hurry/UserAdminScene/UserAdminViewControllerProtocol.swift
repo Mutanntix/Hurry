@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol UserAdminViewControllerProtocol {
-    func saveChanges(view: UIView, button: UIButton)
+    func saveChanges(button: UIButton, vc: UserAdminViewController)
     func connectTelegram(button: UIButton)
     func openChangePasswordVC(button: UIButton)
     func logout(button: UIButton)

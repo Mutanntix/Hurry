@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B3B2AA627C81EF1008C6652 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3B2AA527C81EF1008C6652 /* UserModel.swift */; };
 		9B3B2AA927C91E18008C6652 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3B2AA827C91E18008C6652 /* NetworkManager.swift */; };
 		9B3B2AAB27C92009008C6652 /* UserloginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3B2AAA27C92009008C6652 /* UserloginViewControllerDelegate.swift */; };
 		9B42498327DCEF24006A56A1 /* ShopCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42498227DCEF24006A56A1 /* ShopCardViewController.swift */; };
-		9B42498927DDFB8B006A56A1 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42498827DDFB8B006A56A1 /* Product.swift */; };
 		9B42498C27DE490D006A56A1 /* BusketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42498B27DE490D006A56A1 /* BusketViewController.swift */; };
 		9B42498E27DE4922006A56A1 /* BusketMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42498D27DE4922006A56A1 /* BusketMainView.swift */; };
 		9B42499127DE495B006A56A1 /* BasketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B42498F27DE495B006A56A1 /* BasketCell.swift */; };
@@ -27,7 +25,6 @@
 		9BB8C23627DA46C900B5B0DD /* ShopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB8C23427DA46C900B5B0DD /* ShopCell.swift */; };
 		9BB8C23727DA46C900B5B0DD /* ShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BB8C23527DA46C900B5B0DD /* ShopCell.xib */; };
 		9BB8C23927DA4DAB00B5B0DD /* ShopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB8C23827DA4DAB00B5B0DD /* ShopModel.swift */; };
-		9BB8C23B27DA540400B5B0DD /* ShopsOfferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB8C23A27DA540400B5B0DD /* ShopsOfferModel.swift */; };
 		9BB8C23D27DB51BE00B5B0DD /* UserAdminMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB8C23C27DB51BE00B5B0DD /* UserAdminMainView.swift */; };
 		9BB8C23F27DB5AFD00B5B0DD /* UserAdminViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB8C23E27DB5AFD00B5B0DD /* UserAdminViewControllerProtocol.swift */; };
 		9BB8C24727DCEE6800B5B0DD /* ShopCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB8C24627DCEE6800B5B0DD /* ShopCardView.swift */; };
@@ -39,15 +36,19 @@
 		9BE470AC27C3C37500E3C4B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE470AA27C3C37500E3C4B4 /* LaunchScreen.storyboard */; };
 		9BE470BA27C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE470B927C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift */; };
 		C5524A9F5FA0FC0C6A59E882 /* Pods_Hurry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9BDEF466EA843B3F5B0D8 /* Pods_Hurry.framework */; };
+		FD25AD1B27F84A0800D5D787 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD25AD1A27F84A0800D5D787 /* ProductModel.swift */; };
+		FD25AD1D27F84A2F00D5D787 /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD25AD1C27F84A2F00D5D787 /* InfoModel.swift */; };
+		FD25AD1F27F84A4600D5D787 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD25AD1E27F84A4600D5D787 /* AddressModel.swift */; };
+		FD4A408327EC9CB600CA28B0 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A408227EC9CB600CA28B0 /* UserModel.swift */; };
+		FD55B2DC27F5E48E00C8EB03 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD55B2DB27F5E48E00C8EB03 /* ActivityIndicator.swift */; };
+		FD55B2DF27F6255B00C8EB03 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD55B2DE27F6255B00C8EB03 /* RequestType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6054FF564772786B2E61F654 /* Pods-Hurry.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hurry.release.xcconfig"; path = "Target Support Files/Pods-Hurry/Pods-Hurry.release.xcconfig"; sourceTree = "<group>"; };
-		9B3B2AA527C81EF1008C6652 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserModel.swift; path = ../../../../../../Applications/UserModel.swift; sourceTree = "<group>"; };
 		9B3B2AA827C91E18008C6652 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9B3B2AAA27C92009008C6652 /* UserloginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserloginViewControllerDelegate.swift; sourceTree = "<group>"; };
 		9B42498227DCEF24006A56A1 /* ShopCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCardViewController.swift; sourceTree = "<group>"; };
-		9B42498827DDFB8B006A56A1 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		9B42498B27DE490D006A56A1 /* BusketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusketViewController.swift; sourceTree = "<group>"; };
 		9B42498D27DE4922006A56A1 /* BusketMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusketMainView.swift; sourceTree = "<group>"; };
 		9B42498F27DE495B006A56A1 /* BasketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketCell.swift; sourceTree = "<group>"; };
@@ -63,10 +64,9 @@
 		9BB8C23427DA46C900B5B0DD /* ShopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCell.swift; sourceTree = "<group>"; };
 		9BB8C23527DA46C900B5B0DD /* ShopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopCell.xib; sourceTree = "<group>"; };
 		9BB8C23827DA4DAB00B5B0DD /* ShopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopModel.swift; sourceTree = "<group>"; };
-		9BB8C23A27DA540400B5B0DD /* ShopsOfferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsOfferModel.swift; sourceTree = "<group>"; };
 		9BB8C23C27DB51BE00B5B0DD /* UserAdminMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAdminMainView.swift; sourceTree = "<group>"; };
 		9BB8C23E27DB5AFD00B5B0DD /* UserAdminViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAdminViewControllerProtocol.swift; sourceTree = "<group>"; };
-		9BB8C24627DCEE6800B5B0DD /* ShopCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShopCardView.swift; path = ../../../ShopCardView.swift; sourceTree = "<group>"; };
+		9BB8C24627DCEE6800B5B0DD /* ShopCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCardView.swift; sourceTree = "<group>"; };
 		9BC9BDEF466EA843B3F5B0D8 /* Pods_Hurry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hurry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE4709927C3C37300E3C4B4 /* Hurry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hurry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE4709C27C3C37300E3C4B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +78,12 @@
 		9BE470AD27C3C37500E3C4B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BE470B927C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAnimationViewController.swift; sourceTree = "<group>"; };
 		CBCD21A86E3101084AEE0113 /* Pods-Hurry.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hurry.debug.xcconfig"; path = "Target Support Files/Pods-Hurry/Pods-Hurry.debug.xcconfig"; sourceTree = "<group>"; };
+		FD25AD1A27F84A0800D5D787 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
+		FD25AD1C27F84A2F00D5D787 /* InfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
+		FD25AD1E27F84A4600D5D787 /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
+		FD4A408227EC9CB600CA28B0 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		FD55B2DB27F5E48E00C8EB03 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		FD55B2DE27F6255B00C8EB03 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,10 +118,11 @@
 		9B3B2AA427C81ED9008C6652 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9B3B2AA527C81EF1008C6652 /* UserModel.swift */,
 				9BB8C23827DA4DAB00B5B0DD /* ShopModel.swift */,
-				9BB8C23A27DA540400B5B0DD /* ShopsOfferModel.swift */,
-				9B42498827DDFB8B006A56A1 /* Product.swift */,
+				FD4A408227EC9CB600CA28B0 /* UserModel.swift */,
+				FD25AD1A27F84A0800D5D787 /* ProductModel.swift */,
+				FD25AD1C27F84A2F00D5D787 /* InfoModel.swift */,
+				FD25AD1E27F84A4600D5D787 /* AddressModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -124,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				9B3B2AA827C91E18008C6652 /* NetworkManager.swift */,
+				FD55B2DE27F6255B00C8EB03 /* RequestType.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -162,9 +170,9 @@
 			isa = PBXGroup;
 			children = (
 				9B90B9AB27D2278F003EAB41 /* UserAdminViewController.swift */,
+				9BB8C23C27DB51BE00B5B0DD /* UserAdminMainView.swift */,
 				9B47A49427D53B68007F6E4B /* UserAdminViewControllerDelegate.swift */,
 				9B47A49A27D680DA007F6E4B /* KeyboardDelegate.swift */,
-				9BB8C23C27DB51BE00B5B0DD /* UserAdminMainView.swift */,
 				9BB8C23E27DB5AFD00B5B0DD /* UserAdminViewControllerProtocol.swift */,
 			);
 			path = UserAdminScene;
@@ -210,6 +218,7 @@
 				9B47A49627D678FE007F6E4B /* ChangePasswordScene */,
 				9BB8C24527DCEE2600B5B0DD /* ShopCardScene */,
 				9B42498A27DE480D006A56A1 /* BusketScene */,
+				FD55B2DD27F5E4A500C8EB03 /* AdditionalViews */,
 				9BE470A827C3C37500E3C4B4 /* Assets.xcassets */,
 				9BE470AA27C3C37500E3C4B4 /* LaunchScreen.storyboard */,
 				9BE470AD27C3C37500E3C4B4 /* Info.plist */,
@@ -236,6 +245,14 @@
 				9BE4709E27C3C37300E3C4B4 /* SceneDelegate.swift */,
 			);
 			path = AppDelegates;
+			sourceTree = "<group>";
+		};
+		FD55B2DD27F5E4A500C8EB03 /* AdditionalViews */ = {
+			isa = PBXGroup;
+			children = (
+				FD55B2DB27F5E48E00C8EB03 /* ActivityIndicator.swift */,
+			);
+			path = AdditionalViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,31 +371,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD25AD1D27F84A2F00D5D787 /* InfoModel.swift in Sources */,
 				9BE470A727C3C37300E3C4B4 /* Hurry.xcdatamodeld in Sources */,
 				9B42499127DE495B006A56A1 /* BasketCell.swift in Sources */,
 				9BB8C23F27DB5AFD00B5B0DD /* UserAdminViewControllerProtocol.swift in Sources */,
+				FD55B2DC27F5E48E00C8EB03 /* ActivityIndicator.swift in Sources */,
 				9BB8C23627DA46C900B5B0DD /* ShopCell.swift in Sources */,
 				9BE470A127C3C37300E3C4B4 /* UserLoginViewController.swift in Sources */,
+				FD25AD1B27F84A0800D5D787 /* ProductModel.swift in Sources */,
 				9B47A49E27D79653007F6E4B /* ShopViewController.swift in Sources */,
 				9BB8C24727DCEE6800B5B0DD /* ShopCardView.swift in Sources */,
 				9B47A49827D6792C007F6E4B /* ChangePassViewController.swift in Sources */,
 				9B96BAFE27CE811A002397C4 /* UserVCSetupManager.swift in Sources */,
 				9BE4709D27C3C37300E3C4B4 /* AppDelegate.swift in Sources */,
 				9B3B2AA927C91E18008C6652 /* NetworkManager.swift in Sources */,
+				FD25AD1F27F84A4600D5D787 /* AddressModel.swift in Sources */,
 				9B42499827DF556E006A56A1 /* NewCardCell.swift in Sources */,
 				9B42498327DCEF24006A56A1 /* ShopCardViewController.swift in Sources */,
 				9B90B9AC27D2278F003EAB41 /* UserAdminViewController.swift in Sources */,
 				9BE470BA27C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift in Sources */,
 				9B42498C27DE490D006A56A1 /* BusketViewController.swift in Sources */,
-				9B42498927DDFB8B006A56A1 /* Product.swift in Sources */,
+				FD4A408327EC9CB600CA28B0 /* UserModel.swift in Sources */,
 				9B47A49B27D680DA007F6E4B /* KeyboardDelegate.swift in Sources */,
-				9BB8C23B27DA540400B5B0DD /* ShopsOfferModel.swift in Sources */,
 				9BB8C23327DA469300B5B0DD /* ShopMainView.swift in Sources */,
 				9BB8C23927DA4DAB00B5B0DD /* ShopModel.swift in Sources */,
-				9B3B2AA627C81EF1008C6652 /* UserModel.swift in Sources */,
 				9B42498E27DE4922006A56A1 /* BusketMainView.swift in Sources */,
 				9B3B2AAB27C92009008C6652 /* UserloginViewControllerDelegate.swift in Sources */,
 				9B47A49527D53B68007F6E4B /* UserAdminViewControllerDelegate.swift in Sources */,
+				FD55B2DF27F6255B00C8EB03 /* RequestType.swift in Sources */,
 				9BB8C23D27DB51BE00B5B0DD /* UserAdminMainView.swift in Sources */,
 				9BE4709F27C3C37300E3C4B4 /* SceneDelegate.swift in Sources */,
 			);

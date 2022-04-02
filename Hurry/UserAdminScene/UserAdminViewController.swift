@@ -79,9 +79,9 @@ extension UserAdminViewController {
     }
     
         @objc fileprivate func saveButtonPressed() {
-            print("save button pressed")
             self.mainView.mainScrollView.endEditing(true)
-            self.buttonsDelegate?.saveChanges(view: self.mainView.savingView, button: self.mainView.saveButton)
+            self.buttonsDelegate?.saveChanges(button: self.mainView.saveButton, vc: self)
+            
         }
 
         @objc fileprivate func connectButtonPressed() {
@@ -97,7 +97,11 @@ extension UserAdminViewController {
         }
         
         @objc fileprivate func logoutButtonPressed() {
-            print("logout button pressed")
             self.buttonsDelegate?.logout(button: self.mainView.logoutButton)
+            guard let navigationController = self.navigationController else { return }
+            var viewControllers = navigationController.viewControllers
+            viewControllers.insert(UserLoginViewController(), at: 1)
+            self.navigationController?.viewControllers = viewControllers
+            self.navigationController?.popToViewController(viewControllers[1], animated: false)
         }
 }
