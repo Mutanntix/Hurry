@@ -9,7 +9,6 @@ import UIKit
 
 class BusketMainView: UIView {
     lazy var isLargeScreen = self.isLargeScreen(frame: frame)
-    var products: [Product] = []
     
     let basketLabel = UILabel()
     let clearButton = UIButton()
@@ -25,12 +24,6 @@ class BusketMainView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-    }
-    
-    init?(frame: CGRect, products: [Product]) {
-        super.init(frame: frame)
-        self.products = products
         setupViews()
         setupConstraints(frame: frame)
     }
@@ -69,7 +62,7 @@ extension BusketMainView {
         
         emptyBasketBackView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 245/255)
         emptyBasketBackView.layer.cornerRadius = isLargeScreen ? 20 : 15
-        emptyBasketBackView.isHidden = !(products.isEmpty)
+        emptyBasketBackView.isHidden = true
         
         emptyBasketLabel.text = "Your basket is emty..."
         emptyBasketLabel.textAlignment = .center
@@ -93,7 +86,7 @@ extension BusketMainView {
         secretWordTF.clearButtonMode = UITextField.ViewMode.whileEditing;
         secretWordTF.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         
-        totalLabel.text = "Total: \(getTotal(from: products))"
+    //    totalLabel.text = "Total: \(getTotal(from: products))"
         totalLabel.font = .systemFont(ofSize: isLargeScreen ? 30 : 25)
         totalLabel.textAlignment = .center
         
@@ -180,13 +173,5 @@ extension BusketMainView {
 extension BusketMainView {
     fileprivate func isLargeScreen(frame: CGRect) -> Bool {
         return frame.size.height > 670 ? true : false
-    }
-    
-    fileprivate func getTotal(from products: [Product]) -> Int {
-        var total = 0
-        for product in products {
-            total += Int(product.price) ?? 0
-        }
-        return total
     }
 }

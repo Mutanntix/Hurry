@@ -8,6 +8,7 @@
 import Foundation
 
 struct ShopModel: Codable {
+    let tgChatId: Int?
     let id: String
     let rate: Int
     let menu: [Product]
@@ -15,6 +16,6 @@ struct ShopModel: Codable {
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
-        case rate, menu, info
+        case rate, menu, info, tgChatId
     }
 }

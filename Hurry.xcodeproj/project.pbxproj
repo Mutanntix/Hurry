@@ -20,7 +20,6 @@
 		9B47A49B27D680DA007F6E4B /* KeyboardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B47A49A27D680DA007F6E4B /* KeyboardDelegate.swift */; };
 		9B47A49E27D79653007F6E4B /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B47A49D27D79653007F6E4B /* ShopViewController.swift */; };
 		9B90B9AC27D2278F003EAB41 /* UserAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B90B9AB27D2278F003EAB41 /* UserAdminViewController.swift */; };
-		9B96BAFE27CE811A002397C4 /* UserVCSetupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B96BAFD27CE811A002397C4 /* UserVCSetupManager.swift */; };
 		9BB8C23327DA469300B5B0DD /* ShopMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB8C23227DA469300B5B0DD /* ShopMainView.swift */; };
 		9BB8C23627DA46C900B5B0DD /* ShopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB8C23427DA46C900B5B0DD /* ShopCell.swift */; };
 		9BB8C23727DA46C900B5B0DD /* ShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BB8C23527DA46C900B5B0DD /* ShopCell.xib */; };
@@ -42,6 +41,14 @@
 		FD4A408327EC9CB600CA28B0 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A408227EC9CB600CA28B0 /* UserModel.swift */; };
 		FD55B2DC27F5E48E00C8EB03 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD55B2DB27F5E48E00C8EB03 /* ActivityIndicator.swift */; };
 		FD55B2DF27F6255B00C8EB03 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD55B2DE27F6255B00C8EB03 /* RequestType.swift */; };
+		FDAB856427FC48AE002886BB /* UserLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAB856327FC48AE002886BB /* UserLoginView.swift */; };
+		FDAB856727FC5519002886BB /* UIButton + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAB856627FC5519002886BB /* UIButton + Extension.swift */; };
+		FDAB856A27FC5727002886BB /* SignState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAB856927FC5727002886BB /* SignState.swift */; };
+		FDAB856E27FC6C4E002886BB /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAB856D27FC6C4E002886BB /* Alerts.swift */; };
+		FDAB857027FC9EEC002886BB /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAB856F27FC9EEC002886BB /* OrderModel.swift */; };
+		FDC34A1527FDD2610029072F /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC34A1427FDD2610029072F /* OnBoardingViewController.swift */; };
+		FDCAA9CB27F89D7B009090A8 /* NetworkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCAA9CA27F89D7B009090A8 /* NetworkDelegate.swift */; };
+		FDCAA9CD27F89FD8009090A8 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCAA9CC27F89FD7009090A8 /* NetworkProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,7 +66,6 @@
 		9B47A49A27D680DA007F6E4B /* KeyboardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDelegate.swift; sourceTree = "<group>"; };
 		9B47A49D27D79653007F6E4B /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		9B90B9AB27D2278F003EAB41 /* UserAdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAdminViewController.swift; sourceTree = "<group>"; };
-		9B96BAFD27CE811A002397C4 /* UserVCSetupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVCSetupManager.swift; sourceTree = "<group>"; };
 		9BB8C23227DA469300B5B0DD /* ShopMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMainView.swift; sourceTree = "<group>"; };
 		9BB8C23427DA46C900B5B0DD /* ShopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCell.swift; sourceTree = "<group>"; };
 		9BB8C23527DA46C900B5B0DD /* ShopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopCell.xib; sourceTree = "<group>"; };
@@ -84,6 +90,14 @@
 		FD4A408227EC9CB600CA28B0 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		FD55B2DB27F5E48E00C8EB03 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		FD55B2DE27F6255B00C8EB03 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
+		FDAB856327FC48AE002886BB /* UserLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginView.swift; sourceTree = "<group>"; };
+		FDAB856627FC5519002886BB /* UIButton + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extension.swift"; sourceTree = "<group>"; };
+		FDAB856927FC5727002886BB /* SignState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignState.swift; sourceTree = "<group>"; };
+		FDAB856D27FC6C4E002886BB /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
+		FDAB856F27FC9EEC002886BB /* OrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
+		FDC34A1427FDD2610029072F /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		FDCAA9CA27F89D7B009090A8 /* NetworkDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDelegate.swift; sourceTree = "<group>"; };
+		FDCAA9CC27F89FD7009090A8 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +137,7 @@
 				FD25AD1A27F84A0800D5D787 /* ProductModel.swift */,
 				FD25AD1C27F84A2F00D5D787 /* InfoModel.swift */,
 				FD25AD1E27F84A4600D5D787 /* AddressModel.swift */,
+				FDAB856F27FC9EEC002886BB /* OrderModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -132,6 +147,8 @@
 			children = (
 				9B3B2AA827C91E18008C6652 /* NetworkManager.swift */,
 				FD55B2DE27F6255B00C8EB03 /* RequestType.swift */,
+				FDCAA9CA27F89D7B009090A8 /* NetworkDelegate.swift */,
+				FDCAA9CC27F89FD7009090A8 /* NetworkProtocol.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -210,19 +227,20 @@
 			isa = PBXGroup;
 			children = (
 				9BE470B627C3CFFE00E3C4B4 /* AppDelegates */,
+				FDAB856C27FC6C42002886BB /* Alerts */,
 				9B3B2AA727C91E02008C6652 /* Managers */,
 				9B3B2AA427C81ED9008C6652 /* Models */,
+				FDC34A1327FDD1150029072F /* OnBoarding */,
 				9BE470B527C3CFDB00E3C4B4 /* UserLoginScene */,
 				9B90B9AD27D22799003EAB41 /* UserAdminScene */,
 				9B47A49C27D795F1007F6E4B /* ShopScene */,
 				9B47A49627D678FE007F6E4B /* ChangePasswordScene */,
 				9BB8C24527DCEE2600B5B0DD /* ShopCardScene */,
 				9B42498A27DE480D006A56A1 /* BusketScene */,
+				FDAB856B27FC698D002886BB /* AssetsAndOthers */,
+				FDAB856827FC5707002886BB /* UserDefaults */,
+				FDAB856527FC5506002886BB /* Extensions */,
 				FD55B2DD27F5E4A500C8EB03 /* AdditionalViews */,
-				9BE470A827C3C37500E3C4B4 /* Assets.xcassets */,
-				9BE470AA27C3C37500E3C4B4 /* LaunchScreen.storyboard */,
-				9BE470AD27C3C37500E3C4B4 /* Info.plist */,
-				9BE470A527C3C37300E3C4B4 /* Hurry.xcdatamodeld */,
 			);
 			path = Hurry;
 			sourceTree = "<group>";
@@ -233,7 +251,7 @@
 				9BE470B927C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift */,
 				9BE470A027C3C37300E3C4B4 /* UserLoginViewController.swift */,
 				9B3B2AAA27C92009008C6652 /* UserloginViewControllerDelegate.swift */,
-				9B96BAFD27CE811A002397C4 /* UserVCSetupManager.swift */,
+				FDAB856327FC48AE002886BB /* UserLoginView.swift */,
 			);
 			path = UserLoginScene;
 			sourceTree = "<group>";
@@ -253,6 +271,49 @@
 				FD55B2DB27F5E48E00C8EB03 /* ActivityIndicator.swift */,
 			);
 			path = AdditionalViews;
+			sourceTree = "<group>";
+		};
+		FDAB856527FC5506002886BB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FDAB856627FC5519002886BB /* UIButton + Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FDAB856827FC5707002886BB /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				FDAB856927FC5727002886BB /* SignState.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		FDAB856B27FC698D002886BB /* AssetsAndOthers */ = {
+			isa = PBXGroup;
+			children = (
+				9BE470AA27C3C37500E3C4B4 /* LaunchScreen.storyboard */,
+				9BE470AD27C3C37500E3C4B4 /* Info.plist */,
+				9BE470A527C3C37300E3C4B4 /* Hurry.xcdatamodeld */,
+				9BE470A827C3C37500E3C4B4 /* Assets.xcassets */,
+			);
+			path = AssetsAndOthers;
+			sourceTree = "<group>";
+		};
+		FDAB856C27FC6C42002886BB /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				FDAB856D27FC6C4E002886BB /* Alerts.swift */,
+			);
+			path = Alerts;
+			sourceTree = "<group>";
+		};
+		FDC34A1327FDD1150029072F /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				FDC34A1427FDD2610029072F /* OnBoardingViewController.swift */,
+			);
+			path = OnBoarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,29 +436,36 @@
 				9BE470A727C3C37300E3C4B4 /* Hurry.xcdatamodeld in Sources */,
 				9B42499127DE495B006A56A1 /* BasketCell.swift in Sources */,
 				9BB8C23F27DB5AFD00B5B0DD /* UserAdminViewControllerProtocol.swift in Sources */,
+				FDCAA9CB27F89D7B009090A8 /* NetworkDelegate.swift in Sources */,
 				FD55B2DC27F5E48E00C8EB03 /* ActivityIndicator.swift in Sources */,
+				FDAB856427FC48AE002886BB /* UserLoginView.swift in Sources */,
 				9BB8C23627DA46C900B5B0DD /* ShopCell.swift in Sources */,
 				9BE470A127C3C37300E3C4B4 /* UserLoginViewController.swift in Sources */,
 				FD25AD1B27F84A0800D5D787 /* ProductModel.swift in Sources */,
 				9B47A49E27D79653007F6E4B /* ShopViewController.swift in Sources */,
 				9BB8C24727DCEE6800B5B0DD /* ShopCardView.swift in Sources */,
 				9B47A49827D6792C007F6E4B /* ChangePassViewController.swift in Sources */,
-				9B96BAFE27CE811A002397C4 /* UserVCSetupManager.swift in Sources */,
+				FDCAA9CD27F89FD8009090A8 /* NetworkProtocol.swift in Sources */,
 				9BE4709D27C3C37300E3C4B4 /* AppDelegate.swift in Sources */,
 				9B3B2AA927C91E18008C6652 /* NetworkManager.swift in Sources */,
 				FD25AD1F27F84A4600D5D787 /* AddressModel.swift in Sources */,
 				9B42499827DF556E006A56A1 /* NewCardCell.swift in Sources */,
+				FDAB857027FC9EEC002886BB /* OrderModel.swift in Sources */,
 				9B42498327DCEF24006A56A1 /* ShopCardViewController.swift in Sources */,
 				9B90B9AC27D2278F003EAB41 /* UserAdminViewController.swift in Sources */,
 				9BE470BA27C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift in Sources */,
 				9B42498C27DE490D006A56A1 /* BusketViewController.swift in Sources */,
 				FD4A408327EC9CB600CA28B0 /* UserModel.swift in Sources */,
+				FDAB856727FC5519002886BB /* UIButton + Extension.swift in Sources */,
 				9B47A49B27D680DA007F6E4B /* KeyboardDelegate.swift in Sources */,
 				9BB8C23327DA469300B5B0DD /* ShopMainView.swift in Sources */,
+				FDAB856E27FC6C4E002886BB /* Alerts.swift in Sources */,
 				9BB8C23927DA4DAB00B5B0DD /* ShopModel.swift in Sources */,
 				9B42498E27DE4922006A56A1 /* BusketMainView.swift in Sources */,
 				9B3B2AAB27C92009008C6652 /* UserloginViewControllerDelegate.swift in Sources */,
 				9B47A49527D53B68007F6E4B /* UserAdminViewControllerDelegate.swift in Sources */,
+				FDAB856A27FC5727002886BB /* SignState.swift in Sources */,
+				FDC34A1527FDD2610029072F /* OnBoardingViewController.swift in Sources */,
 				FD55B2DF27F6255B00C8EB03 /* RequestType.swift in Sources */,
 				9BB8C23D27DB51BE00B5B0DD /* UserAdminMainView.swift in Sources */,
 				9BE4709F27C3C37300E3C4B4 /* SceneDelegate.swift in Sources */,
@@ -544,7 +612,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 57CMV9FCQ8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Hurry/Info.plist;
+				INFOPLIST_FILE = Hurry/AssetsAndOthers/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -574,7 +642,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 57CMV9FCQ8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Hurry/Info.plist;
+				INFOPLIST_FILE = Hurry/AssetsAndOthers/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

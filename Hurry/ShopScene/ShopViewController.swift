@@ -11,7 +11,7 @@ import Network
 
 class ShopViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var isUserOnline = NetworkManager.shared.isConnected
+    weak var networkDelegate: NetworkDelegate?
     private var shopOfferAttributes: [ShopCellAttributes] = []
     
     let shopSearchController = UISearchController(searchResultsController: nil)
@@ -49,9 +49,7 @@ class ShopViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
 
     private func firstInitializate() {
-//        getAttributesForCells()
         receiveShops()
-        
         
         self.navigationItem.hidesBackButton = true
         self.view.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
@@ -128,7 +126,6 @@ class ShopViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
        return 150
     }
     
@@ -150,7 +147,7 @@ class ShopViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     private func receiveShops() {
-        NetworkManager.shared.getShops { shops in
+        networkDelegate?.getShops { shops in
             self.shopList = shops
             self.getAttributesForCells()
             self.shopContentView.shopTableView.reloadData()
@@ -178,12 +175,14 @@ extension ShopViewController: UISearchBarDelegate, UISearchResultsUpdating, UISe
 extension ShopViewController {
     @objc fileprivate func goToUserAdminVC() {
         let userAdminVC = UserAdminViewController()
+        userAdminVC.networkDelegate = self.networkDelegate
         self.navigationController?.pushViewController(userAdminVC, animated: false)
     }
     
     fileprivate func goToShopCardVC(shop: ShopModel) {
         let shopCardVC = ShopCardViewController()
         shopCardVC.currentShop = shop
+        shopCardVC.networkDelegate = self.networkDelegate
         
         self.navigationController?.pushViewController(shopCardVC, animated: false)
     }

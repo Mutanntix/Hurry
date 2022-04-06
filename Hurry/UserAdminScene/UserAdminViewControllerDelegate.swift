@@ -13,7 +13,7 @@ class UserAdminViewControllerDelegate: UserAdminViewControllerProtocol {
         button.pulsate()
         button.isEnabled = false
         button.setTitle("", for: .normal)
-        vc.mainView.setActivityIndicator(with: button.frame)
+        vc.mainView.activityIndicator.setActivityIndicator(with: button.frame)
 
         vc.mainView.activityIndicator.animate(with: 2) {
             button.isEnabled = true
@@ -33,6 +33,7 @@ class UserAdminViewControllerDelegate: UserAdminViewControllerProtocol {
     }
     
     func logout(button: UIButton) {
+
         NetworkManager.shared.deleteUser()
         
         button.pulsate()

@@ -80,5 +80,10 @@ class ActivityIndicator: UIView {
         }
     }
     
+    func setActivityIndicator(with frame: CGRect) {
+        self.frame = CGRect(x: frame.midX - 10, y: frame.minY + 15, width: 20, height: 20)
+    }
+
+    
 }
 

@@ -13,6 +13,8 @@ class ChangePassViewController: UIViewController {
     let newPassAgainTf = UITextField()
     let doneButton = UIButton()
     var footerImageView = UIImageView()
+    
+    weak var networkDelegate: NetworkDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,14 +149,6 @@ extension ChangePassViewController {
     }
 
     @objc fileprivate func barCancelButtonPressed() {
-        let warningAlert = UIAlertController(title: "Are you sure?", message: "Do you want to leave?", preferredStyle: .alert)
-        warningAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
-            self.dismiss(animated: true, completion: nil)
-        }))
-        warningAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { _ in
-            //self.dismiss(animated: true, completion: nil)
-        }))
-        
         guard let newPass = newPassTF.text,
               let newPassAgain = newPassAgainTf.text, ((newPass != "") || (newPassAgain != ""))
         else {
@@ -163,10 +157,12 @@ extension ChangePassViewController {
             }
             return
         }
-        self.present(warningAlert, animated: true) {
-            //complition
-        }
         
+        Alert.showAlert(vc: self,
+                        message: "Are you sure?",
+                        title: "Changes will be canceled",
+                        alertType: .warningAlert,
+                        complition: {})
     }
     
     fileprivate func saveNewPass(mustAnimateButton: Bool) {
@@ -185,15 +181,30 @@ extension ChangePassViewController {
               let newPassAgain = newPassAgainTf.text, ((newPass != "") && (newPassAgain != ""))
         else {
             if mustAnimateButton { doneButton.shake() }
-            self.present(alert, animated: true, completion: nil)
+            Alert.showAlert(vc: self,
+                            message: "Please, fill both text fields with similar passwords!",
+                            title: "Error",
+                            alertType: .passTextFieldsErrorAlert,
+                            complition: {})
             return
         }
         if newPass == newPassAgain {
-            NetworkManager.shared.changeUserPassword(newPass: newPass)
-            self.present(okAlert, animated: true, completion: nil)
+            networkDelegate?.changePassword(newPassword: newPass)
+            Alert.showAlert(vc: self,
+                            message: "Password was changed",
+                            title: "Done!",
+                            alertType: .passChangedAlert) { [weak self] in
+                guard let self = self else { return }
+                self.dismiss(animated: true)
+            }
             if mustAnimateButton { doneButton.pulsate() }
         } else {
-            self.present(alert, animated: true, completion: nil)
+            if mustAnimateButton { doneButton.shake() }
+            Alert.showAlert(vc: self,
+                            message: "Please, fill both text fields with similar passwords!",
+                            title: "Error",
+                            alertType: .passTextFieldsErrorAlert,
+                            complition: {})
             if mustAnimateButton { doneButton.pulsate() }
         }
     }

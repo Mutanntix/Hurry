@@ -11,20 +11,19 @@ import SnapKit
 class LaunchAnimationViewController: UIViewController {
     
     let hurryImage = UIImage(named: "hurryMain")
+    var networkDelegate = NetworkDelegate()
 
     override func viewDidLoad()  {
         super.viewDidLoad()
         initializate()
-
     }
     
     func initializate() {
         
-        if NetworkManager.shared.isConnected {
-            print("u r in the internet")
-        }
-        
-        view.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        view.backgroundColor = UIColor(red: 245/255,
+                                       green: 245/255,
+                                       blue: 245/255,
+                                       alpha: 1)
         
         let imageView = UIImageView()
         let awaitLabel = UILabel()
@@ -32,9 +31,9 @@ class LaunchAnimationViewController: UIViewController {
         
         imageView.image = hurryImage
         
-        awaitLabel.text = "just one more second..."
+        awaitLabel.text = "by mutanntix"
         awaitLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        awaitLabel.alpha = 0
+        awaitLabel.alpha = 1
         awaitLabel.textAlignment = .center
         
         activityIndicator.startAnimating()
@@ -42,7 +41,6 @@ class LaunchAnimationViewController: UIViewController {
         
         view.addSubview(imageView)
         view.addSubview(awaitLabel)
-        view.addSubview(activityIndicator)
         
         imageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -53,40 +51,37 @@ class LaunchAnimationViewController: UIViewController {
         
         awaitLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(80)
+            make.top.equalTo(imageView.snp.bottom).inset(-25)
         }
         
-        activityIndicator.snp.makeConstraints { make in
-            make.height.width.equalTo(30)
-            make.centerX.equalToSuperview()
-            make.top.equalTo(awaitLabel.snp.bottom).offset(50)
-        }
         
-        UIView.animate(withDuration: 1.5, delay: 0, options: .allowAnimatedContent) {
-            imageView.transform = CGAffineTransform(scaleX: 3, y: 3)
-            imageView.alpha = 0.1
-            awaitLabel.alpha = 1
-            
-            NetworkManager.shared.checkUID { isUidAvailable in
-                if isUidAvailable {
-                    self.performSegue(to: ShopViewController())
-                } else {
-                    self.performSegue(to: UserLoginViewController())
+        UIView.animate(withDuration: 2.5,
+                       delay: 0,
+                       options: .allowAnimatedContent) {
+            imageView.alpha = 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                guard let self = self else { return }
+                self.networkDelegate.checkUid { isUidAvailable in
+                    if isUidAvailable {
+                        self.performSegue(to: ShopViewController())
+                    } else {
+                        self.performSegue(to: UserLoginViewController())
+                    }
                 }
             }
-
         }
-
     }
     
     private func performSegue(to vc: UIViewController) {
         if let shopVC = vc as? ShopViewController {
-            self.navigationController?.pushViewController(shopVC, animated: false)
+            shopVC.networkDelegate = self.networkDelegate
+            self.navigationController?.pushViewController(shopVC,
+                                                          animated: false)
         } else if let userLoginVc = vc as? UserLoginViewController {
-            self.navigationController?.pushViewController(userLoginVc, animated: false)
+            userLoginVc.networkDelegate = self.networkDelegate
+            self.navigationController?.pushViewController(userLoginVc,
+                                                          animated: false)
         }
-
-       
     }
 }
 

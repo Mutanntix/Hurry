@@ -8,8 +8,12 @@
 import Foundation
 
 struct Product: Codable {
-    let id: String
+//    let id: String?
     let title: String
     let option: String
     let price: String
+    
+    enum CodingKeys: CodingKey {
+        case title, option, price
+    }
 }

@@ -455,8 +455,3 @@ class UserAdminMainView: UIView {
     }
 }
 
-extension UserAdminMainView {
-    func setActivityIndicator(with frame: CGRect) {
-        activityIndicator.frame = CGRect(x: frame.midX - 10, y: frame.minY + 15, width: 20, height: 20)
-    }
-}

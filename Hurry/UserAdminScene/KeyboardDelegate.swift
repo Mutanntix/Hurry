@@ -19,7 +19,6 @@ class KeyboardDelegate: UserAdminKeyboardDelegate {
         if viewController.view.frame.origin.y == 0 {
             viewController.view.frame.origin.y -= (keyboardFrame.height * 0.7)
         }
-    
     }
     
     func keyboardWillHide(notification: NSNotification, viewController: UIViewController) {
@@ -27,5 +26,4 @@ class KeyboardDelegate: UserAdminKeyboardDelegate {
             viewController.view.frame.origin.y = 0
         }
     }
-    
 }

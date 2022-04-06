@@ -13,6 +13,6 @@ class BasketCell: UITableViewCell {
     
     func setupBasketCell(with product: Product) {
         self.productName.text = product.title
-        self.productSize.text = "\(product.option) ml"
+        self.productSize.text = "\(product.option)"
     }
 }

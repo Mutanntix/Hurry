@@ -8,6 +8,20 @@
 import Foundation
 import UIKit
 
+enum LoginButtonState: Int {
+    case login = 0
+    case reg = 1
+    
+    func getLoginButtonState() -> Int {
+        switch self {
+        case .login:
+            return 0
+        case .reg:
+            return 1
+        }
+    }
+}
+
 class UserloginViewControllerDelegate: UserloginViewControllerProtocol {
     
     func keyboardWillShow(notification: NSNotification, viewController: UIViewController) {
@@ -28,37 +42,59 @@ class UserloginViewControllerDelegate: UserloginViewControllerProtocol {
         }
     }
     
-    func changeTitleForLoginButton(buttons: [UIButton], vc: UIViewController) {
-        guard let userVC = vc as? UserLoginViewController else { return }
-        let attributedStringUserHasNoAcc = NSAttributedString(string: NSLocalizedString("I don't have an account", comment: ""), attributes:[
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18.0),
-            NSAttributedString.Key.foregroundColor: UIColor.lightGray,
-            NSAttributedString.Key.underlineStyle: 1.0
-        ])
+    func setStateForLoginButton(buttons: [UIButton], vc: UserLoginViewController) {
+        let state = SignState.shared.state.getLoginButtonState()
+        
+        switch state {
+        case 0:
+            self.setButtonsForLoginState(buttons: buttons, vc: vc)
+        case 1:
+            self.setButtonsForRegState(buttons: buttons, vc: vc)
+        default:
+            break
+        }
+    }
     
-        let attributedStringUserHasAcc = NSAttributedString(string: NSLocalizedString("I already have an account", comment: ""), attributes:[
+    func setLoginState(vc: UserLoginViewController) {
+        SignState.shared.state = LoginButtonState.login
+    }
+    
+    func setRegState(vc: UserLoginViewController) {
+        SignState.shared.state = LoginButtonState.reg
+    }
+    
+    private func setButtonsForLoginState(buttons: [UIButton], vc: UserLoginViewController) {
+        let attributedStringUserHasNoAcc = NSAttributedString(string: NSLocalizedString("I don't have an account", comment: ""), attributes:[
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18.0),
             NSAttributedString.Key.foregroundColor: UIColor.lightGray,
             NSAttributedString.Key.underlineStyle: 1.0
         ])
         
         for button in buttons {
-            switch button {
-            case userVC.loginButton:
-                if button.titleLabel?.text == "Sign in" {
-                    button.setTitle("Sign up", for: .normal)
-                } else {
-                    button.setTitle("Sign in", for: .normal)
-                }
-            case userVC.accountOwningButton:
-                if button.titleLabel?.text == "I don't have an account" {
-                    button.setAttributedTitle(attributedStringUserHasAcc, for: .normal)
-                } else {
-                    button.setAttributedTitle(attributedStringUserHasNoAcc, for: .normal)
-                }
-            default:
-                break
+            if button == vc.mainView.loginButton {
+                button.setTitle("sign in", for: .normal)
+                button.addTarget(vc, action: #selector(vc.loginButtonPressed), for: .touchUpInside)
+            } else {
+                button.setAttributedTitle(attributedStringUserHasNoAcc, for: .normal)
             }
         }
     }
+    
+    private func setButtonsForRegState(buttons: [UIButton], vc: UserLoginViewController) {
+        let attributedStringUserHasNoAcc = NSAttributedString(string: NSLocalizedString("I already have an account", comment: ""), attributes:[
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18.0),
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+            NSAttributedString.Key.underlineStyle: 1.0
+        ])
+        
+        for button in buttons {
+            if button == vc.mainView.loginButton {
+                button.setTitle("sign up", for: .normal)
+                button.addTarget(vc, action: #selector(vc.loginButtonPressed), for: .touchUpInside)
+            } else {
+                button.setAttributedTitle(attributedStringUserHasNoAcc, for: .normal)
+            }
+        }
+    }
+
 }

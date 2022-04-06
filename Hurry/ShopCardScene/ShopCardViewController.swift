@@ -10,6 +10,8 @@ import UIKit
 
 class ShopCardViewController: UIViewController {
     
+    weak var networkDelegate: NetworkDelegate?
+    
     var currentShop: ShopModel?
     var productAttributes: [ShopCardCellAttributes] = []
     var choosenProducts: [Product] = []
@@ -27,9 +29,6 @@ class ShopCardViewController: UIViewController {
         
         firstInitialization()
     }
-    
-
-
 }
 
 extension ShopCardViewController {
@@ -47,7 +46,7 @@ extension ShopCardViewController {
         
         mainView.headerGoToShopButton.addTarget(self, action: #selector(goToShopVC), for: .touchUpInside)
         mainView.headerSettingsButton.addTarget(self, action: #selector(goToAdminVC), for: .touchUpInside)
-        mainView.basketButton.addTarget(self, action: #selector(goToBusketVC), for: .touchUpInside)
+        mainView.basketButton.addTarget(self, action: #selector(goToBasketVC), for: .touchUpInside)
     }
 }
 
@@ -68,7 +67,7 @@ extension ShopCardViewController: UICollectionViewDelegate, UICollectionViewData
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewCell", for: indexPath) as? NewCardCell {
             cell.setupShopCardCell(with: productAttributes[indexPath.item], isLargeScreen: mainView.isLargeScreen)
             cell.setupConstraints(isLargeScreen: mainView.isLargeScreen)
-            cell.addToBasketButton.addTarget(self, action: #selector(addToBusketAction), for: .touchUpInside)
+            cell.addToBasketButton.addTarget(self, action: #selector(addToBasketAction), for: .touchUpInside)
             return cell
         }
         return UICollectionViewCell()
@@ -95,13 +94,46 @@ extension ShopCardViewController {
         self.navigationController?.pushViewController(adminVC, animated: false)
     }
     
-    @objc fileprivate func goToBusketVC() {
-        let busketVC = BusketViewController()
-        busketVC.products = choosenProducts
-        self.present(UINavigationController(rootViewController: busketVC), animated: true, completion: nil)
+    @objc fileprivate func goToBasketVC() {
+        let basketVC = BusketViewController()
+        self.mainView.basketButton.isEnabled = false
+        self.mainView.basketButton.setTitle("wait...", for: .normal)
+        self.mainView.basketButton.backgroundColor = .lightGray
+        
+        networkDelegate?.getCurrentBasket(complition: { [weak self] currentBasket in
+            guard let self = self else { return }
+            guard let currentBasket = currentBasket
+            else {
+                Alert.showAlert(vc: self,
+                                message: "Something went wrong...",
+                                title: "Unexpected error",
+                                alertType: .serverErrorAlert,
+                                complition: { [weak self] in
+                    self?.mainView.basketButton.isEnabled = true
+                    self?.mainView.basketButton.setTitle("basket", for: .normal)
+                    self?.mainView.basketButton.backgroundColor = UIColor(red: 0/255,
+                                                                          green: 161/255,
+                                                                          blue: 164/255,
+                                                                          alpha: 1)
+                    
+                })
+                return
+            }
+            
+            basketVC.currentBasket = currentBasket
+            basketVC.currentShop = self.currentShop
+            basketVC.networkDelegate = self.networkDelegate
+            self.present(UINavigationController(rootViewController: basketVC), animated: true, completion: nil)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
+                self?.mainView.basketButton.isEnabled = true
+                self?.mainView.basketButton.setTitle("basket", for: .normal)
+                self?.mainView.basketButton.backgroundColor = UIColor(red: 0/255, green: 161/255, blue: 164/255, alpha: 1)
+            })
+        })
     }
     
-    @objc fileprivate func addToBusketAction(sender: UIButton) {
+    @objc fileprivate func addToBasketAction(sender: UIButton) {
         let basketButton = sender
         let buttonPosition = sender.convert(CGPoint.zero, to: self.mainView.positionsCollectionView)
         guard let indexPath = self.mainView.positionsCollectionView.indexPathForItem(at: buttonPosition) else { return }
@@ -116,7 +148,9 @@ extension ShopCardViewController {
             basketButton.setTitle("to basket", for: .normal)
         })
         
-        guard let choosenProduct = currentShop?.menu[indexPath.item] else { return }
+        guard let currentShop = currentShop else { return }
+        let choosenProduct = currentShop.menu[indexPath.item]
+        networkDelegate?.basketPut(shop: currentShop, indexPath: indexPath)
         choosenProducts.append(choosenProduct)
     }
     

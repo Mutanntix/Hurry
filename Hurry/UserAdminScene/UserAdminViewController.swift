@@ -14,7 +14,7 @@ protocol UserAdminKeyboardDelegate {
 }
 
 class UserAdminViewController: UIViewController, UITextFieldDelegate {
-    var isUserOnline = NetworkManager.shared.isConnected
+    weak var networkDelegate: NetworkDelegate?
     
     var keyboardDelegate: UserAdminKeyboardDelegate?
     var buttonsDelegate: UserAdminViewControllerProtocol?
@@ -91,17 +91,17 @@ extension UserAdminViewController {
         
         @objc fileprivate func changePassButtonPressed() {
             let changePassVC = ChangePassViewController()
-            
+            changePassVC.networkDelegate = self.networkDelegate
             self.present(UINavigationController(rootViewController: changePassVC), animated: true, completion: nil)
             self.buttonsDelegate?.openChangePasswordVC(button: self.mainView.changePasswordButton)
         }
         
         @objc fileprivate func logoutButtonPressed() {
-            self.buttonsDelegate?.logout(button: self.mainView.logoutButton)
-            guard let navigationController = self.navigationController else { return }
-            var viewControllers = navigationController.viewControllers
-            viewControllers.insert(UserLoginViewController(), at: 1)
-            self.navigationController?.viewControllers = viewControllers
-            self.navigationController?.popToViewController(viewControllers[1], animated: false)
+            mainView.logoutButton.pulsate()
+            Alert.showAlert(vc: self,
+                            message: "Are you sure?",
+                            title: "Do you want to logout?",
+                            alertType: .logoutAlert,
+                            complition: {})
         }
 }
