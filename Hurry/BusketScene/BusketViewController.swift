@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol BusketViewControllerDelegate: AnyObject {
+    func showSuccessOrderView()
+}
+
 class BusketViewController: UIViewController {
     
     weak var networkDelegate: NetworkDelegate?

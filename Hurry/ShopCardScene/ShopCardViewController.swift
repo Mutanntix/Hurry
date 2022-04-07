@@ -26,7 +26,6 @@ class ShopCardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         firstInitialization()
     }
 }
@@ -99,7 +98,7 @@ extension ShopCardViewController {
         self.mainView.basketButton.isEnabled = false
         self.mainView.basketButton.setTitle("wait...", for: .normal)
         self.mainView.basketButton.backgroundColor = .lightGray
-        
+
         networkDelegate?.getCurrentBasket(complition: { [weak self] currentBasket in
             guard let self = self else { return }
             guard let currentBasket = currentBasket
@@ -115,16 +114,16 @@ extension ShopCardViewController {
                                                                           green: 161/255,
                                                                           blue: 164/255,
                                                                           alpha: 1)
-                    
+
                 })
                 return
             }
-            
+
             basketVC.currentBasket = currentBasket
             basketVC.currentShop = self.currentShop
             basketVC.networkDelegate = self.networkDelegate
             self.present(UINavigationController(rootViewController: basketVC), animated: true, completion: nil)
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
                 self?.mainView.basketButton.isEnabled = true
                 self?.mainView.basketButton.setTitle("basket", for: .normal)
@@ -165,3 +164,26 @@ extension ShopCardViewController {
         self.productAttributes = productAttributes
     }
 }
+
+//MARK: -SuccessOrderView
+extension ShopCardViewController: BusketViewControllerDelegate {
+    func showSuccessOrderView() {
+        let succOrderView = SuccessOrderView(frame: CGRect(x: view.frame.midX - 125, y: view.frame.minY - 50, width: 250, height: 70))
+        view.addSubview(succOrderView)
+        
+        UIView.animate(withDuration: 0.1,
+                       delay: 1,
+                       options: .curveLinear) {
+            UIView.moveToBottom(view: succOrderView, pointsToMove: 150)
+        }
+        
+        UIView.animate(withDuration: 0.07,
+                       delay: 2,
+                       options: .curveLinear) {
+            UIView.moveToTop(view: succOrderView, pointsToMove: 150)
+        } completion: { _ in
+            succOrderView.removeFromSuperview()
+        }
+    }
+}
+
