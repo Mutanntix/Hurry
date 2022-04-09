@@ -8,6 +8,7 @@
 import Foundation
 
 class NetworkDelegate: NetworkProtocol {
+    
     func checkConnection() -> Bool {
         return NetworkManager.shared.isConnected
     }
@@ -70,5 +71,22 @@ class NetworkDelegate: NetworkProtocol {
                                         pickUpTime: pickUpTime,
                                         total: total,
                                         complition: complition)
+    }
+    
+    func getVotes(complition: @escaping (String?) -> Void) {
+        NetworkManager.shared
+            .getVotes(complition: complition)
+    }
+    
+    func rateUp(shop: ShopModel,
+                complition: @escaping (Bool) -> Void) {
+        NetworkManager.shared.rateUp(shop: shop,
+                                     complition: complition)
+    }
+    
+    func rateDown(shop: ShopModel,
+                  complition: @escaping (Bool) -> Void) {
+        NetworkManager.shared.rateDown(shop: shop,
+                                     complition: complition)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 struct ShopModel: Codable {
     let tgChatId: Int?
     let id: String
-    let rate: Int
+    var rate: Int
     let menu: [Product]
     let info: Info
     

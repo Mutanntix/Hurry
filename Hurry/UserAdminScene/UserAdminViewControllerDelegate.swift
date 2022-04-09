@@ -13,7 +13,8 @@ class UserAdminViewControllerDelegate: UserAdminViewControllerProtocol {
         button.pulsate()
         button.isEnabled = false
         button.setTitle("", for: .normal)
-        vc.mainView.activityIndicator.setActivityIndicator(with: button.frame)
+        vc.mainView.activityIndicator
+            .setActivityIndicatorForSaveButton(with: button.frame)
 
         vc.mainView.activityIndicator.animate(with: 2) {
             button.isEnabled = true

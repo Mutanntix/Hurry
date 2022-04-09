@@ -89,11 +89,11 @@ class NetworkManager {
         case .sendOrder:
             self.urlComponents.path = "/api/user/sendOrder"
         case .rateUp:
-            break
+            self.urlComponents.path = "/api/user/rateUp"
         case .rateDown:
-            break
+            self.urlComponents.path = "/api/user/rateDown"
         case .votes:
-            break
+            self.urlComponents.path = "/api/user/votes"
         case .shops:
             self.urlComponents.path = "/api/bus/shops"
         case .checkInfo:
@@ -303,8 +303,8 @@ class NetworkManager {
             switch response.result {
             case .failure(let error):
                 print(error.localizedDescription)
-            case .success(let data):
-                guard let data = data else { print("failed to decode data"); return }
+            case .success(_):
+                return
             }
         }
     }
@@ -402,6 +402,97 @@ class NetworkManager {
                 switch response.result {
                 case .failure(_):
                     complition(false)
+                case .success(_):
+                    complition(true)
+            }
+        }
+    }
+    
+    func getVotes(complition: @escaping (String?) -> Void) {
+        let urlComponents = getUrl(for: .votes)
+        guard let url = urlComponents.url else { return }
+        guard let user = fetchUser() else { return }
+        let params: Parameters = [
+            "uid": user.getUid()
+        ]
+        let request = AF.request(url,
+                                 method: .get,
+                                 parameters: params,
+                                 encoding: URLEncoding.default,
+                                 headers: nil,
+                                 interceptor: nil,
+                                 requestModifier: nil)
+        
+        request.validate()
+            .response { response in
+                switch response.result {
+                case .failure(let error):
+                    complition(nil)
+                    print(
+                        "Cant get votes: \(error.localizedDescription)")
+                case .success(let data):
+                    guard let data = data else {
+                        complition(nil)
+                        return
+                    }
+                    let votes = String(data: data, encoding: .utf8)
+                    complition(votes)
+            }
+        }
+    }
+    
+    func rateUp(shop: ShopModel,
+                complition: @escaping (Bool) -> Void) {
+        let urlComponents = getUrl(for: .rateUp)
+        guard let url = urlComponents.url else { return }
+        guard let user = fetchUser() else { return }
+        let params: Parameters = [
+            "uid": user.getUid(),
+            "bid": shop.id
+        ]
+        let request = AF.request(url,
+                                 method: .put,
+                                 parameters: params,
+                                 encoding: JSONEncoding.default,
+                                 headers: nil,
+                                 interceptor: nil,
+                                 requestModifier: nil)
+        
+        request.validate()
+            .response { response in
+                switch response.result {
+                case .failure(let error):
+                    complition(false)
+                    print("Rate up error: \(error.localizedDescription)")
+                case .success(_):
+                    complition(true)
+            }
+        }
+    }
+    
+    func rateDown(shop: ShopModel,
+                  complition: @escaping (Bool) -> Void) {
+        let urlComponents = getUrl(for: .rateDown)
+        guard let url = urlComponents.url else { return }
+        guard let user = fetchUser() else { return }
+        let params: Parameters = [
+            "uid": user.getUid(),
+            "bid": shop.id
+        ]
+        let request = AF.request(url,
+                                 method: .put,
+                                 parameters: params,
+                                 encoding: JSONEncoding.default,
+                                 headers: nil,
+                                 interceptor: nil,
+                                 requestModifier: nil)
+        
+        request.validate()
+            .response { response in
+                switch response.result {
+                case .failure(let error):
+                    complition(false)
+                    print("delete cart error: \(error.localizedDescription)")
                 case .success(_):
                     complition(true)
             }

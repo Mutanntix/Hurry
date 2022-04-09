@@ -17,12 +17,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = UINavigationController(rootViewController: LaunchAnimationViewController())
+        let isFirstLaunch = isFirstLaunch()
+        
+        if isFirstLaunch {
+            window.rootViewController
+                = UINavigationController(rootViewController: OnBoardingViewController())
+        } else {
+            window.rootViewController
+                = UINavigationController(rootViewController: LaunchAnimationViewController())
+        }
+
         window.makeKeyAndVisible()
         window.overrideUserInterfaceStyle = .light
         self.window = window
-        
-        
     }
 
     

@@ -86,7 +86,6 @@ extension BusketMainView {
         secretWordTF.clearButtonMode = UITextField.ViewMode.whileEditing;
         secretWordTF.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         
-    //    totalLabel.text = "Total: \(getTotal(from: products))"
         totalLabel.font = .systemFont(ofSize: isLargeScreen ? 30 : 25)
         totalLabel.textAlignment = .center
         

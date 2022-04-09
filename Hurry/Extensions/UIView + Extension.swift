@@ -16,4 +16,10 @@ extension UIView {
     static func moveToTop(view: UIView, pointsToMove: CGFloat) {
         view.center.y -= pointsToMove
     }
+
+    static func isLargeScreen() -> Bool {
+        let result = UIScreen
+            .main.bounds.height > 670
+        return result
+    }
 }

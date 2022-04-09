@@ -16,19 +16,16 @@ class ShopViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     let shopSearchController = UISearchController(searchResultsController: nil)
     
-    
-    fileprivate lazy var shopList: [ShopModel] = {
-        return [
-
-        ]
-    }()
+    fileprivate lazy var shopList: [ShopModel] = []
     
     fileprivate var filteredShopList: [ShopModel] = []
 
     private var searchBarIsEmty: Bool {
-        guard let text = shopSearchController.searchBar.text else { return false }
+        guard let text = shopSearchController
+            .searchBar.text else { return false }
         return text.isEmpty
     }
+    
     private var isFiltering: Bool {
         return shopSearchController.isActive && !searchBarIsEmty
     }
@@ -45,6 +42,11 @@ class ShopViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
 
         firstInitializate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        receiveShops()
     }
     
 

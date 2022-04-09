@@ -37,6 +37,7 @@ class ActivityIndicator: UIView {
         self.layer.addSublayer(spinningCircle)
     }
     
+    
     func animate(with duration: Double) {
         var secondsToEnd = duration
         self.isHidden = false
@@ -55,6 +56,14 @@ class ActivityIndicator: UIView {
                 }
             }
         }
+    }
+    
+    func addActivityIndicator(view: UIView) {
+        view.addSubview(self)
+    }
+    
+    func removeSelf() {
+        self.removeFromSuperview()
     }
     
     func animate(with duration: Double, complition: @escaping () -> Void) {
@@ -80,10 +89,12 @@ class ActivityIndicator: UIView {
         }
     }
     
-    func setActivityIndicator(with frame: CGRect) {
+    func setActivityIndicatorForSaveButton(with frame: CGRect) {
         self.frame = CGRect(x: frame.midX - 10, y: frame.minY + 15, width: 20, height: 20)
     }
 
-    
+    func setActivityIndicatorForRateLabel(with frame: CGRect) {
+        self.frame = CGRect(x: frame.midX - 10, y: frame.minY, width: 20, height: 20)
+    }
 }
 

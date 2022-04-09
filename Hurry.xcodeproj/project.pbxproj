@@ -48,9 +48,13 @@
 		FDAB856A27FC5727002886BB /* SignState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAB856927FC5727002886BB /* SignState.swift */; };
 		FDAB856E27FC6C4E002886BB /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAB856D27FC6C4E002886BB /* Alerts.swift */; };
 		FDAB857027FC9EEC002886BB /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAB856F27FC9EEC002886BB /* OrderModel.swift */; };
+		FDC1C5C527FF83C30038E4FC /* OnBoardingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC1C5C427FF83C30038E4FC /* OnBoardingViewCell.swift */; };
+		FDC1C5C727FF84D90038E4FC /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC1C5C627FF84D90038E4FC /* PageModel.swift */; };
 		FDC34A1527FDD2610029072F /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC34A1427FDD2610029072F /* OnBoardingViewController.swift */; };
 		FDCAA9CB27F89D7B009090A8 /* NetworkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCAA9CA27F89D7B009090A8 /* NetworkDelegate.swift */; };
 		FDCAA9CD27F89FD8009090A8 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCAA9CC27F89FD7009090A8 /* NetworkProtocol.swift */; };
+		FDF5115E28005CA9004DCA7E /* FirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF5115D28005CA9004DCA7E /* FirstLaunch.swift */; };
+		FDF511602800B1F8004DCA7E /* UIImage + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF5115F2800B1F8004DCA7E /* UIImage + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,9 +103,13 @@
 		FDAB856927FC5727002886BB /* SignState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignState.swift; sourceTree = "<group>"; };
 		FDAB856D27FC6C4E002886BB /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		FDAB856F27FC9EEC002886BB /* OrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
+		FDC1C5C427FF83C30038E4FC /* OnBoardingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewCell.swift; sourceTree = "<group>"; };
+		FDC1C5C627FF84D90038E4FC /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		FDC34A1427FDD2610029072F /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		FDCAA9CA27F89D7B009090A8 /* NetworkDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDelegate.swift; sourceTree = "<group>"; };
 		FDCAA9CC27F89FD7009090A8 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
+		FDF5115D28005CA9004DCA7E /* FirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunch.swift; sourceTree = "<group>"; };
+		FDF5115F2800B1F8004DCA7E /* UIImage + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +150,7 @@
 				FD25AD1C27F84A2F00D5D787 /* InfoModel.swift */,
 				FD25AD1E27F84A4600D5D787 /* AddressModel.swift */,
 				FDAB856F27FC9EEC002886BB /* OrderModel.swift */,
+				FDC1C5C627FF84D90038E4FC /* PageModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -283,6 +292,7 @@
 			children = (
 				FDAB856627FC5519002886BB /* UIButton + Extension.swift */,
 				FD4F76C827FEEA9500ABE8B4 /* UIView + Extension.swift */,
+				FDF5115F2800B1F8004DCA7E /* UIImage + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -291,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				FDAB856927FC5727002886BB /* SignState.swift */,
+				FDF5115D28005CA9004DCA7E /* FirstLaunch.swift */,
 			);
 			path = UserDefaults;
 			sourceTree = "<group>";
@@ -318,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				FDC34A1427FDD2610029072F /* OnBoardingViewController.swift */,
+				FDC1C5C427FF83C30038E4FC /* OnBoardingViewCell.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -439,7 +451,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD25AD1D27F84A2F00D5D787 /* InfoModel.swift in Sources */,
+				FDC1C5C527FF83C30038E4FC /* OnBoardingViewCell.swift in Sources */,
 				9BE470A727C3C37300E3C4B4 /* Hurry.xcdatamodeld in Sources */,
+				FDF511602800B1F8004DCA7E /* UIImage + Extension.swift in Sources */,
 				9B42499127DE495B006A56A1 /* BasketCell.swift in Sources */,
 				9BB8C23F27DB5AFD00B5B0DD /* UserAdminViewControllerProtocol.swift in Sources */,
 				FD4F76CB27FEEB8100ABE8B4 /* SuccessOrderView.swift in Sources */,
@@ -452,6 +466,7 @@
 				9B47A49E27D79653007F6E4B /* ShopViewController.swift in Sources */,
 				9BB8C24727DCEE6800B5B0DD /* ShopCardView.swift in Sources */,
 				9B47A49827D6792C007F6E4B /* ChangePassViewController.swift in Sources */,
+				FDF5115E28005CA9004DCA7E /* FirstLaunch.swift in Sources */,
 				FDCAA9CD27F89FD8009090A8 /* NetworkProtocol.swift in Sources */,
 				9BE4709D27C3C37300E3C4B4 /* AppDelegate.swift in Sources */,
 				9B3B2AA927C91E18008C6652 /* NetworkManager.swift in Sources */,
@@ -474,6 +489,7 @@
 				FDAB856A27FC5727002886BB /* SignState.swift in Sources */,
 				FDC34A1527FDD2610029072F /* OnBoardingViewController.swift in Sources */,
 				FD55B2DF27F6255B00C8EB03 /* RequestType.swift in Sources */,
+				FDC1C5C727FF84D90038E4FC /* PageModel.swift in Sources */,
 				9BB8C23D27DB51BE00B5B0DD /* UserAdminMainView.swift in Sources */,
 				FD4F76C927FEEA9500ABE8B4 /* UIView + Extension.swift in Sources */,
 				9BE4709F27C3C37300E3C4B4 /* SceneDelegate.swift in Sources */,

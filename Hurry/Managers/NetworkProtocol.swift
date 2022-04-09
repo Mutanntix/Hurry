@@ -39,4 +39,12 @@ protocol NetworkProtocol: AnyObject {
                    pickUpTime: String,
                    total: Int,
                    complition: @escaping (Bool) -> Void)
+    
+    func getVotes(complition: @escaping (String?) -> Void)
+    
+    func rateUp(shop: ShopModel,
+                  complition: @escaping (Bool) -> Void)
+    
+    func rateDown(shop: ShopModel,
+                  complition: @escaping (Bool) -> Void)
 }

@@ -21,7 +21,8 @@ class ShopCardViewController: UIViewController {
     }
     
     override func loadView() {
-        self.view = ShopCardView(frame: UIScreen.main.bounds, shop: currentShop)
+        self.view = ShopCardView(frame: UIScreen.main.bounds,
+                                 shop: currentShop)
     }
 
     override func viewDidLoad() {
@@ -43,14 +44,42 @@ extension ShopCardViewController {
         guard let shop = currentShop else { return }
         createProductAttributes(products: shop.menu)
         
-        mainView.headerGoToShopButton.addTarget(self, action: #selector(goToShopVC), for: .touchUpInside)
-        mainView.headerSettingsButton.addTarget(self, action: #selector(goToAdminVC), for: .touchUpInside)
-        mainView.basketButton.addTarget(self, action: #selector(goToBasketVC), for: .touchUpInside)
+        mainView.headerGoToShopButton.addTarget(self,
+                                                action: #selector(goToShopVC),
+                                                for: .touchUpInside)
+        
+        mainView.headerSettingsButton.addTarget(self,
+                                                action: #selector(goToAdminVC),
+                                                for: .touchUpInside)
+        
+        mainView.basketButton.addTarget(self, action: #selector(goToBasketVC),
+                                        for: .touchUpInside)
+        
+        mainView.shopRateUpButton.addTarget(self,
+                                            action: #selector(rateUpButtonPressed),
+                                            for: .touchUpInside)
+        
+        mainView.shopRateDownButton.addTarget(self,
+                                              action: #selector(rateDownButtonPressed),
+                                              for: .touchUpInside)
+        
+        networkDelegate?.getVotes(
+            complition: { [weak self] votes in
+                guard let votes = votes else {
+                    return
+                }
+                self?.mainView
+                    .votesLabel.text = votes
+        })
     }
 }
 
-extension ShopCardViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension ShopCardViewController: UICollectionViewDelegate,
+                                  UICollectionViewDataSource,
+                                    UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         guard let shop = currentShop
         else { return 0 }
         return shop.menu.count
@@ -61,12 +90,17 @@ extension ShopCardViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewCell", for: indexPath) as? NewCardCell {
-            cell.setupShopCardCell(with: productAttributes[indexPath.item], isLargeScreen: mainView.isLargeScreen)
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewCell",
+                                                         for: indexPath) as? NewCardCell {
+            cell.setupShopCardCell(with: productAttributes[indexPath.item],
+                                   isLargeScreen: mainView.isLargeScreen)
             cell.setupConstraints(isLargeScreen: mainView.isLargeScreen)
-            cell.addToBasketButton.addTarget(self, action: #selector(addToBasketAction), for: .touchUpInside)
+            cell.addToBasketButton.addTarget(self,
+                                             action: #selector(addToBasketAction),
+                                             for: .touchUpInside)
             return cell
         }
         return UICollectionViewCell()
@@ -75,6 +109,74 @@ extension ShopCardViewController: UICollectionViewDelegate, UICollectionViewData
 
 //MARK: METHODS
 extension ShopCardViewController {
+    @objc private func rateUpButtonPressed() {
+        guard let shop = currentShop else { return }
+        self.disableRateButtons()
+        
+        let activityIndicator = ActivityIndicator()
+        activityIndicator
+            .addActivityIndicator(view: mainView)
+        activityIndicator
+            .setActivityIndicatorForRateLabel(
+                with: mainView.shopRateLabel.frame)
+        activityIndicator.animate(with: 4)
+    
+        networkDelegate?.rateUp(shop: shop,
+                                complition: { [weak self] okResult in
+            guard var currentShop = self?.currentShop
+            else { return }
+
+            if okResult {
+                self?.networkDelegate?
+                    .getVotes(complition: { result in
+                        self?.mainView
+                            .votesLabel.text = result ?? ""
+                    })
+                
+                currentShop.rate += 1
+                self?.currentShop = currentShop
+                self?.mainView
+                    .shopRateLabel.text = "RATE: \(currentShop.rate)"
+                activityIndicator.removeFromSuperview()
+                self?.enableRateButtons()
+            }
+        })
+    }
+    
+    @objc private func rateDownButtonPressed() {
+        guard let shop = currentShop else { return }
+        self.disableRateButtons()
+        
+        let activityIndicator = ActivityIndicator()
+        activityIndicator
+            .addActivityIndicator(view: mainView)
+        activityIndicator
+            .setActivityIndicatorForRateLabel(
+                with: mainView.shopRateLabel.frame)
+        activityIndicator.animate(with: 4)
+
+        networkDelegate?.rateDown(shop: shop,
+                                complition: { [weak self] okResult in
+            guard var currentShop = self?.currentShop
+            else { return }
+
+            if okResult {
+                self?.networkDelegate?
+                    .getVotes(complition: { result in
+                self?.mainView
+                            .votesLabel.text = result ?? ""
+                    })
+                
+                currentShop.rate -= 1
+                self?.currentShop = currentShop
+                self?.mainView
+                    .shopRateLabel.text = "RATE: \(currentShop.rate)"
+                activityIndicator.removeFromSuperview()
+                self?.enableRateButtons()
+            }
+        })
+    }
+    
     @objc fileprivate func goToShopVC() {
         var shopVC: ShopViewController?
         guard let navigationController = self.navigationController else { return }
@@ -122,6 +224,7 @@ extension ShopCardViewController {
             basketVC.currentBasket = currentBasket
             basketVC.currentShop = self.currentShop
             basketVC.networkDelegate = self.networkDelegate
+            basketVC.delegate = self
             self.present(UINavigationController(rootViewController: basketVC), animated: true, completion: nil)
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
@@ -163,24 +266,38 @@ extension ShopCardViewController {
         }
         self.productAttributes = productAttributes
     }
+    
+    private func disableRateButtons() {
+        mainView.shopRateLabel.isHidden = true
+        
+        mainView.shopRateDownButton.isEnabled = false
+        mainView.shopRateUpButton.isEnabled = false
+    }
+    
+    private func enableRateButtons() {
+        mainView.shopRateLabel.isHidden = false
+        
+        mainView.shopRateDownButton.isEnabled = true
+        mainView.shopRateUpButton.isEnabled = true
+    }
 }
 
 //MARK: -SuccessOrderView
 extension ShopCardViewController: BusketViewControllerDelegate {
     func showSuccessOrderView() {
-        let succOrderView = SuccessOrderView(frame: CGRect(x: view.frame.midX - 125, y: view.frame.minY - 50, width: 250, height: 70))
+        let succOrderView = SuccessOrderView(frame: CGRect(x: view.frame.midX - 125, y: view.frame.minY - 100, width: 250, height: 70))
         view.addSubview(succOrderView)
         
         UIView.animate(withDuration: 0.1,
                        delay: 1,
                        options: .curveLinear) {
-            UIView.moveToBottom(view: succOrderView, pointsToMove: 150)
+            UIView.moveToBottom(view: succOrderView, pointsToMove: 200)
         }
         
         UIView.animate(withDuration: 0.07,
-                       delay: 2,
+                       delay: 4,
                        options: .curveLinear) {
-            UIView.moveToTop(view: succOrderView, pointsToMove: 150)
+            UIView.moveToTop(view: succOrderView, pointsToMove: 200)
         } completion: { _ in
             succOrderView.removeFromSuperview()
         }

@@ -15,6 +15,7 @@ protocol BusketViewControllerDelegate: AnyObject {
 class BusketViewController: UIViewController {
     
     weak var networkDelegate: NetworkDelegate?
+    weak var delegate: BusketViewControllerDelegate?
     var products: [Product] = []
     var currentShop: ShopModel?
     var currentBasket: [[String: Product]] = [[:]]
@@ -111,6 +112,9 @@ extension BusketViewController {
             if success {
                 self?.currentBasket = [[:]]
                 self?.setupViewWithBasket()
+                self?.dismiss(animated: true, completion: {
+                    self?.delegate?.showSuccessOrderView()
+                })
             } else {
                 guard let self = self else { return }
                 Alert.showAlert(vc: self,
