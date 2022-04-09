@@ -73,7 +73,7 @@ class NetworkManager {
         case .check:
             self.urlComponents.path = "/api/user/check"
         case .connect:
-            break
+            self.urlComponents.path = "/api/user/connect"
         case .forgotPass:
             self.urlComponents.path = "/api/user/forgotPass"
         case .changePass:
@@ -498,6 +498,41 @@ class NetworkManager {
             }
         }
     }
+    
+    func connectTelegram(
+        complition: @escaping (String?) -> Void ) {
+        guard let user = fetchUser() else { return }
+        var urlComponents = getUrl(for: .connect)
+        urlComponents.queryItems = [
+            URLQueryItem(name: "uid",
+                         value: user.getUid())
+        ]
+        guard let url = urlComponents.url else { return }
+
+        
+        let connId = getRandomString()
+        let params: Parameters = [
+            "connId": connId
+        ]
+        let request = AF.request(url,
+                                 method: .put,
+                                 parameters: params,
+                                 encoding: JSONEncoding.default,
+                                 headers: nil,
+                                 interceptor: nil,
+                                 requestModifier: nil)
+        
+        request.validate()
+            .response { response in
+                switch response.result {
+                case .failure(let error):
+                    complition(nil)
+                    print("connect error: \(error.localizedDescription)")
+                case .success(_):
+                    complition(connId)
+            }
+        }
+    }
 
     
     
@@ -527,6 +562,11 @@ class NetworkManager {
         if archiveURL != nil {
             try? data.write(to: archiveURL!, options: .noFileProtection)
         }
+    }
+    
+    private func getRandomString() -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-"
+        return String((0..<25).map{ _ in letters.randomElement()! })
     }
 }
 

@@ -47,4 +47,7 @@ protocol NetworkProtocol: AnyObject {
     
     func rateDown(shop: ShopModel,
                   complition: @escaping (Bool) -> Void)
+    
+    func connectTelegram(
+        complition: @escaping (String?) -> Void )
 }

@@ -9,11 +9,13 @@ import Foundation
 import UIKit
 
 extension UIView {
-    static func moveToBottom(view: UIView, pointsToMove: CGFloat) {
+    static func moveToBottom(view: UIView,
+                             pointsToMove: CGFloat) {
         view.center.y += pointsToMove
     }
     
-    static func moveToTop(view: UIView, pointsToMove: CGFloat) {
+    static func moveToTop(view: UIView,
+                          pointsToMove: CGFloat) {
         view.center.y -= pointsToMove
     }
 

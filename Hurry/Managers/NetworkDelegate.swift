@@ -89,4 +89,10 @@ class NetworkDelegate: NetworkProtocol {
         NetworkManager.shared.rateDown(shop: shop,
                                      complition: complition)
     }
+    
+    func connectTelegram(
+        complition: @escaping (String?) -> Void ) {
+            NetworkManager.shared
+                .connectTelegram(complition: complition)
+        }
 }

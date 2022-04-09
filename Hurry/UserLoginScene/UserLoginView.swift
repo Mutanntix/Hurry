@@ -29,11 +29,12 @@ class UserLoginView: UIView {
     let footerTopBorder = UIView()
 
     var userLoginVCDelegate: UserloginViewControllerProtocol?
-    var isLargeScreen: Bool!
+    var isLargeScreen: Bool = {
+        return UIView.isLargeScreen()
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.isLargeScreen = self.isLargeScreen(frame: frame)
         self.setupUserLoginMainView()
         self.setupConstraints()
     }
@@ -316,11 +317,4 @@ class UserLoginView: UIView {
             make.height.equalTo(1)
         }
     }
-}
-
-
-extension UserLoginView {
-    private func isLargeScreen(frame: CGRect) -> Bool {
-        return frame.height > 670 ? true : false
-    }
-}
+}   

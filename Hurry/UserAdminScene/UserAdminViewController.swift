@@ -19,6 +19,14 @@ class UserAdminViewController: UIViewController, UITextFieldDelegate {
     var keyboardDelegate: UserAdminKeyboardDelegate?
     var buttonsDelegate: UserAdminViewControllerProtocol?
     
+    let pasteboard = UIPasteboard.general
+    
+    lazy var connectTgView = ConnectTgView(
+        frame: CGRect(x: view.frame.midX - 150,
+                      y: view.frame.minY - 200,
+                      width: 300,
+                      height: 250))
+    
     var mainView: UserAdminMainView {
         return self.view as! UserAdminMainView
     }
@@ -48,21 +56,46 @@ class UserAdminViewController: UIViewController, UITextFieldDelegate {
         self.mainView.nickNameTF.delegate = self
         self.mainView.favoriteDrinkTF.delegate = self
         
-        self.mainView.headerGoToShopButton.addTarget(self, action: #selector(goToShopVC), for: .touchUpInside)
-        self.mainView.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
-        self.mainView.logoutButton.addTarget(self, action: #selector(logoutButtonPressed), for: .touchUpInside)
-        self.mainView.changePasswordButton.addTarget(self, action: #selector(changePassButtonPressed), for: .touchUpInside)
-        self.mainView.connectButton.addTarget(self, action: #selector(connectButtonPressed), for: .touchUpInside)
+        self.mainView
+            .headerGoToShopButton.addTarget(self,
+                                            action: #selector(goToShopVC),
+                                            for: .touchUpInside)
+        
+        self.mainView.saveButton.addTarget(self,
+                                           action: #selector(saveButtonPressed),
+                                           for: .touchUpInside)
+        
+        self.mainView.logoutButton.addTarget(self,
+                                             action: #selector(logoutButtonPressed),
+                                             for: .touchUpInside)
+        
+        self.mainView
+            .changePasswordButton.addTarget(self,
+                                            action: #selector(changePassButtonPressed),
+                                            for: .touchUpInside)
+        
+        self.mainView
+            .connectButton.addTarget(self,
+                                     action: #selector(connectButtonPressed),
+                                     for: .touchUpInside)
+        
+        self.connectTgView
+            .goToBotButton.addTarget(self,
+                                     action: #selector(goToBotButtonPressed),
+                                     for: .touchUpInside)
     }
 }
 
+//MARK: -Methods
 extension UserAdminViewController {
     @objc fileprivate func keyboardWillShow(notification: NSNotification) {
-        self.keyboardDelegate?.keyboardWillShow(notification: notification, viewController: self)
+        self.keyboardDelegate?.keyboardWillShow(notification: notification,
+                                                viewController: self)
     }
     
     @objc fileprivate func keyboardWillHide(notification: NSNotification) {
-        self.keyboardDelegate?.keyboardWillHide(notification: notification, viewController: self)
+        self.keyboardDelegate?.keyboardWillHide(notification: notification,
+                                                viewController: self)
     }
     
     @objc func goToShopVC() {
@@ -75,33 +108,105 @@ extension UserAdminViewController {
         }
         guard let shopVC = shopVC else { return }
 
-        self.navigationController?.popToViewController(shopVC, animated: false)
+        self.navigationController?.popToViewController(shopVC,
+                                                       animated: false)
     }
     
-        @objc fileprivate func saveButtonPressed() {
-            self.mainView.mainScrollView.endEditing(true)
-            self.buttonsDelegate?.saveChanges(button: self.mainView.saveButton, vc: self)
-            
-        }
+    @objc fileprivate func saveButtonPressed() {
+        self.mainView.mainScrollView.endEditing(true)
+        self.buttonsDelegate?
+            .saveChanges(button: self.mainView.saveButton,
+                                          vc: self)
+        
+    }
 
-        @objc fileprivate func connectButtonPressed() {
-            print("connect button pressed")
-            self.buttonsDelegate?.connectTelegram(button: self.mainView.connectButton)
+    @objc fileprivate func connectButtonPressed() {
+        self.mainView.connectButton
+            .isEnabled = false
+        networkDelegate?.connectTelegram(
+            complition: { [weak self] result in
+                guard let result = result else { return }
+                self?.pasteboard.string = result
+            })
+        self.showConnectTgView { [weak self] in
+            self?.mainView.connectButton
+                .isEnabled = true
         }
         
-        @objc fileprivate func changePassButtonPressed() {
-            let changePassVC = ChangePassViewController()
-            changePassVC.networkDelegate = self.networkDelegate
-            self.present(UINavigationController(rootViewController: changePassVC), animated: true, completion: nil)
-            self.buttonsDelegate?.openChangePasswordVC(button: self.mainView.changePasswordButton)
+    }
+    
+    @objc fileprivate func changePassButtonPressed() {
+        let changePassVC = ChangePassViewController()
+        changePassVC.networkDelegate = self.networkDelegate
+        self.present(UINavigationController(rootViewController: changePassVC),
+                     animated: true, completion: nil)
+        self.buttonsDelegate?
+            .openChangePasswordVC(button: self.mainView.changePasswordButton)
+    }
+    
+    @objc fileprivate func logoutButtonPressed() {
+        mainView.logoutButton.pulsate()
+        Alert.showAlert(vc: self,
+                        message: "Are you sure?",
+                        title: "Do you want to logout?",
+                        alertType: .logoutAlert,
+                        complition: {})
+    }
+    
+    @objc fileprivate func goToBotButtonPressed() {
+        removeConnectTgView {
+            guard let url = URL(
+                string: "https://t.me/hurry_orders_bot") else { return }
+            UIApplication.shared.open(url)
         }
-        
-        @objc fileprivate func logoutButtonPressed() {
-            mainView.logoutButton.pulsate()
-            Alert.showAlert(vc: self,
-                            message: "Are you sure?",
-                            title: "Do you want to logout?",
-                            alertType: .logoutAlert,
-                            complition: {})
+    }
+    
+}
+
+//MARK: -ConnectTgView setup
+extension UserAdminViewController {
+    private func showConnectTgView(
+        complition: @escaping () -> Void) {
+            view.addSubview(connectTgView)
+            
+            UIView.animate(withDuration: 0.1,
+                           delay: 0,
+                           options: .allowUserInteraction) { [weak self] in
+                self?.connectTgView
+                    .transform = CGAffineTransform(translationX: 0,
+                                                            y: 250)
+            }
+
+            DispatchQueue
+                .main
+                .asyncAfter(deadline: .now() + 5) {
+                    UIView.animate(withDuration: 0.07,
+                                   delay: 0,
+                                   options: [.allowUserInteraction]) { [weak self] in
+                        self?.connectTgView
+                            .transform = CGAffineTransform(translationX: 0,
+                                                                    y: -250)
+                    } completion: { [weak self] _ in
+                        self?.connectTgView.removeFromSuperview()
+                        complition()
+                    }
+                }
         }
+    
+    private func removeConnectTgView(
+        complition: @escaping () -> Void ) {
+            UIView.animate(withDuration: 0.1,
+                           delay: 0,
+                           options: .allowAnimatedContent) {
+                [weak self] in
+                guard self?.connectTgView != nil else { return }
+                self?.connectTgView
+                    .transform = CGAffineTransform(translationX: 0,
+                                                            y: -250)
+            } completion: { [weak self] _ in
+                self?.connectTgView.removeFromSuperview()
+                complition()
+            }
+
+    }
 }

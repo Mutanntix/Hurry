@@ -8,7 +8,9 @@
 import UIKit
 
 class BusketMainView: UIView {
-    lazy var isLargeScreen = self.isLargeScreen(frame: frame)
+    var isLargeScreen: Bool = {
+        return UIView.isLargeScreen()
+    }()
     
     let basketLabel = UILabel()
     let clearButton = UIButton()
@@ -165,12 +167,5 @@ extension BusketMainView {
             make.width.equalTo(frame.width / 3)
             make.centerX.equalToSuperview()
         }
-    }
-}
-
-
-extension BusketMainView {
-    fileprivate func isLargeScreen(frame: CGRect) -> Bool {
-        return frame.size.height > 670 ? true : false
     }
 }

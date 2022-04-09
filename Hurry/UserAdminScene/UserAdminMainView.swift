@@ -9,7 +9,9 @@ import UIKit
 
 class UserAdminMainView: UIView {
     
-    var isLargeScreen = false
+    var isLargeScreen: Bool = {
+        return UIView.isLargeScreen()
+    }()
     
     let headerView = UIView()
     let headerBorder = UIView()
@@ -51,7 +53,6 @@ class UserAdminMainView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.isLargeScreen = self.isLargeScreen(frame: frame)
         self.setupUserAdminVCMainView(frame: frame)
         self.setupUserAdminVCHeader(frame: frame)
     }
@@ -353,7 +354,9 @@ class UserAdminMainView: UIView {
         self.addSubview(mainScrollView)
         
         //MARK: SETUP SCROLL SUBVIEWS
-        mainScrollView.contentSize = CGSize(width: width, height: isLargeScreen ? (height * 1.1) : (height * 1.2))
+        mainScrollView.contentSize = CGSize(width: width,
+                                            height: isLargeScreen
+                                            ? (height * 1.1) : (height * 1.2))
         mainScrollView.showsVerticalScrollIndicator = false
         mainScrollView.keyboardDismissMode = .onDrag
         mainScrollView.backgroundColor = .white
@@ -448,10 +451,6 @@ class UserAdminMainView: UIView {
             make.top.equalTo(changePasswordButton.snp.bottom).offset(25)
             make.height.equalTo(30)
         }
-    }
-    
-    private func isLargeScreen(frame: CGRect) -> Bool {
-        return frame.height > 670 ? true : false
     }
 }
 

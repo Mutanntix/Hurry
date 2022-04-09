@@ -11,7 +11,9 @@ import SnapKit
 
 class ShopMainView: UIView {
     
-    var isLargeScreen = false
+    var isLargeScreen: Bool = {
+        return UIView.isLargeScreen()
+    }()
     
     let headerView = UIView()
     let headerBorder = UIView()
@@ -32,7 +34,6 @@ class ShopMainView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.isLargeScreen = self.isLargeScreen(frame: frame)
         self.setupHeaderForShopVC()
         self.setupCafeListViewForShopVC(frame: frame)
     }
@@ -163,12 +164,5 @@ class ShopMainView: UIView {
             make.top.equalTo(headerBorder.snp.bottom)
             make.bottom.equalToSuperview()
         }
-    }
-}
-
-
-extension ShopMainView {
-    fileprivate func isLargeScreen(frame: CGRect) -> Bool {
-        return frame.size.height > 670 ? true : false
     }
 }

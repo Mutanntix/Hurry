@@ -35,6 +35,7 @@
 		9BE470AC27C3C37500E3C4B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE470AA27C3C37500E3C4B4 /* LaunchScreen.storyboard */; };
 		9BE470BA27C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE470B927C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift */; };
 		C5524A9F5FA0FC0C6A59E882 /* Pods_Hurry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9BDEF466EA843B3F5B0D8 /* Pods_Hurry.framework */; };
+		FD10D7C128017BBC00C03283 /* ConnectTgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD10D7C028017BBC00C03283 /* ConnectTgView.swift */; };
 		FD25AD1B27F84A0800D5D787 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD25AD1A27F84A0800D5D787 /* ProductModel.swift */; };
 		FD25AD1D27F84A2F00D5D787 /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD25AD1C27F84A2F00D5D787 /* InfoModel.swift */; };
 		FD25AD1F27F84A4600D5D787 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD25AD1E27F84A4600D5D787 /* AddressModel.swift */; };
@@ -90,6 +91,7 @@
 		9BE470AD27C3C37500E3C4B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BE470B927C3DE6A00E3C4B4 /* LaunchAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAnimationViewController.swift; sourceTree = "<group>"; };
 		CBCD21A86E3101084AEE0113 /* Pods-Hurry.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hurry.debug.xcconfig"; path = "Target Support Files/Pods-Hurry/Pods-Hurry.debug.xcconfig"; sourceTree = "<group>"; };
+		FD10D7C028017BBC00C03283 /* ConnectTgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectTgView.swift; sourceTree = "<group>"; };
 		FD25AD1A27F84A0800D5D787 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
 		FD25AD1C27F84A2F00D5D787 /* InfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
 		FD25AD1E27F84A4600D5D787 /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 			children = (
 				9B90B9AB27D2278F003EAB41 /* UserAdminViewController.swift */,
 				9BB8C23C27DB51BE00B5B0DD /* UserAdminMainView.swift */,
+				FD10D7C028017BBC00C03283 /* ConnectTgView.swift */,
 				9B47A49427D53B68007F6E4B /* UserAdminViewControllerDelegate.swift */,
 				9B47A49A27D680DA007F6E4B /* KeyboardDelegate.swift */,
 				9BB8C23E27DB5AFD00B5B0DD /* UserAdminViewControllerProtocol.swift */,
@@ -452,6 +455,7 @@
 			files = (
 				FD25AD1D27F84A2F00D5D787 /* InfoModel.swift in Sources */,
 				FDC1C5C527FF83C30038E4FC /* OnBoardingViewCell.swift in Sources */,
+				FD10D7C128017BBC00C03283 /* ConnectTgView.swift in Sources */,
 				9BE470A727C3C37300E3C4B4 /* Hurry.xcdatamodeld in Sources */,
 				FDF511602800B1F8004DCA7E /* UIImage + Extension.swift in Sources */,
 				9B42499127DE495B006A56A1 /* BasketCell.swift in Sources */,

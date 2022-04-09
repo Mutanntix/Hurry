@@ -18,7 +18,8 @@ extension UIButton {
         pulse.initialVelocity = 0.5
         pulse.damping = 1.0
 
-        layer.add(pulse, forKey: "pulse")
+        layer.add(pulse,
+                  forKey: "pulse")
     }
     
     func shake() {
@@ -27,15 +28,18 @@ extension UIButton {
         shake.repeatCount = 2
         shake.autoreverses = true
 
-        let fromPoint = CGPoint(x: center.x - 5, y: center.y)
+        let fromPoint = CGPoint(x: center.x - 5,
+                                y: center.y)
         let fromValue = NSValue(cgPoint: fromPoint)
 
-        let toPoint = CGPoint(x: center.x + 5, y: center.y)
+        let toPoint = CGPoint(x: center.x + 5,
+                              y: center.y)
         let toValue = NSValue(cgPoint: toPoint)
 
         shake.fromValue = fromValue
         shake.toValue = toValue
 
-        layer.add(shake, forKey: "position")
+        layer.add(shake,
+                  forKey: "position")
     }
 }
