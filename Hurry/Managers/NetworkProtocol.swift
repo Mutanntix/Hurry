@@ -53,4 +53,7 @@ protocol NetworkProtocol: AnyObject {
     
     func getUserInfo(
         complition: @escaping (UserInfoOfferModel?) -> Void)
+    
+    func updateUserInfo(userInfo: UserInfoOfferModel,
+        complition: @escaping (Bool) -> Void)
 }

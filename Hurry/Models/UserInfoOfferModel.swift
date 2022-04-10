@@ -8,6 +8,22 @@
 import Foundation
 
 struct UserInfoOfferModel: Codable {
-    let info: UserInfoModel
-    let tgChatId: Int
+    var info: UserInfoModel
+    let tgChatId: Int?
+    
+    func updateUserInfo(nick: String,
+                        drink: String,
+                        contry: String,
+                        city: String)
+    -> UserInfoOfferModel? {
+        guard let newUserInfo = UserInfoModel(nick: nick,
+                                        drink: drink,
+                                        country: contry,
+                                        city: city)
+        else { return nil }
+        let newUserInfoOffer =
+        UserInfoOfferModel(info: newUserInfo,
+                           tgChatId: self.tgChatId)
+        return newUserInfoOffer
+    }
 }

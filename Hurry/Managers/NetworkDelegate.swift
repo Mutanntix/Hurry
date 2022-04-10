@@ -101,4 +101,11 @@ class NetworkDelegate: NetworkProtocol {
             NetworkManager.shared
                 .getUserInfo(complition: complition)
         }
+    
+    func updateUserInfo(userInfo: UserInfoOfferModel,
+                        complition: @escaping (Bool) -> Void) {
+        NetworkManager.shared
+            .updateUserInfo(userInfo: userInfo,
+                            complition: complition)
+    }
 }

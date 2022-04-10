@@ -24,4 +24,14 @@ struct UserInfoModel: Codable {
         self.country = offer.info.country
         self.city = offer.info.city
     }
+    
+    init?(nick: String,
+                     drink: String,
+                     country: String,
+                     city: String) {
+        self.nickname = nick
+        self.favoriteDrink = drink
+        self.country = country
+        self.city = city
+    }
 }

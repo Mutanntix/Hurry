@@ -78,16 +78,10 @@ class NetworkManager {
             self.urlComponents.path = "/api/user/forgotPass"
         case .changePass:
             self.urlComponents.path = "/api/user/changePass"
-        case .cartPut:
+        case .cart:
             self.urlComponents.path = "/api/user/cart"
-        case .cartGet:
-            self.urlComponents.path = "/api/user/cart"
-        case .cartDelete:
-            self.urlComponents.path = "/api/user/cart"
-        case .getInfo:
+        case .info:
             self.urlComponents.path = "/api/user/info"
-        case .putInfo:
-            break
         case .sendOrder:
             self.urlComponents.path = "/api/user/sendOrder"
         case .rateUp:
@@ -279,7 +273,7 @@ class NetworkManager {
     
     func basketPut(shop: ShopModel, indexPath: IndexPath) {
         let products = shop.menu
-        var urlComponents = getUrl(for: .cartPut)
+        var urlComponents = getUrl(for: .cart)
         guard let user = fetchUser() else { return }
         
         urlComponents.queryItems = [
@@ -312,7 +306,7 @@ class NetworkManager {
     }
     
     func getCurrentBasket(complition: @escaping ([[String: Product]]?) -> Void) {
-        let urlComponents = getUrl(for: .cartGet)
+        let urlComponents = getUrl(for: .cart)
         guard let url = urlComponents.url else { return }
         guard let user = fetchUser() else { return }
         let params: Parameters = [
@@ -345,7 +339,7 @@ class NetworkManager {
     }
     
     func clearBasket(complition: @escaping (Bool) -> Void) {
-        let urlComponents = getUrl(for: .cartDelete)
+        let urlComponents = getUrl(for: .cart)
         guard let url = urlComponents.url else { return }
         guard let user = fetchUser() else { return }
         let params: Parameters = [
@@ -540,7 +534,7 @@ class NetworkManager {
     func getUserInfo(
         complition: @escaping (UserInfoOfferModel?) -> Void) {
             guard let user = fetchUser() else { return }
-            let urlComponents = getUrl(for: .getInfo)
+            let urlComponents = getUrl(for: .info)
             guard let url = urlComponents.url else { return }
 
             let params: Parameters = [
@@ -568,10 +562,40 @@ class NetworkManager {
                     } catch let error {
                         print(error)
                         complition(nil)
-                    }
                 }
             }
-
+        }
+    }
+    
+    func updateUserInfo(userInfo: UserInfoOfferModel,
+        complition: @escaping (Bool) -> Void) {
+            var urlComponents = getUrl(for: .info)
+            guard let user = fetchUser() else { return }
+            urlComponents.queryItems = [
+                URLQueryItem(name: "uid",
+                             value: user.getUid())
+            ]
+            guard let url = urlComponents.url else { return }
+            
+            
+            let request = AF.request(url,
+                                     method: .put,
+                                     parameters: userInfo,
+                                     encoder: JSONParameterEncoder(),
+                                     headers: nil,
+                                     interceptor: nil,
+                                     requestModifier: nil)
+            request.validate()
+                .response { response in
+                    switch response.result {
+                    case .failure(let error):
+                        print(error
+                            .localizedDescription)
+                        complition(false)
+                    case .success(_):
+                        complition(true)
+                }
+            }
     }
 
     

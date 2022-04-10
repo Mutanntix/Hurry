@@ -14,12 +14,9 @@ enum RequestType {
     case connect
     case forgotPass
     case changePass
-    case cartPut
-    case cartDelete
-    case cartGet
+    case cart
     case checkInfo
-    case getInfo
-    case putInfo
+    case info
     case sendOrder
     case rateUp
     case rateDown

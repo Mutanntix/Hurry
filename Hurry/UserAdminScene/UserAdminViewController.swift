@@ -23,6 +23,7 @@ class UserAdminViewController: UIViewController,
     var keyboardDelegate: UserAdminKeyboardProtocol?
     
     let pasteboard = UIPasteboard.general
+    var currentUserInfoOffer: UserInfoOfferModel?
     
     var mainView: UserAdminMainView {
         return self.view as! UserAdminMainView
@@ -102,18 +103,6 @@ class UserAdminViewController: UIViewController,
 
 //MARK: -Methods
 extension UserAdminViewController {
-    private func getAndUpdateUserInfo() {
-        networkDelegate?.getUserInfo(
-            complition: { [weak self] userInfoOffer in
-                guard let userInfoOffer = userInfoOffer
-                else { return }
-                let userInfo = UserInfoModel(
-                    offer: userInfoOffer)
-                self?.mainView.updateTextFieldsFromModel(
-                    userInfo: userInfo)
-            })
-    }
-    
     @objc fileprivate func keyboardWillShow(notification: NSNotification) {
         self.keyboardDelegate?.keyboardWillShow(notification: notification,
                                                 viewController: self)
@@ -144,12 +133,27 @@ extension UserAdminViewController {
     @objc fileprivate func saveButtonPressed() {
         mainView.saveButton
             .isEnabled = false
-        mainView.showSavedView { [weak self] in
-            self?.mainView.saveButton
-                .isEnabled = true
-        }
-        self.mainView.mainScrollView.endEditing(true)
+        mainView.mainScrollView.endEditing(true)
         
+        pushNewUserInfo { [weak self] result in
+            guard let newUserInfo = result
+            else {
+                Alert.showAlert(vc: self!,
+                                message: "Something went wrong",
+                                title: "Error",
+                                alertType: .serverErrorAlert,
+                                complition: {})
+                self?.mainView.saveButton
+                    .isEnabled = true
+                return
+            }
+            self?.currentUserInfoOffer = newUserInfo
+            self?.getAndUpdateUserInfo()
+            self?.mainView.showSavedView { [weak self] in
+                self?.mainView.saveButton
+                    .isEnabled = true
+            }
+        }
     }
 
     @objc fileprivate func connectButtonPressed() {
@@ -202,6 +206,47 @@ extension UserAdminViewController {
             self?.mainView
                 .blurView.removeFromSuperview()
         }
+    }
+    
+    private func getAndUpdateUserInfo() {
+        networkDelegate?.getUserInfo(
+            complition: { [weak self] userInfoOffer in
+                guard let userInfoOffer = userInfoOffer
+                else { return }
+                self?.currentUserInfoOffer = userInfoOffer
+                
+                let userInfo = UserInfoModel(
+                    offer: userInfoOffer)
+                self?.mainView.updateTextFieldsFromModel(
+                    userInfo: userInfo)
+            })
+    }
+    
+    private func pushNewUserInfo(
+        complition: @escaping (UserInfoOfferModel?) -> Void) {
+            guard let nick = mainView.nickNameTF.text,
+                  let drink = mainView.favoriteDrinkTF.text,
+                  let country = mainView.countryTF.text,
+                  let city = mainView.cityTF.text
+            else {
+                complition(nil)
+                return
+            }
+                
+            guard let newUserInfo = currentUserInfoOffer?
+                .updateUserInfo(nick: nick,
+                                drink: drink,
+                                contry: country,
+                                city: city)
+            else {
+                complition(nil)
+                return
+            }
+            networkDelegate?
+                .updateUserInfo(userInfo: newUserInfo,
+                                complition: { result in
+                    complition(newUserInfo)
+                })
     }
 }
 
