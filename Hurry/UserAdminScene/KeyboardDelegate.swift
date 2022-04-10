@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class KeyboardDelegate: UserAdminKeyboardDelegate {
+class KeyboardDelegate: UserAdminKeyboardProtocol {
     
     func keyboardWillShow(notification: NSNotification, viewController: UIViewController) {
         guard let userInfo = notification.userInfo else { return }

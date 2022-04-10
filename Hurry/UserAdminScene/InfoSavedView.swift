@@ -1,18 +1,19 @@
 //
-//  ConnectTgView.swift
+//  InfoSavedView.swift
 //  Hurry
 //
-//  Created by Мурад Чеерчиев on 09.04.2022.
+//  Created by Мурад Чеерчиев on 10.04.2022.
 //
 
 import Foundation
 import UIKit
 import SnapKit
 
-class ConnectTgView: UIView {
+class InfoSavedView: UIView {
+    
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        let image = UIImage(named: "telegram")
+        let image = UIImage(named: "hurryInfo")
         imageView.image = image
         
         return imageView
@@ -21,23 +22,20 @@ class ConnectTgView: UIView {
     let infoLabel: UILabel = {
         let label = UILabel()
         label.text = """
-        Your code for tg has been copied.
-        Please, press "go to bot" button
-        and you will be directed to
-        hurry's tg bot. Send this code
-        to the bot.
+        Your profile info has been saved.
+        Thank you!
         """
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 25)
+        label.font = .systemFont(ofSize: 30)
         
         return label
     }()
 
-    let goToBotButton: UIButton = {
+    let doneButton: UIButton = {
         
         let button = UIButton()
-        button.setTitle("go to the bot",
+        button.setTitle("Done",
                         for: .normal)
         button.backgroundColor = UIColor(red: 34/255,
                                          green: 160/255,
@@ -50,25 +48,32 @@ class ConnectTgView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        initialization()
-        setupConstraints()
+        let isLargeScreen = UIView.isLargeScreen()
+        initialization(isLargeScreen: isLargeScreen)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func initialization() {
+    private func initialization(isLargeScreen: Bool) {
         self.backgroundColor = UIColor(red: 253/255,
                                        green: 248/255,
                                        blue: 229/255,
                                        alpha: 1)
         self.layer.cornerRadius = 15
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.gray.cgColor
+        self.layer.borderColor = UIColor
+            .gray.cgColor
         self.addSubview(imageView)
         self.addSubview(infoLabel)
-        self.addSubview(goToBotButton)
+        self.addSubview(doneButton)
+        
+        if !isLargeScreen {
+            self.infoLabel.font
+                = .systemFont(ofSize: 23)
+        }
+        setupConstraints()
     }
     
     private func setupConstraints() {
@@ -81,10 +86,12 @@ class ConnectTgView: UIView {
         infoLabel.snp.makeConstraints { make in
             make.top.equalTo(
                 imageView.snp.bottom).offset(50)
-            make.centerX.equalToSuperview()
+            make.leading
+                .trailing.equalToSuperview()
+                    .inset(16)
         }
         
-        goToBotButton.snp.makeConstraints { make in
+        doneButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
                 .offset(-30)
             make.centerX.equalToSuperview()
@@ -94,3 +101,4 @@ class ConnectTgView: UIView {
         }
     }
 }
+

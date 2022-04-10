@@ -18,7 +18,8 @@ enum RequestType {
     case cartDelete
     case cartGet
     case checkInfo
-    case info
+    case getInfo
+    case putInfo
     case sendOrder
     case rateUp
     case rateDown

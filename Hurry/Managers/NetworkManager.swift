@@ -84,7 +84,9 @@ class NetworkManager {
             self.urlComponents.path = "/api/user/cart"
         case .cartDelete:
             self.urlComponents.path = "/api/user/cart"
-        case .info:
+        case .getInfo:
+            self.urlComponents.path = "/api/user/info"
+        case .putInfo:
             break
         case .sendOrder:
             self.urlComponents.path = "/api/user/sendOrder"
@@ -331,7 +333,8 @@ class NetworkManager {
                 complition(nil)
                 case .success(let data):
                 do {
-                    let currentBasket = try JSONDecoder().decode([[String: Product]].self, from: data)
+                    let currentBasket = try JSONDecoder()
+                        .decode([[String: Product]].self, from: data)
                     complition(currentBasket)
                 } catch let error {
                     print(error)
@@ -533,22 +536,63 @@ class NetworkManager {
             }
         }
     }
+    
+    func getUserInfo(
+        complition: @escaping (UserInfoOfferModel?) -> Void) {
+            guard let user = fetchUser() else { return }
+            let urlComponents = getUrl(for: .getInfo)
+            guard let url = urlComponents.url else { return }
+
+            let params: Parameters = [
+                "uid": user.getUid()
+            ]
+            let request = AF.request(url,
+                                     method: .get,
+                                     parameters: params,
+                                     encoding: URLEncoding.default,
+                                     headers: nil,
+                                     interceptor: nil,
+                                     requestModifier: nil)
+            
+            request.validate().responseData { responseData in
+                
+                switch responseData.result {
+                    case .failure(let error):
+                    print("error: ", error)
+                    complition(nil)
+                    case .success(let data):
+                    do {
+                        let userInfoOffer = try JSONDecoder()
+                            .decode(UserInfoOfferModel.self, from: data)
+                        complition(userInfoOffer)
+                    } catch let error {
+                        print(error)
+                        complition(nil)
+                    }
+                }
+            }
+
+    }
 
     
     
     //MARK: -WORKING WITH USERMODEL
     private func saveUser(user: UserModel) {
-        guard let data = try? PropertyListEncoder().encode(user) else { return }
+        guard let data = try? PropertyListEncoder()
+            .encode(user) else { return }
         
         if archiveURL != nil {
-            try? data.write(to: archiveURL!, options: .noFileProtection)
+            try? data.write(to: archiveURL!,
+                            options: .noFileProtection)
         }
     }
     
     private func fetchUser() -> UserModel? {
         if archiveURL != nil {
-            guard let data = try? Data(contentsOf: archiveURL!) else { return nil }
-            guard let user = try? PropertyListDecoder().decode(UserModel.self, from: data) else { return nil }
+            guard let data = try? Data(contentsOf: archiveURL!)
+            else { return nil }
+            guard let user = try? PropertyListDecoder()
+                .decode(UserModel.self, from: data) else { return nil }
             
             return user
         }
@@ -557,10 +601,12 @@ class NetworkManager {
     
     func deleteUser() {
         let user = UserModel(login: "", password: "", uid: nil)
-        guard let data = try? PropertyListEncoder().encode(user) else { return }
+        guard let data = try? PropertyListEncoder()
+            .encode(user) else { return }
         
         if archiveURL != nil {
-            try? data.write(to: archiveURL!, options: .noFileProtection)
+            try? data.write(to: archiveURL!,
+                            options: .noFileProtection)
         }
     }
     

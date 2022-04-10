@@ -95,4 +95,10 @@ class NetworkDelegate: NetworkProtocol {
             NetworkManager.shared
                 .connectTelegram(complition: complition)
         }
+    
+    func getUserInfo(
+        complition: @escaping (UserInfoOfferModel?) -> Void) {
+            NetworkManager.shared
+                .getUserInfo(complition: complition)
+        }
 }

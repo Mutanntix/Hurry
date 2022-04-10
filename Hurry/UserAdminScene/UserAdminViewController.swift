@@ -8,24 +8,21 @@
 import UIKit
 import Foundation
 
-protocol UserAdminKeyboardDelegate {
-    func keyboardWillShow(notification: NSNotification, viewController: UIViewController)
-    func keyboardWillHide(notification: NSNotification, viewController: UIViewController)
+protocol UserAdminKeyboardProtocol {
+    func keyboardWillShow(notification: NSNotification,
+                          viewController: UIViewController)
+    
+    func keyboardWillHide(notification: NSNotification,
+                          viewController: UIViewController)
 }
 
-class UserAdminViewController: UIViewController, UITextFieldDelegate {
+class UserAdminViewController: UIViewController,
+                               UITextFieldDelegate {
     weak var networkDelegate: NetworkDelegate?
     
-    var keyboardDelegate: UserAdminKeyboardDelegate?
-    var buttonsDelegate: UserAdminViewControllerProtocol?
+    var keyboardDelegate: UserAdminKeyboardProtocol?
     
     let pasteboard = UIPasteboard.general
-    
-    lazy var connectTgView = ConnectTgView(
-        frame: CGRect(x: view.frame.midX - 150,
-                      y: view.frame.minY - 200,
-                      width: 300,
-                      height: 250))
     
     var mainView: UserAdminMainView {
         return self.view as! UserAdminMainView
@@ -39,17 +36,29 @@ class UserAdminViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         self.keyboardDelegate = KeyboardDelegate()
-        self.buttonsDelegate = UserAdminViewControllerDelegate()
         firstInitializate()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
         
     private func firstInitializate() {
+        getAndUpdateUserInfo()
+        
         self.navigationItem.hidesBackButton = true
-        self.navigationController?.isNavigationBarHidden = true
-        self.view.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        self.navigationController?
+            .isNavigationBarHidden = true
+        self.view.backgroundColor = UIColor(red: 245/255,
+                                            green: 245/255,
+                                            blue: 245/255,
+                                            alpha: 1)
         
         self.mainView.cityTF.delegate = self
         self.mainView.countryTF.delegate = self
@@ -79,15 +88,32 @@ class UserAdminViewController: UIViewController, UITextFieldDelegate {
                                      action: #selector(connectButtonPressed),
                                      for: .touchUpInside)
         
-        self.connectTgView
+        self.mainView.connectTgView
             .goToBotButton.addTarget(self,
                                      action: #selector(goToBotButtonPressed),
                                      for: .touchUpInside)
+        
+        self.mainView.infoSavedView
+            .doneButton.addTarget(self,
+                                  action: #selector(doneButtonPressed),
+                                  for: .touchUpInside)
     }
 }
 
 //MARK: -Methods
 extension UserAdminViewController {
+    private func getAndUpdateUserInfo() {
+        networkDelegate?.getUserInfo(
+            complition: { [weak self] userInfoOffer in
+                guard let userInfoOffer = userInfoOffer
+                else { return }
+                let userInfo = UserInfoModel(
+                    offer: userInfoOffer)
+                self?.mainView.updateTextFieldsFromModel(
+                    userInfo: userInfo)
+            })
+    }
+    
     @objc fileprivate func keyboardWillShow(notification: NSNotification) {
         self.keyboardDelegate?.keyboardWillShow(notification: notification,
                                                 viewController: self)
@@ -100,23 +126,29 @@ extension UserAdminViewController {
     
     @objc func goToShopVC() {
         var shopVC: ShopViewController?
-        guard let navigationController = self.navigationController else { return }
+        guard let navigationController = self.navigationController
+        else { return }
         
         for vc in navigationController.viewControllers {
-            guard let attemptShopVC = vc as? ShopViewController else { continue }
+            guard let attemptShopVC = vc as? ShopViewController
+            else { continue }
             shopVC = attemptShopVC
         }
         guard let shopVC = shopVC else { return }
 
-        self.navigationController?.popToViewController(shopVC,
-                                                       animated: false)
+        self.navigationController?
+            .popToViewController(shopVC,
+                                 animated: false)
     }
     
     @objc fileprivate func saveButtonPressed() {
+        mainView.saveButton
+            .isEnabled = false
+        mainView.showSavedView { [weak self] in
+            self?.mainView.saveButton
+                .isEnabled = true
+        }
         self.mainView.mainScrollView.endEditing(true)
-        self.buttonsDelegate?
-            .saveChanges(button: self.mainView.saveButton,
-                                          vc: self)
         
     }
 
@@ -128,9 +160,10 @@ extension UserAdminViewController {
                 guard let result = result else { return }
                 self?.pasteboard.string = result
             })
-        self.showConnectTgView { [weak self] in
-            self?.mainView.connectButton
-                .isEnabled = true
+
+        mainView.showConnectTgView { [weak self] in
+            self?.mainView
+                .connectButton.isEnabled = true
         }
         
     }
@@ -138,10 +171,10 @@ extension UserAdminViewController {
     @objc fileprivate func changePassButtonPressed() {
         let changePassVC = ChangePassViewController()
         changePassVC.networkDelegate = self.networkDelegate
-        self.present(UINavigationController(rootViewController: changePassVC),
-                     animated: true, completion: nil)
-        self.buttonsDelegate?
-            .openChangePasswordVC(button: self.mainView.changePasswordButton)
+        self.present(
+            UINavigationController(rootViewController: changePassVC),
+            animated: true,
+            completion: nil)
     }
     
     @objc fileprivate func logoutButtonPressed() {
@@ -154,59 +187,21 @@ extension UserAdminViewController {
     }
     
     @objc fileprivate func goToBotButtonPressed() {
-        removeConnectTgView {
+        mainView.removeConnectTgView { [weak self] in
+            self?.mainView
+                .blurView.removeFromSuperview()
             guard let url = URL(
-                string: "https://t.me/hurry_orders_bot") else { return }
+                string: "https://t.me/hurry_orders_bot")
+            else { return }
             UIApplication.shared.open(url)
         }
     }
     
-}
-
-//MARK: -ConnectTgView setup
-extension UserAdminViewController {
-    private func showConnectTgView(
-        complition: @escaping () -> Void) {
-            view.addSubview(connectTgView)
-            
-            UIView.animate(withDuration: 0.1,
-                           delay: 0,
-                           options: .allowUserInteraction) { [weak self] in
-                self?.connectTgView
-                    .transform = CGAffineTransform(translationX: 0,
-                                                            y: 250)
-            }
-
-            DispatchQueue
-                .main
-                .asyncAfter(deadline: .now() + 5) {
-                    UIView.animate(withDuration: 0.07,
-                                   delay: 0,
-                                   options: [.allowUserInteraction]) { [weak self] in
-                        self?.connectTgView
-                            .transform = CGAffineTransform(translationX: 0,
-                                                                    y: -250)
-                    } completion: { [weak self] _ in
-                        self?.connectTgView.removeFromSuperview()
-                        complition()
-                    }
-                }
+    @objc fileprivate func doneButtonPressed() {
+        mainView.removeSavedView { [weak self] in
+            self?.mainView
+                .blurView.removeFromSuperview()
         }
-    
-    private func removeConnectTgView(
-        complition: @escaping () -> Void ) {
-            UIView.animate(withDuration: 0.1,
-                           delay: 0,
-                           options: .allowAnimatedContent) {
-                [weak self] in
-                guard self?.connectTgView != nil else { return }
-                self?.connectTgView
-                    .transform = CGAffineTransform(translationX: 0,
-                                                            y: -250)
-            } completion: { [weak self] _ in
-                self?.connectTgView.removeFromSuperview()
-                complition()
-            }
-
     }
 }
+

@@ -50,6 +50,23 @@ class UserAdminMainView: UIView {
     
     let changePasswordButton = UIButton()
     let logoutButton = UIButton()
+    
+    //additonal views
+    lazy var connectTgView = ConnectTgView(
+        frame: CGRect(x: self.frame.midX -
+                      (self.frame.width - 10) / 2,
+                      y: self.frame.maxY,
+                      width: self.frame.width - 10,
+                      height: self.frame.height * 0.7))
+    
+    lazy var infoSavedView = InfoSavedView(
+        frame: CGRect(x: self.frame.midX -
+                      (self.frame.width - 10) / 2,
+                      y: self.frame.maxY,
+                      width: self.frame.width - 10,
+                      height: self.frame.height * 0.5))
+    
+    lazy var blurView = UIView(frame: self.frame)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,7 +80,10 @@ class UserAdminMainView: UIView {
     
     func setupUserAdminVCHeader(frame: CGRect) {
         
-        headerView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        headerView.backgroundColor = UIColor(red: 255/255,
+                                             green: 255/255,
+                                             blue: 255/255,
+                                             alpha: 1)
         
         headerBorder.backgroundColor = .black
         
@@ -85,34 +105,48 @@ class UserAdminMainView: UIView {
         
         //MARK: SETUP STACK VIEWS SUBVIEWS
         headerLabel.text = "hurry"
-        headerLabel.textColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1)
+        headerLabel.textColor = UIColor(red: 218/255,
+                                        green: 165/255,
+                                        blue: 32/255,
+                                        alpha: 1)
         headerLabel.textAlignment = .left
-        headerLabel.attributedText = NSAttributedString(string: NSLocalizedString("hurry", comment: ""), attributes:[
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: (isLargeScreen ? 26 : 24)),
+        headerLabel.attributedText = NSAttributedString(
+            string: NSLocalizedString("hurry",
+                                      comment: ""),
+            attributes:[
+            NSAttributedString.Key.font:
+                UIFont.boldSystemFont(ofSize: (isLargeScreen ? 26 : 24)),
             NSAttributedString.Key.underlineStyle: 1.0,
         ])
         
         
         // change lang button
         headerChangeLangButton.setTitle("en", for: .normal)
-        headerChangeLangButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        headerChangeLangButton.setTitleColor(UIColor.black, for: .normal)
+        headerChangeLangButton.titleLabel?
+            .font = UIFont.boldSystemFont(ofSize: 15)
+        headerChangeLangButton.setTitleColor(
+            UIColor.black, for: .normal)
         headerChangeLangButton.layer.borderWidth = 1
         headerChangeLangButton.layer.cornerRadius = 5
         headerChangeLangButton.contentHorizontalAlignment = .center
         
         // go to shop page button
-        headerGoToShopButton.setImage(UIImage(named: "shop"), for: .normal)
+        headerGoToShopButton.setImage(UIImage(named: "shop"),
+                                      for: .normal)
         headerGoToShopButton.contentHorizontalAlignment = .center
         
         // header image view
         headerImageView.image = UIImage(named: "hurry2")
         
         // settings button
-        headerSettingsButton.setImage(UIImage(named: "settings"), for: .normal)
+        headerSettingsButton.setImage(UIImage(named: "settings"),
+                                      for: .normal)
         
         // bottom border for the settings button
-        bottomBorderView.backgroundColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1)
+        bottomBorderView.backgroundColor = UIColor(red: 218/255,
+                                                   green: 165/255,
+                                                   blue: 32/255,
+                                                   alpha: 1)
         
         
         headerView.addSubview(headerLabelStackView)
@@ -137,13 +171,15 @@ class UserAdminMainView: UIView {
         headerLabelStackView.snp.makeConstraints { make in
             make.height.equalTo(30)
             make.bottom.equalToSuperview().inset(10)
-            make.left.equalToSuperview().inset(isLargeScreen ? 20 : 15)
+            make.left.equalToSuperview().inset(isLargeScreen
+                                               ? 20 : 15)
         }
         
         headerButtonsStackView.snp.makeConstraints { make in
             make.height.equalTo(30)
             make.bottom.equalToSuperview().inset(10)
-            make.right.equalToSuperview().inset(isLargeScreen ? 20 : 15)
+            make.right.equalToSuperview().inset(isLargeScreen
+                                                ? 20 : 15)
             
         }
         
@@ -195,9 +231,14 @@ class UserAdminMainView: UIView {
         
         // setup nickName text field
         nickNameTF.placeholder = "Enter your nickname"
-        nickNameTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nickNameTF.frame.height))
+        nickNameTF.leftView = UIView(frame: CGRect(x: 0,
+                                                   y: 0,
+                                                   width: 10,
+                                                   height: nickNameTF
+                                                    .frame.height))
         nickNameTF.leftViewMode = .always
-        nickNameTF.layer.borderColor = UIColor.lightGray.cgColor
+        nickNameTF.layer.borderColor = UIColor
+                                        .lightGray.cgColor
         nickNameTF.autocapitalizationType = .none
         nickNameTF.layer.borderWidth = 1.5
         nickNameTF.layer.cornerRadius = 10
@@ -211,9 +252,14 @@ class UserAdminMainView: UIView {
         
         // setup favorite drink text field
         favoriteDrinkTF.placeholder = "Enter your favorite drink"
-        favoriteDrinkTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nickNameTF.frame.height))
+        favoriteDrinkTF.leftView = UIView(frame: CGRect(x: 0,
+                                                        y: 0,
+                                                        width: 10,
+                                                        height: nickNameTF
+                                                        .frame.height))
         favoriteDrinkTF.leftViewMode = .always
-        favoriteDrinkTF.layer.borderColor = UIColor.lightGray.cgColor
+        favoriteDrinkTF.layer.borderColor = UIColor
+                                            .lightGray.cgColor
         favoriteDrinkTF.autocapitalizationType = .none
         favoriteDrinkTF.layer.borderWidth = 1.5
         favoriteDrinkTF.layer.cornerRadius = 10
@@ -222,12 +268,17 @@ class UserAdminMainView: UIView {
         favoriteDrinkTF.autocorrectionType = UITextAutocorrectionType.no
         favoriteDrinkTF.font = UIFont.systemFont(ofSize: 15)
         favoriteDrinkTF.clearButtonMode = UITextField.ViewMode.whileEditing;
-        favoriteDrinkTF.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        favoriteDrinkTF.contentVerticalAlignment = UIControl
+                                                    .ContentVerticalAlignment.center
         favoriteDrinkTF.textContentType = .username
         
         //setup country text field
         countryTF.placeholder = "Enter your country"
-        countryTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nickNameTF.frame.height))
+        countryTF.leftView = UIView(frame: CGRect(x: 0,
+                                                  y: 0,
+                                                  width: 10,
+                                                  height: nickNameTF
+                                                    .frame.height))
         countryTF.leftViewMode = .always
         countryTF.layer.borderColor = UIColor.lightGray.cgColor
         countryTF.autocapitalizationType = .none
@@ -238,12 +289,17 @@ class UserAdminMainView: UIView {
         countryTF.autocorrectionType = UITextAutocorrectionType.no
         countryTF.font = UIFont.systemFont(ofSize: 15)
         countryTF.clearButtonMode = UITextField.ViewMode.whileEditing;
-        countryTF.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        countryTF.contentVerticalAlignment = UIControl
+                                            .ContentVerticalAlignment.center
         countryTF.textContentType = .username
         
         //setup city text field
         cityTF.placeholder = "Enter your city"
-        cityTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nickNameTF.frame.height))
+        cityTF.leftView = UIView(frame: CGRect(x: 0,
+                                               y: 0,
+                                               width: 10,
+                                               height: nickNameTF
+                                                .frame.height))
         cityTF.leftViewMode = .always
         cityTF.layer.borderColor = UIColor.lightGray.cgColor
         cityTF.autocapitalizationType = .none
@@ -254,31 +310,39 @@ class UserAdminMainView: UIView {
         cityTF.autocorrectionType = UITextAutocorrectionType.no
         cityTF.font = UIFont.systemFont(ofSize: 15)
         cityTF.clearButtonMode = UITextField.ViewMode.whileEditing;
-        cityTF.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        cityTF.contentVerticalAlignment = UIControl
+                                            .ContentVerticalAlignment.center
         cityTF.textContentType = .username
         
         //setup labels
         nickNameLabel.text = "Nickname"
-        nickNameLabel.font = UIFont.systemFont(ofSize: isLargeScreen ? 18 : 16)
+        nickNameLabel.font = UIFont.systemFont(ofSize: isLargeScreen
+                                               ? 18 : 16)
         
         //setup labels
         favoriteDrinkLabel.text = "Favorite drink"
-        favoriteDrinkLabel.font = UIFont.systemFont(ofSize: isLargeScreen ? 18 : 16)
+        favoriteDrinkLabel.font = UIFont.systemFont(ofSize: isLargeScreen
+                                                    ? 18 : 16)
         
         //setup labels
         countryLabel.text = "Country"
-        countryLabel.font = UIFont.systemFont(ofSize: isLargeScreen ? 18 : 16)
+        countryLabel.font = UIFont.systemFont(ofSize: isLargeScreen
+                                              ? 18 : 16)
         
         //setup labels
         cityLabel.text = "City"
-        cityLabel.font = UIFont.systemFont(ofSize: isLargeScreen ? 18 : 16)
+        cityLabel.font = UIFont.systemFont(ofSize: isLargeScreen
+                                           ? 18 : 16)
         
         //setup constraints
         textFieldsStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.height.equalTo(isLargeScreen ? (height / 2.8) : (height / 2.15))
+            make.height.equalTo(isLargeScreen
+                                ? (height / 2.8)
+                                : (height / 2.15))
             make.width.equalTo(width / 1.7)
-            make.bottom.equalToSuperview().inset(isLargeScreen ? 30 : 20)
+            make.bottom.equalToSuperview().inset(isLargeScreen
+                                                 ? 30 : 20)
         }
         
         nickNameTF.snp.makeConstraints { make in
@@ -304,7 +368,8 @@ class UserAdminMainView: UIView {
             if isLargeScreen {
                 make.bottom.equalTo(nickNameTF.snp_topMargin)
             } else {
-                make.bottom.equalTo(nickNameTF.snp_topMargin).inset(5)
+                make.bottom.equalTo(nickNameTF.snp_topMargin)
+                    .inset(5)
             }
         }
         
@@ -315,7 +380,8 @@ class UserAdminMainView: UIView {
             if isLargeScreen {
                 make.bottom.equalTo(favoriteDrinkTF.snp_topMargin)
             } else {
-                make.bottom.equalTo(favoriteDrinkTF.snp_topMargin).inset(5)
+                make.bottom.equalTo(favoriteDrinkTF.snp_topMargin)
+                    .inset(5)
             }
         }
         
@@ -326,7 +392,8 @@ class UserAdminMainView: UIView {
             if isLargeScreen {
                 make.bottom.equalTo(countryTF.snp_topMargin)
             } else {
-                make.bottom.equalTo(countryTF.snp_topMargin).inset(5)
+                make.bottom.equalTo(countryTF.snp_topMargin)
+                    .inset(5)
             }
         }
         
@@ -337,7 +404,8 @@ class UserAdminMainView: UIView {
             if isLargeScreen {
                 make.bottom.equalTo(cityTF.snp_topMargin)
             } else {
-                make.bottom.equalTo(cityTF.snp_topMargin).inset(5)
+                make.bottom.equalTo(cityTF.snp_topMargin)
+                    .inset(5)
             }
         }
         
@@ -361,7 +429,10 @@ class UserAdminMainView: UIView {
         mainScrollView.keyboardDismissMode = .onDrag
         mainScrollView.backgroundColor = .white
         
-        mainView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        mainView.backgroundColor = UIColor(red: 255/255,
+                                           green: 255/255,
+                                           blue: 255/255,
+                                           alpha: 1)
         mainView.layer.cornerRadius = 20
         mainView.layer.shadowRadius = 10
         mainView.layer.shadowOpacity = 0.2
@@ -369,10 +440,14 @@ class UserAdminMainView: UIView {
         mainView.layer.rasterizationScale = UIScreen.main.scale
         
         profileInfoLabel.text = "Profile info"
-        profileInfoLabel.font = UIFont.boldSystemFont(ofSize: isLargeScreen ? 30 : 25)
+        profileInfoLabel.font = UIFont.boldSystemFont(
+            ofSize: isLargeScreen ? 30 : 25)
         profileInfoLabel.textAlignment = .center
         
-        saveButton.backgroundColor = UIColor(red: 37/255, green: 159/255, blue: 237/255, alpha: 1)
+        saveButton.backgroundColor = UIColor(red: 37/255,
+                                             green: 159/255,
+                                             blue: 237/255,
+                                             alpha: 1)
         saveButton.layer.cornerRadius = 23
         saveButton.setTitle("save", for: .normal)
         
@@ -383,15 +458,24 @@ class UserAdminMainView: UIView {
         connectLabel.textAlignment = .center
         
         connectButton.setTitle("connect", for: .normal)
-        connectButton.backgroundColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1)
+        connectButton.backgroundColor = UIColor(red: 128/255,
+                                                green: 128/255,
+                                                blue: 128/255,
+                                                alpha: 1)
         connectButton.layer.cornerRadius = 12
         
         changePasswordButton.setTitle("change password", for: .normal)
-        changePasswordButton.backgroundColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1)
+        changePasswordButton.backgroundColor = UIColor(red: 128/255,
+                                                       green: 128/255,
+                                                       blue: 128/255,
+                                                       alpha: 1)
         changePasswordButton.layer.cornerRadius = 14
         
         logoutButton.setTitle("log out", for: .normal)
-        logoutButton.backgroundColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1)
+        logoutButton.backgroundColor = UIColor(red: 128/255,
+                                               green: 128/255,
+                                               blue: 128/255,
+                                               alpha: 1)
         logoutButton.layer.cornerRadius = 14
                 
         //MARK: SETUP SCROLL SUBVIEWS CONSTRAINTS
@@ -404,22 +488,32 @@ class UserAdminMainView: UIView {
         
         mainView.snp.makeConstraints { make in
             make.width.equalTo(width / 1.5)
-            make.height.equalTo(isLargeScreen ? (height / 1.8) : (height / 1.5))
+            make.height.equalTo(isLargeScreen
+                                ? (height / 1.8)
+                                : (height / 1.5))
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(isLargeScreen ? 50 : 30)
+            make.top.equalToSuperview().inset(isLargeScreen
+                                              ? 50 : 30)
         }
         
         profileInfoLabel.snp.makeConstraints { make in
             make.width.equalTo(width / 1.8)
-            make.height.equalTo(isLargeScreen ? ((height / 1.8) / 10) : ((height / 1.5) / 10))
+            make.height.equalTo(isLargeScreen
+                                ? ((height / 1.8) / 10)
+                                : ((height / 1.5) / 10))
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(isLargeScreen ? 30 : 20)
+            make.top.equalToSuperview().inset(isLargeScreen
+                                              ? 30 : 20)
         }
         
         saveButton.snp.makeConstraints { make in
-            make.width.equalTo(isLargeScreen ? (width / 1.6) : (width / 2))
+            make.width.equalTo(isLargeScreen
+                               ? (width / 1.6)
+                               : (width / 2))
             make.height.equalTo(50)
-            make.top.equalTo(mainView).inset(isLargeScreen ? ((height / 1.8) + 30) : ((height / 1.5) + 30))
+            make.top.equalTo(mainView).inset(isLargeScreen
+                                             ? ((height / 1.8) + 30)
+                                             : ((height / 1.5) + 30))
             make.centerX.equalToSuperview()
         }
         
@@ -427,30 +521,168 @@ class UserAdminMainView: UIView {
             make.width.equalTo(width / 2)
             make.height.equalTo(40)
             make.centerX.equalToSuperview()
-            make.top.equalTo(mainView).inset(isLargeScreen ? ((height / 1.8) + 100) : ((height / 1.5) + 80))
+            make.top.equalTo(mainView).inset(isLargeScreen
+                                             ? ((height / 1.8) + 100)
+                                             : ((height / 1.5) + 80))
         }
         
         connectButton.snp.makeConstraints { make in
             make.width.equalTo(isLargeScreen ? 180 : 160)
             make.height.equalTo(30)
             make.centerX.equalToSuperview()
-            make.top.equalTo(connectLabel.snp_bottomMargin).inset(-5)
+            make.top.equalTo(
+                connectLabel.snp_bottomMargin).inset(-5)
         }
 
         
         changePasswordButton.snp.makeConstraints { make in
-            make.width.equalTo(isLargeScreen ? 180 : 160)
+            make.width.equalTo(isLargeScreen
+                               ? 180 : 160)
             make.centerX.equalToSuperview()
-            make.top.equalTo(connectButton.snp.bottom).offset(25)
+            make.top.equalTo(
+                connectButton.snp.bottom).offset(25)
             make.height.equalTo(30)
         }
         
         logoutButton.snp.makeConstraints { make in
-            make.width.equalTo(isLargeScreen ? 180 : 160)
+            make.width.equalTo(isLargeScreen
+                               ? 180 : 160)
             make.centerX.equalToSuperview()
-            make.top.equalTo(changePasswordButton.snp.bottom).offset(25)
+            make.top.equalTo(
+                changePasswordButton.snp.bottom).offset(25)
             make.height.equalTo(30)
         }
     }
+    
+    func updateTextFieldsFromModel(
+        userInfo: UserInfoModel) {
+            self.nickNameTF
+                .text = userInfo.nickname
+            self.nickNameTF
+                .placeholder = userInfo.nickname
+            
+            self.favoriteDrinkTF
+                .text = userInfo.favoriteDrink
+            self.favoriteDrinkTF
+                .placeholder = userInfo.favoriteDrink
+            
+            self.countryTF
+                .text = userInfo.country
+            self.countryTF
+                .placeholder = userInfo.country
+            
+            self.cityTF
+                .text = userInfo.city
+            self.cityTF
+                .placeholder = userInfo.city
+        }
 }
 
+//MARK: -Pop-Up Views Methods
+extension UserAdminMainView {
+    func showConnectTgView(
+        complition: @escaping () -> Void) {
+            blurView.backgroundColor =
+                UIColor
+                    .black.withAlphaComponent(0.3)
+            self.addSubview(blurView)
+            self.addSubview(connectTgView)
+            
+            UIView.animate(withDuration: 0.3,
+                           delay: 0,
+                           options: .allowUserInteraction) { [weak self] in
+                self?.connectTgView
+                    .transform = CGAffineTransform(translationX: 0,
+                                                   y: -(self!
+                                                    .frame.height * 0.7))
+            }
+            
+            DispatchQueue
+                .main
+                .asyncAfter(deadline: .now() + 5) {
+                    UIView.animate(withDuration: 0.2,
+                                   delay: 0,
+                                   options: [.allowUserInteraction])
+                    { [weak self] in self?.connectTgView
+                            .transform = CGAffineTransform(translationX: 0,
+                                                           y: (self!
+                                                            .frame.height * 0.7))
+                    } completion: { [weak self] _ in
+                        self?.connectTgView.removeFromSuperview()
+                        self?.blurView.removeFromSuperview()
+                        complition()
+                }
+            }
+        }
+    
+    func showSavedView(
+        complition: @escaping () -> Void) {
+            blurView.backgroundColor =
+                UIColor
+                    .black.withAlphaComponent(0.3)
+            self.addSubview(blurView)
+            
+            self.addSubview(infoSavedView)
+            UIView.animate(withDuration: 0.3,
+                           delay: 0,
+                           options: .allowUserInteraction) { [weak self] in
+                self?.infoSavedView
+                    .transform = CGAffineTransform(translationX: 0,
+                                                   y: -(self!
+                                                    .frame.height * 0.5))
+            }
+            
+            DispatchQueue
+                .main
+                .asyncAfter(deadline: .now() + 5) {
+                    UIView.animate(withDuration: 0.2,
+                                   delay: 0,
+                                   options: [.allowUserInteraction]) { [weak self] in
+                        self?.infoSavedView
+                            .transform = CGAffineTransform(translationX: 0,
+                                                           y: (self!
+                                                            .frame.height * 0.5))
+                    } completion: { [weak self] _ in
+                        self?.infoSavedView.removeFromSuperview()
+                        self?.blurView.removeFromSuperview()
+                        complition()
+                }
+            }
+        }
+    
+    func removeConnectTgView(
+        complition: @escaping () -> Void ) {
+            UIView.animate(withDuration: 0.2,
+                           delay: 0,
+                           options: .allowAnimatedContent) {
+                [weak self] in
+                guard self?.connectTgView
+                        != nil else { return }
+                self!.connectTgView
+                    .transform = CGAffineTransform(translationX: 0,
+                                                   y: (self!
+                                                    .frame.height * 0.7))
+            } completion: { [weak self] _ in
+                self?.connectTgView.removeFromSuperview()
+                complition()
+        }
+    }
+    
+    func removeSavedView(
+        complition: @escaping () -> Void ) {
+            UIView.animate(withDuration: 0.2,
+                           delay: 0,
+                           options: .allowAnimatedContent) {
+                [weak self] in
+                guard self?.infoSavedView
+                        != nil else { return }
+                self?.infoSavedView
+                    .transform = CGAffineTransform(translationX: 0,
+                                                   y: (self!
+                                                    .frame.height * 0.7))
+            } completion: { [weak self] _ in
+                self?.infoSavedView.removeFromSuperview()
+                complition()
+        }
+    }
+}

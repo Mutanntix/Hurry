@@ -50,4 +50,7 @@ protocol NetworkProtocol: AnyObject {
     
     func connectTelegram(
         complition: @escaping (String?) -> Void )
+    
+    func getUserInfo(
+        complition: @escaping (UserInfoOfferModel?) -> Void)
 }
