@@ -285,9 +285,10 @@ extension ShopCardViewController {
 //MARK: -SuccessOrderView
 extension ShopCardViewController: BusketViewControllerDelegate {
     func showSuccessOrderView() {
-        let succOrderView = SuccessOrderView(frame: CGRect(x: view.frame.midX - 125,
+        let succOrderView = SuccessOrderView(frame: CGRect(x: view.frame.midX -
+                                                           ((view.frame.width * 0.98) / 2),
                                                            y: view.frame.minY - 100,
-                                                           width: 250,
+                                                           width: view.frame.width * 0.98,
                                                            height: 70))
         view.addSubview(succOrderView)
         

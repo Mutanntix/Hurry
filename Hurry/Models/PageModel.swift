@@ -32,7 +32,7 @@ struct PageModel {
         
         guard let imageOne = UIImage(named: "manWithCup")
         else { return [] }
-        guard let imageTwo = UIImage(named: "manWithCap2")
+        guard let imageTwo = UIImage(named: "womanWithCap")
         else { return [] }
         
         return [

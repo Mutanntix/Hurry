@@ -193,7 +193,7 @@ extension UserAdminViewController {
     @objc fileprivate func goToBotButtonPressed() {
         mainView.removeConnectTgView { [weak self] in
             self?.mainView
-                .blurView.removeFromSuperview()
+                .tgBlurView.removeFromSuperview()
             guard let url = URL(
                 string: "https://t.me/hurry_orders_bot")
             else { return }
@@ -204,7 +204,7 @@ extension UserAdminViewController {
     @objc fileprivate func doneButtonPressed() {
         mainView.removeSavedView { [weak self] in
             self?.mainView
-                .blurView.removeFromSuperview()
+                .infoBlurView.removeFromSuperview()
         }
     }
     

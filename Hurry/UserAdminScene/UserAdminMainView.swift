@@ -66,7 +66,8 @@ class UserAdminMainView: UIView {
                       width: self.frame.width - 10,
                       height: self.frame.height * 0.5))
     
-    lazy var blurView = UIView(frame: self.frame)
+    lazy var infoBlurView = UIView(frame: self.frame)
+    lazy var tgBlurView = UIView(frame: self.frame)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -582,10 +583,10 @@ class UserAdminMainView: UIView {
 extension UserAdminMainView {
     func showConnectTgView(
         complition: @escaping () -> Void) {
-            blurView.backgroundColor =
+            tgBlurView.backgroundColor =
                 UIColor
                     .black.withAlphaComponent(0.3)
-            self.addSubview(blurView)
+            self.addSubview(tgBlurView)
             self.addSubview(connectTgView)
             
             UIView.animate(withDuration: 0.3,
@@ -609,7 +610,7 @@ extension UserAdminMainView {
                                                             .frame.height * 0.7))
                     } completion: { [weak self] _ in
                         self?.connectTgView.removeFromSuperview()
-                        self?.blurView.removeFromSuperview()
+                        self?.tgBlurView.removeFromSuperview()
                         complition()
                 }
             }
@@ -617,10 +618,10 @@ extension UserAdminMainView {
     
     func showSavedView(
         complition: @escaping () -> Void) {
-            blurView.backgroundColor =
+            infoBlurView.backgroundColor =
                 UIColor
                     .black.withAlphaComponent(0.3)
-            self.addSubview(blurView)
+            self.addSubview(infoBlurView)
             
             self.addSubview(infoSavedView)
             UIView.animate(withDuration: 0.3,
@@ -644,7 +645,7 @@ extension UserAdminMainView {
                                                             .frame.height * 0.5))
                     } completion: { [weak self] _ in
                         self?.infoSavedView.removeFromSuperview()
-                        self?.blurView.removeFromSuperview()
+                        self?.infoBlurView.removeFromSuperview()
                         complition()
                 }
             }

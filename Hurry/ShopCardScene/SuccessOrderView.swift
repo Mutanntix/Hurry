@@ -21,7 +21,7 @@ class SuccessOrderView: UIView {
     let textLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.text = "The order created. Have a good day!"
-        textLabel.font = .systemFont(ofSize: 18)
+        textLabel.font = .systemFont(ofSize: 20)
         textLabel.textAlignment = .left
         textLabel.numberOfLines = 0
         

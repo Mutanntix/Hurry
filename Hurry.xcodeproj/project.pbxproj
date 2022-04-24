@@ -149,10 +149,10 @@
 			isa = PBXGroup;
 			children = (
 				9BB8C23827DA4DAB00B5B0DD /* ShopModel.swift */,
+				FD25AD1E27F84A4600D5D787 /* AddressModel.swift */,
 				FD4A408227EC9CB600CA28B0 /* UserModel.swift */,
 				FD25AD1A27F84A0800D5D787 /* ProductModel.swift */,
 				FD25AD1C27F84A2F00D5D787 /* InfoModel.swift */,
-				FD25AD1E27F84A4600D5D787 /* AddressModel.swift */,
 				FDAB856F27FC9EEC002886BB /* OrderModel.swift */,
 				FDC1C5C627FF84D90038E4FC /* PageModel.swift */,
 				FD4502822803271600381FC6 /* UserInfoOfferModel.swift */,
