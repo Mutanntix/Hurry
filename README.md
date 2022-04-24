@@ -6,7 +6,7 @@
 
 ### What is "Hurry"?. Что такое "Hurry"?
 
-###### _Hurry is an application that allows users to order coffee and other drinks from their favorite (and not only!) cafes by the time_
+###### _Hurry is an application that allows users to order coffee and other drinks from their favorite (and not only!) cafes by the time._
 ###### _Hurry - это приложение, которое позволяет пользователям заказывать кофе и другие напитки из любимых (и не только!) заведений ко времени._
 
 ---
