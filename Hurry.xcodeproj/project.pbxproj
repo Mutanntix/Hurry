@@ -56,7 +56,6 @@
 		FDCAA9CB27F89D7B009090A8 /* NetworkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCAA9CA27F89D7B009090A8 /* NetworkDelegate.swift */; };
 		FDCAA9CD27F89FD8009090A8 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCAA9CC27F89FD7009090A8 /* NetworkProtocol.swift */; };
 		FDF5115E28005CA9004DCA7E /* FirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF5115D28005CA9004DCA7E /* FirstLaunch.swift */; };
-		FDF511602800B1F8004DCA7E /* UIImage + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF5115F2800B1F8004DCA7E /* UIImage + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,7 +112,6 @@
 		FDCAA9CA27F89D7B009090A8 /* NetworkDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDelegate.swift; sourceTree = "<group>"; };
 		FDCAA9CC27F89FD7009090A8 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		FDF5115D28005CA9004DCA7E /* FirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunch.swift; sourceTree = "<group>"; };
-		FDF5115F2800B1F8004DCA7E /* UIImage + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,7 +296,6 @@
 			children = (
 				FDAB856627FC5519002886BB /* UIButton + Extension.swift */,
 				FD4F76C827FEEA9500ABE8B4 /* UIView + Extension.swift */,
-				FDF5115F2800B1F8004DCA7E /* UIImage + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -460,7 +457,6 @@
 				FDC1C5C527FF83C30038E4FC /* OnBoardingViewCell.swift in Sources */,
 				FD10D7C128017BBC00C03283 /* ConnectTgView.swift in Sources */,
 				9BE470A727C3C37300E3C4B4 /* Hurry.xcdatamodeld in Sources */,
-				FDF511602800B1F8004DCA7E /* UIImage + Extension.swift in Sources */,
 				9B42499127DE495B006A56A1 /* BasketCell.swift in Sources */,
 				FD4F76CB27FEEB8100ABE8B4 /* SuccessOrderView.swift in Sources */,
 				FDCAA9CB27F89D7B009090A8 /* NetworkDelegate.swift in Sources */,
