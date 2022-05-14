@@ -49,7 +49,10 @@ class ShopMainView: UIView {
         
         self.addSubview(headerView)
         
-        headerView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        headerView.backgroundColor = UIColor(red: 255/255,
+                                             green: 255/255,
+                                             blue: 255/255,
+                                             alpha: 1)
         headerBorder.backgroundColor = .black
         
         //MARK: SETUP STACK VIEWS
@@ -69,7 +72,10 @@ class ShopMainView: UIView {
         headerGoToShopButton.addSubview(bottomBorderView)
         
         headerLabel.text = "hurry"
-        headerLabel.textColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1)
+        headerLabel.textColor = UIColor(red: 218/255,
+                                        green: 165/255,
+                                        blue: 32/255,
+                                        alpha: 1)
         headerLabel.textAlignment = .left
         headerLabel.attributedText = NSAttributedString(string: NSLocalizedString("hurry", comment: ""), attributes:[
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: (isLargeScreen ? 26 : 24)),

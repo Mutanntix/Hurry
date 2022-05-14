@@ -89,10 +89,6 @@ class ActivityIndicator: UIView {
         }
     }
     
-    func setActivityIndicatorForSaveButton(with frame: CGRect) {
-        self.frame = CGRect(x: frame.midX - 10, y: frame.minY + 15, width: 20, height: 20)
-    }
-
     func setActivityIndicatorForRateLabel(with frame: CGRect) {
         self.frame = CGRect(x: frame.midX - 10, y: frame.minY, width: 20, height: 20)
     }

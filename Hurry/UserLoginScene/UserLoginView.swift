@@ -65,7 +65,10 @@ class UserLoginView: UIView {
         buttonsStackView.addArrangedSubview(accountOwningButton)
         buttonsStackView.addArrangedSubview(forgotPasswordButton)
         
-        mainView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        mainView.backgroundColor = UIColor(red: 255/255,
+                                           green: 255/255,
+                                           blue: 255/255,
+                                           alpha: 1)
         mainView.layer.cornerRadius = 20
 
         mainView.layer.shadowRadius = 10
@@ -73,7 +76,10 @@ class UserLoginView: UIView {
         mainView.layer.shouldRasterize = true
         mainView.layer.rasterizationScale = UIScreen.main.scale
         
-        footerView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        footerView.backgroundColor = UIColor(red: 255/255,
+                                             green: 255/255,
+                                             blue: 255/255,
+                                             alpha: 1)
         
         footerLabel.text = "marc1k3y && mutanntix"
         footerLabel.font = UIFont.boldSystemFont(ofSize: 13)
